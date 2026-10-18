@@ -143,14 +143,14 @@ const CONFIG = {
 /* Textes de l'ASSISTANT — modifie-les comme tu veux.
    (Les résumés qu'il donne viennent du champ "resume" de chaque roman.) */
 const ASSISTANT = {
-  nom: "Assistant Benoli",
+  nom: "SALOME",
   achat: "Ouvre la fiche du roman, puis touche « Acheter ». Tu arrives sur la page de paiement : suis les instructions affichées.",
   lecture: "Chaque fiche contient un extrait gratuit. Lis-le avant d'acheter pour savoir si l'histoire te plaît.",
   regles: [
     "Le roman acheté est pour toi seul : ne le partage pas et ne le revends pas.",
     "Ne copie pas le texte pour le publier ailleurs.",
     "Garde bien le lien ou le fichier reçu après ton achat.",
-    "En cas de problème de paiement ou d'accès, écris à Benoli sur WhatsApp."
+    "En cas de problème de paiement ou d'accès, écris à Benoli sur WhatsApp au 0149293939 ou au 0144699601."
   ]
 };
 
@@ -164,21 +164,94 @@ const ASSISTANT = {
    ===================================================================== */
 const ROMANS = [
   { id:"elle-m-appelait-checo", titre:"Elle m'appelait Chéco", sousTitre:"Je croyais être son amie jusqu'à ce regard.",
-    genre:"Roman", prix:1000, couverture:"", lienAchat:"", resume:"", extrait:"" },
+    genre:"Roman", prix:1000, couverture:"Chéco.png", lienAchat:"", resume:"Depuis le collège, Benoli et Lénis étaient inséparables.
+Entre les devoirs, les fous rires, les messages tard dans la nuit et les longues journées de cours, leur amitié semblait simple… presque évidente.
+Lénis avait une habitude étrange : elle l’appelait toujours “Chéco”.
+Un surnom que personne ne comprenait vraiment.
+Même pas Benoli lui-même.
+Mais tout change lorsqu’ils arrivent à l’université.
+Dans ce nouvel environnement rempli de rencontres, de jalousies, de secrets et de rivalités, leur relation commence lentement à évoluer. Les regards deviennent plus longs. Les silences plus lourds. Les absences plus douloureuses.
+Alors que leurs amis pensent assister à une simple amitié, Benoli commence à remarquer des détails qu’il n’avait jamais vus auparavant : la façon dont Lénis le regarde quand une autre fille lui parle…ses réactions étranges…ses messages à des heures impossibles…et cette peur qu’elle semble cacher derrière son sourire.
+Entre amour, confusion, pression universitaire, trahisons, ambitions et émotions cachées, Benoli va découvrir que certaines histoires commencent bien avant qu’on ne réalise qu’on est amoureux.
+Et peut-être que depuis le début…Lénis ne l’avait jamais appelé “Chéco” par hasard. 
+", extrait:"Le soleil frappait déjà les vitres des salles de classe lorsque Benoli posa son sac au fond de la classe, près de la fenêtre comme d’habitude.
+Le collège Sainte-Claire n’avait rien de spécial. Les murs étaient vieux, les ventilateurs tournaient difficilement, et les élèves parlaient plus qu’ils n’écoutaient les professeurs.
+Mais pour Benoli, cet endroit allait devenir le début d’une histoire qu’il n’oublierait jamais.
+— Hé Chéco !
+La voix venait du couloir.
+Benoli leva les yeux sans même réfléchir.
+Il connaissait déjà cette voix.
+Lénis apparut devant la porte avec son éternel sourire moqueur. Ses cheveux légèrement attachés bougeaient au rythme de ses pas pendant qu’elle avançait vers lui avec assurance.
+— Pourquoi tu t’assois toujours au fond ? demanda-t-elle en posant son cahier sur sa table.
+— Parce qu’au moins là-bas personne ne me dérange.
+— Mensonge. Tu veux juste dormir tranquille.
+Benoli esquissa un petit sourire.
+Depuis plusieurs mois, Lénis avait pris l’habitude de l’appeler Chéco.
+" },
   { id:"cobi", titre:"Cobi", sousTitre:"Et si l'amour ne suffisait pas à nous sauver ?",
-    genre:"Roman", prix:1000, couverture:"", lienAchat:"", resume:"", extrait:"" },
+    genre:"Roman", prix:1000, couverture:"Cobi.png", lienAchat:"", resume:"Depuis le lycée, Bienvenue et Belvida se disputent la première place. Premiers de classe, rivaux aux concours, adversaires en débat — leur relation n'a jamais été une amitié. C'est une guerre silencieuse, polie en apparence, mais féroce en réalité. Belvida lui a donné un surnom qu'elle pensait insultant : "Cobi". Court pour "Cobra" — un garçon qui frappe froidement, sans jamais montrer ses émotions. Mais à l'université, le destin les force à collaborer : tous deux élus à la tête d'une même liste pour la présidence d'une association étudiante, obligés de travailler ensemble alors qu'ils s'évitent depuis des années. Et entre les réunions tendues, les votes serrés et les coups bas de leurs propres familles — rivales en affaires depuis longtemps — quelque chose commence lentement à se fissurer dans leur haine. Belvida le déteste. Ou plutôt, elle voudrait le détester. Parce qu'à chaque fois que Bienvenue gagne, une part d'elle ressent autre chose que de la colère. Et peut-être que ce surnom, "Cobi", n'a jamais voulu dire ce qu'elle prétendait.", extrait:"" },
   { id:"je-ne-suis-pas-ce-qu-ils-ont-fait-de-moi", titre:"Je ne suis pas ce qu'ils ont fait de moi", sousTitre:"",
-    genre:"Roman", prix:1000, couverture:"", lienAchat:"", resume:"", extrait:"" },
+    genre:"Roman", prix:1000, couverture:"Je-ne-suis-pas-ce-qu'ils-ont-fait-de-moi.png", lienAchat:"", resume:"Personne ne l'a jamais regardée vraiment, Pas pour ce qu'elle est.
+Lénis est belle — tout le monde le voit. Mais derrière ce visage qui attire tous les regards se cache une jeune femme intelligente, blessée, déterminée à prouver qu'elle vaut bien plus que ce que les autres ont décidé d'elle. Dans une ville où les apparences gouvernent tout et où les bonnes familles écrasent les autres, elle décide de jouer le jeu — mais à ses propres règles.
+Sur sa route, elle croise Ermine — fille de ministre, manipulatrice née, habituée à ce que tout le monde plie devant elle. Entre ces deux femmes, ce ne sera pas une simple rivalité. Ce sera une guerre.
+Et dans cette guerre-là, la plus belle n'est pas forcément celle qu'on croit.
+", extrait:"Le campus de l'université sentait encore la peinture fraîche sur les nouveaux bâtiments administratifs.
+C'était la rentrée. Et honnêtement ? Personne n'était vraiment prêt à recommencer les cours après les vacances.
+Bienvenue avançait calmement dans l'allée principale, son sac sur une seule épaule, les écouteurs à moitié branchés. Autour de lui : des étudiants partout, des groupes déjà reformés, des cris de retrouvailles, des klaxons de motos-taxis au loin.
+Il n'avait pas besoin de chercher longtemps pour savoir qu'elle serait là.
+Elle était toujours là.
+— BIENVENUE !
+La voix venait de loin, mais il la reconnut immédiatement. Cette façon de prononcer son nom comme une accusation.
+Il se retourna lentement.
+Belvida arrivait vers lui, son cahier de notes serré contre sa poitrine, le menton légèrement levé — cette posture qu'elle adoptait uniquement avec lui.
+" },
   { id:"ce-que-tu-m-as-coute", titre:"Ce que tu m'as coûté", sousTitre:"",
-    genre:"Roman", prix:1000, couverture:"", lienAchat:"", resume:"", extrait:"" },
+    genre:"Roman", prix:1000, couverture:"Ce-que-tu-m'as-coûté.jpg", lienAchat:"", resume:"À quinze ans, Kévin n’était pas encore un homme. Mais il n’était plus tout à fait un enfant non plus. Il habitait cet entre-deux fragile où l’on commence à rêver plus loin que le bout de la rue, où l’on commence à croire que le monde pourrait, un jour, s’ouvrir pour soi. Où l’on porte encore en soi une forme d’innocence, tout en sentant déjà, confusément, que quelque chose de plus grand, de plus dangereux peut-être, attend derrière le prochain tournant.", extrait:"Il y avait, dans le regard de Kévin Agbotomey, quelque chose qui ne mentait jamais. Une sorte de lumière douce, presque timide, qui s’allumait dès qu’il souriait. Ce n’était pas le sourire des garçons qui cherchent à se faire remarquer. Ce n’était pas non plus le sourire poli qu’on offre aux adultes pour avoir la paix. C’était plus simple. Plus vrai. Un sourire qui venait de l’intérieur, comme si le bonheur, chez lui, n’avait pas besoin d’effort pour exister. Comme s’il était né avec cette capacité rare de trouver de la beauté dans les choses ordinaires." },
   { id:"elle-choisit-mal", titre:"Elle choisit mal, mais c'est ta faute", sousTitre:"",
-    genre:"Roman", prix:1000, couverture:"", lienAchat:"", resume:"", extrait:"" },
+    genre:"Roman", prix:1000, couverture:"Elle-choisit-mal-mais-c'est-ta-faute.jpg", lienAchat:"", resume:"Jade avait une liste.
+Pas une liste écrite sur papier — elle n'était pas du genre à faire ça. Mais dans sa tête, tout était clair, ordonné, précis comme une équation. Elle savait exactement ce qu'elle voulait chez un homme. Elle l'avait su depuis ses seize ans, et à vingt-deux, rien n'avait changé.
+Un homme responsable. Pas parfait — elle n'était pas naïve — mais responsable. Un homme qui savait où il allait dans la vie. Qui avait des projets, des valeurs, une vision. Quelqu'un qui ne disparaissait pas pendant trois jours sans donner de nouvelles, qui ne jouait pas avec les sentiments, qui respectait la femme qu'il avait choisie.
+C'était simple, non ?
+", extrait:"Ce soir-là, Jade était assise en tailleur sur son lit, son téléphone posé sur les genoux, pendant que sa meilleure amie Priscille se lamentait depuis l'autre côté de la ligne.
+— Il m'a encore laissé un message à deux heures du matin, disait Priscille, la voix mi-agacée mi-attendrie. Un vocal de quatre minutes. Jade, quatre minutes.
+— Et tu l'as écouté, répondit Jade sans même poser la question.
+Silence.
+— Trois fois, avoua Priscille.
+Jade soupira. Ce n'était pas de la colère. C'était cette petite fatigue qu'on ressent quand on voit quelqu'un répéter les mêmes erreurs en boucle — et qu'on sait qu'on ne peut rien y faire.
+— Pris, cet homme te fait du mal depuis huit mois. Il disparaît, il revient, il disparaît encore. C'est un cycle.
+" },
   { id:"la-maison-d-en-face", titre:"La Maison d'en face", sousTitre:"",
-    genre:"Roman", prix:1000, couverture:"", lienAchat:"", resume:"", extrait:"" },
+    genre:"Roman", prix:1000, couverture:"La-maison-d'en-face.png", lienAchat:"", resume:"La mort mystérieuse de Richard Dossou bouleverse l'existence de son épouse, Élodie. Alors qu'elle tente de surmonter cette tragédie et de reconstruire sa vie, elle se remarie avec Gabriel Ahouansou, un homme aussi attentionné qu'énigmatique. Mais derrière son calme se cache un passé trouble, et sa quête pour comprendre les secrets de la famille Dossou risque de réveiller des vérités que certains préféreraient garder enfouies.
+De l'autre côté de la rue, la famille Hounkpe semble vivre paisiblement, loin des drames qui frappent ses voisins. Pourtant, elle aussi porte le poids de son passé. Peu à peu, les destins des deux familles se rapprochent, et des événements inquiétants viennent bouleverser leur tranquillité.
+Entre deuil, amour, vengeance et mystères, La Maison d'en face entraîne le lecteur dans une histoire où les apparences sont trompeuses et où la vérité pourrait se cacher derrière la porte la plus familière.
+", extrait:"La nuit était lourde. L'air du Bénin, saturé d'humidité, collait à la peau comme une seconde enveloppe. Dans le quartier résidentiel de Cotonou, les villas se tenaient alignées, silencieuses, leurs lumières éteintes les unes après les autres. Seule la villa des Dossou restait encore partiellement éclairée.
+Richard Dossou se tenait sur le balcon du premier étage. Il s'appuyait contre la rambarde en fer forgé, les deux mains crispées sur le métal encore chaud de la journée. Derrière lui, la porte-fenêtre de la chambre était restée ouverte. Un ventilateur tournait faiblement, brassant un air trop tiède pour apporter le moindre réconfort.
+Il avait bu. Pas beaucoup. Juste assez pour que ses pensées se brouillent un peu, juste assez pour que la peur devienne plus nette, plus précise.
+— Tu n'aurais pas dû venir ce soir, murmura-t-il pour lui-même.
+Une voiture passa dans la rue. Les phares balayèrent un instant la façade de la maison d'en face. Richard se redressa instinctivement, comme s'il craignait d'être vu. Puis le silence revint, plus épais encore.
+" },
   { id:"le-coeur-de-fridaous", titre:"Le Cœur de Fridaous", sousTitre:"",
-    genre:"Roman", prix:1000, couverture:"", lienAchat:"", resume:"", extrait:"" },
-  { id:"mon-nouveau-roman", titre:"Titre du roman", sousTitre:"",
-  genre:"Roman", prix:1000, couverture:"mon-nouveau-roman-jpg", lienAchat:"", resume:"", extrait:"" }
+    genre:"Roman", prix:1000, couverture:"Le-coeur-de-Fridaous.jpg", lienAchat:"", resume:"Fridaous est une jeune femme douce et discrète 
+qui vit à Cotonou avec sa famille. Belle, 
+attentive et réservée, elle préfère rester dans son 
+coin, parle peu et évite les conflits. Sa voix est 
+douce, presque raffinée, mais derrière cette 
+timidité se cache un caractère bien trempé dès 
+qu’il s’agit de se battre pour ce qui compte. 
+Un jour, elle décide de s’inscrire à une formation 
+— d’abord en informatique, puis en sérigraphie 
+— pour pouvoir travailler et gagner sa vie. Dans 
+ce centre, elle rencontre des camarades avec qui 
+elle tisse de vrais liens. Elle traverse des 
+moments de tristesse, de doutes et de silence, 
+mais elle tient bon. Jour après jour, elle avance, 
+jusqu’à obtenir son diplôme. 
+C’est l’histoire d’une jeune femme qui, sans 
+faire de bruit, apprend à se construire, à aimer et 
+à prendre sa place.", extrait:"Le soleil de Cotonou n’avait pas encore atteint son zénith, mais la chaleur collait déjà à la peau. Dans la petite cour de la maison familiale, Fridaous était assise sur le banc de bois près du manguier. Ses mains, posées l’une sur l’autre, restaient immobiles. Elle regardait sans vraiment voir les feuilles qui bougeaient faiblement sous la brise tiède.
+Ce matin-là, quelque chose avait changé en elle.
+Depuis des semaines, la même pensée revenait, insiste, presque douloureuse. Elle ne pouvait plus se contenter d’attendre. Attendre que les jours passent, attendre que quelqu’un décide à sa place, attendre que la vie lui offre ce qu’elle n’osait pas demander. Fridaous avait toujours été celle qui restait en retrait, celle qui souriait doucement, qui parlait peu, qui préférait écouter. Dans la maison, on disait d’elle qu’elle était « la discrète », « la sage », « celle qui ne fait jamais de bruit ». Et c’était vrai. Elle n’aimait pas les discussions trop vives, ni les regards trop insistants. Elle se sentait mieux dans son coin, à observer, à sentir les choses sans les nommer.
+" },
 ];
 
 /* =====================================================================
