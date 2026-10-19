@@ -1,4 +1,4 @@
-/* =====================================================================
+ni/* =====================================================================
    extras.js — Sections QUIZ et PENSÉES POUR LA VIE de Benoli Littéraire.
    Pour modifier une question ou une pensée : cherche-la avec Ctrl+F.
    Chaque texte est entre guillemets "..." : n'écris jamais de guillemet
@@ -218,3 +218,20 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
     } else if (a === "suite" && Q) {
       Q.i++; Q.done = false;
       zone().innerHTML = Q.i >= Q.lis
+    } else if (a === "start-test") {
+      Q = { type: "test", i: 0, pts: {} };
+      zone().innerHTML = testQ();
+    } else if (a === "tep" && Q && Q.type === "test") {
+      TEST[Q.i].o[+b.dataset.k][1].forEach(id => { Q.pts[id] = (Q.pts[id] || 0) + 1; });
+      Q.i++;
+      zone().innerHTML = Q.i >= TEST.length ? testResult() : testQ();
+    } else if (a === "cat") {
+      CAT = b.dataset.c; $("#scats").innerHTML = catsHtml(); $("#slist").innerHTML = listeP();
+    } else if (a === "autre") {
+      $("#pjour").innerHTML = jourHtml(PENSEES[Math.floor(Math.random() * PENSEES.length)], "Une pensée pour toi");
+    } else if (a === "copy") {
+      const p = PENSEES[+b.dataset.i];
+      (navigator.clipboard ? navigator.clipboard.writeText(texteP(p)).then(() => { b.textContent = "Copié ✓"; }) : Promise.reject())
+        .catch(() => window.prompt("Copie la pensée :", texteP(p)));
+    }
+  });
