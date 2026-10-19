@@ -1,4 +1,4 @@
-ni/* =====================================================================
+/* =====================================================================
    extras.js — Sections QUIZ et PENSÉES POUR LA VIE de Benoli Littéraire.
    Pour modifier une question ou une pensée : cherche-la avec Ctrl+F.
    Chaque texte est entre guillemets "..." : n'écris jamais de guillemet
