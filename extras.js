@@ -235,3 +235,14 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
         .catch(() => window.prompt("Copie la pensée :", texteP(p)));
     }
   });
+/* --- L'assistant connaît les nouvelles sections --- */
+  if (typeof aRepondre === "function") {
+    const ancienne = aRepondre;
+    aRepondre = function (t) {
+      const q = norm(t);
+      if (q.includes("quiz") || q.includes("jeu ") || q.includes("test")) return `<p>Teste-toi avec <a href="#/quiz">le quiz</a> : connais-tu bien les romans de Benoli, ou quel roman est fait pour toi ?</p>`;
+      if (/(citation|pensee|conseil|sagesse)/.test(q)) return `<p>Lis <a href="#/sagesse">les pensées pour la vie</a> : famille, paix, joie, tristesse…</p>`;
+      return ancienne(t);
+    };
+  }
+})();
