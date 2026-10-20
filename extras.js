@@ -246,3 +246,26 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
     };
   }
 })();
+/* ===== Ajouts : groupe WhatsApp et commande par WhatsApp ===== */
+(function () {
+  if (typeof PAGES === "undefined" || typeof ROMANS === "undefined" || typeof afficherFiche !== "function") return;
+  const GROUPE = "https://chat.whatsapp.com/GVNCwcmL0P57pGiBn7AQnN";
+  const carte = `<div class="partage"><h3 class="serif">Rejoins le groupe WhatsApp</h3><p>Extraits, nouveautés et discussions entre lecteurs.</p><a class="btn" href="${GROUPE}" target="_blank" rel="noopener">Rejoindre le groupe</a></div>`;
+
+  /* Carte du groupe sur l'accueil et sur la page À propos */
+  const acc = $("#partageAccueil");
+  if (acc) acc.insertAdjacentHTML("beforebegin", carte);
+  const apropos = PAGES["a-propos"];
+  PAGES["a-propos"] = () => apropos() + carte;
+
+  /* Bouton « Commander par WhatsApp » sur chaque fiche de roman */
+  const ancienne = afficherFiche;
+  afficherFiche = function (id) {
+    ancienne(id);
+    const r = ROMANS.find(x => x.id === id);
+    const actions = r && $("#ficheContenu .actions");
+    if (!actions || !actions.lastElementChild) return;
+    const msg = `Bonjour, je veux commander « ${r.titre} » (${prix(r.prix)}). Comment puis-je payer ?`;
+    actions.lastElementChild.insertAdjacentHTML("beforebegin", `<a class="btn sec" href="https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Commander par WhatsApp</a>`);
+  };
+})();
