@@ -268,3 +268,10 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
     actions.lastElementChild.insertAdjacentHTML("beforebegin", `<a class="btn sec" href="https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Commander par WhatsApp</a>`);
   };
 })();
+/* Bouton Assistant : toujours au-dessus de la barre du bas */
+(function () {
+  const b = document.getElementById("aBtn");
+  if (!b) return;
+  b.style.bottom = "calc(84px + env(safe-area-inset-bottom))";
+  b.style.zIndex = "26";
+})();
