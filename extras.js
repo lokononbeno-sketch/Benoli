@@ -275,3 +275,76 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   b.style.bottom = "calc(84px + env(safe-area-inset-bottom))";
   b.style.zIndex = "26";
 })();
+/* ===== Ajouts : écouter l'extrait et vote pour le prochain roman ===== */
+(function () {
+  if (typeof PAGES === "undefined" || typeof ROMANS === "undefined" || typeof afficherFiche !== "function") return;
+
+  /* ---- VOTE : modifie ici la question et les 4 propositions ---- */
+  const VOTE = {
+    question: "Quel genre d'histoire veux-tu lire ensuite ?",
+    options: ["Une romance de campus", "Un drame de famille", "Un thriller plein de secrets", "Une histoire de courage et de renaissance"]
+  };
+  const wa = msg => "https://wa.me/" + CONFIG.whatsapp + "?text=" + encodeURIComponent(msg);
+
+  PAGES.prochain = () => `<h2 class="serif">Mon prochain roman</h2><p class="attente">Un nouveau roman est en préparation, et j'aimerais que tu y participes. Ton choix m'arrive directement sur WhatsApp.</p><div class="bloc"><h3 class="serif">${esc(VOTE.question)}</h3><div class="actions" style="margin:12px 0">${VOTE.options.map(o => `<a class="btn sec" href="${wa("Bonjour Benoli, pour ton prochain roman, je vote pour : « " + o + " ».")}" target="_blank" rel="noopener">${esc(o)}</a>`).join("")}</div></div><div class="bloc"><h3 class="serif">Ou propose ton idée</h3><div class="actions" style="margin:12px 0"><a class="btn" href="${wa("Bonjour Benoli, j'ai une idée pour ton prochain roman : ")}" target="_blank" rel="noopener">Envoyer mon idée sur WhatsApp</a></div></div>`;
+
+  const carteVote = `<div class="partage"><h3 class="serif">Vote pour mon prochain roman</h3><p>Dis-moi quelle histoire tu veux lire ensuite.</p><a class="btn" href="#/prochain">Voter maintenant</a></div>`;
+  const acc = $("#partageAccueil");
+  if (acc) acc.insertAdjacentHTML("beforebegin", carteVote);
+  const liens = $(".liens");
+  if (liens) liens.insertAdjacentHTML("beforeend", `<a href="#/prochain">Prochain roman</a>`);
+
+  /* ---- ÉCOUTER L'EXTRAIT (voix du téléphone, gratuit) ---- */
+  const synth = window.speechSynthesis;
+  if (!synth || typeof SpeechSynthesisUtterance === "undefined") return;
+  let enCours = null, jeton = 0;
+
+  const morceaux = t => {
+    const out = [];
+    t.split("\n").filter(Boolean).forEach(l => {
+      if (l.length <= 220) { out.push(l); return; }
+      let cur = "";
+      l.split(/(?<=[.!?…»])\s+/).forEach(p => {
+        if (cur && (cur + " " + p).length > 220) { out.push(cur); cur = p; }
+        else cur = cur ? cur + " " + p : p;
+      });
+      if (cur) out.push(cur);
+    });
+    return out;
+  };
+  function majBouton() {
+    const b = $("#ficheContenu [data-ec]");
+    if (b) b.textContent = enCours ? "⏹ Arrêter la lecture" : "🔊 Écouter l'extrait";
+  }
+  function arreter() { jeton++; synth.cancel(); enCours = null; majBouton(); }
+  function lire(id) {
+    const r = ROMANS.find(x => x.id === id);
+    if (!r || !r.extrait) return;
+    if (enCours) { arreter(); return; }
+    const voix = synth.getVoices();
+    if (voix.length && !voix.some(v => /^fr/i.test(v.lang))) {
+      window.alert("Ton téléphone n'a pas de voix française. Ajoute-la dans Réglages, Synthèse vocale.");
+      return;
+    }
+    synth.cancel();
+    const mon = ++jeton; enCours = id; majBouton();
+    const parts = morceaux(r.extrait);
+    parts.forEach((p, i) => {
+      const u = new SpeechSynthesisUtterance(p);
+      u.lang = "fr-FR"; u.rate = 0.95;
+      if (i === parts.length - 1) u.onend = u.onerror = () => { if (jeton === mon) { enCours = null; majBouton(); } };
+      synth.speak(u);
+    });
+  }
+
+  const avant = afficherFiche;
+  afficherFiche = function (id) {
+    arreter();
+    avant(id);
+    const r = ROMANS.find(x => x.id === id);
+    const ex = r && r.extrait && $("#ficheContenu .extrait");
+    if (ex) ex.insertAdjacentHTML("beforebegin", `<button class="pbtn" type="button" data-ec="${esc(id)}" style="margin:0 0 10px">🔊 Écouter l'extrait</button>`);
+  };
+  window.addEventListener("hashchange", arreter);
+  document.addEventListener("click", e => { const b = e.target.closest("[data-ec]"); if (b) lire(b.dataset.ec); });
+})();
