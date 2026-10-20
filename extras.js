@@ -217,7 +217,7 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
       $("#qfb").innerHTML = `<div class="qfb"><b>${k === q.a ? "Bonne réponse ✓" : "Pas tout à fait"}</b><br>${esc(q.n)}</div><button class="btn" type="button" data-qa="suite">${Q.i + 1 < Q.list.length ? "Question suivante" : "Voir mon score"}</button>`;
     } else if (a === "suite" && Q) {
       Q.i++; Q.done = false;
-      zone().innerHTML = Q.i >= Q.list.length ? scoreHtml() : questionHtml();= Q.lis
+      zone().innerHTML = Q.i >= Q.list.length ? scoreHtml() : questionHtml(); Q.lis
     } else if (a === "start-test") {
       Q = { type: "test", i: 0, pts: {} };
       zone().innerHTML = testQ();
