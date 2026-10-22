@@ -122,6 +122,155 @@ footer a{color:var(--vert);font-weight:600}
 #aForm{display:flex;gap:8px;padding:10px 14px calc(12px + env(safe-area-inset-bottom))}
 #aForm input{flex:1;min-width:0;font:inherit;padding:12px 14px;border-radius:12px;border:1.5px solid var(--trait);background:var(--carte);color:var(--encre)}
 #aForm button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:0 16px;background:var(--vert);color:var(--sur-vert);cursor:pointer}
+
+/* ===== NOUVEL ACCUEIL BENOLI LITTÉRAIRE ===== */
+.accueil-bienvenue {
+  padding: 22px 18px 26px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.accueil-salut {
+  color: var(--vert);
+  font-size: .8rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.accueil-bienvenue h2 {
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  line-height: 1.08;
+  margin-bottom: 10px;
+}
+.accueil-intro {
+  color: var(--doux);
+  max-width: 42ch;
+  margin-bottom: 22px;
+}
+.accueil-vedette {
+  display: grid;
+  grid-template-columns: minmax(105px, 42%) 1fr;
+  gap: 16px;
+  align-items: center;
+  padding: 15px;
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.07);
+}
+.accueil-couverture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 5px 14px rgba(0,0,0,.2);
+}
+.accueil-etiquette {
+  display: inline-block;
+  color: var(--vert);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  margin-bottom: 8px;
+}
+.accueil-vedette h3 {
+  font-size: clamp(1.1rem, 4.5vw, 1.5rem);
+  line-height: 1.15;
+  margin-bottom: 8px;
+}
+.accueil-vedette p {
+  color: var(--doux);
+  font-size: .86rem;
+  line-height: 1.45;
+  margin-bottom: 13px;
+}
+.accueil-bouton {
+  display: inline-block;
+  padding: 10px 13px;
+  border-radius: 10px;
+  background: var(--vert);
+  color: var(--sur-vert);
+  text-decoration: none;
+  font-size: .86rem;
+  font-weight: 750;
+}
+.accueil-rubriques {
+  margin-top: 26px;
+}
+.accueil-rubriques h3 {
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+.accueil-grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 11px;
+}
+.accueil-rubrique {
+  display: block;
+  padding: 16px 13px;
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: 14px;
+  text-decoration: none;
+  color: var(--encre);
+  transition: transform .15s;
+}
+.accueil-rubrique:active {
+  transform: scale(.98);
+}
+.accueil-icone {
+  display: block;
+  font-size: 1.65rem;
+  margin-bottom: 8px;
+}
+.accueil-rubrique strong {
+  display: block;
+  margin-bottom: 3px;
+}
+.accueil-rubrique small {
+  display: block;
+  color: var(--doux);
+  line-height: 1.4;
+}
+.accueil-pensee {
+  margin-top: 22px;
+  padding: 19px;
+  border-radius: 16px;
+  background: var(--vert);
+  color: var(--sur-vert);
+}
+.accueil-pensee small {
+  display: block;
+  font-weight: 750;
+  font-size: .75rem;
+  margin-bottom: 9px;
+  opacity: .85;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.accueil-pensee blockquote {
+  font-family: Georgia, serif;
+  font-size: 1.12rem;
+  line-height: 1.45;
+  font-style: italic;
+  margin-bottom: 13px;
+}
+.accueil-pensee a {
+  color: inherit;
+  font-weight: 750;
+}
+@media(max-width:360px) {
+  .accueil-vedette {
+    grid-template-columns: 105px minmax(0, 1fr);
+    gap: 12px;
+    padding: 11px;
+  }
+  .accueil-vedette p {
+    font-size: .8rem;
+  }
+  } 
 </style>
 </head>
 <body>
