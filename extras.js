@@ -906,4 +906,57 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   if (typeof route === "function" && location.hash) route();
 
 })();
-       
+  
+/* ===== Navigation dédiée : Accueil et Romans ===== */
+(function () {
+  const catalogue = document.getElementById("catalogue");
+  const hero = document.querySelector("header.hero");
+  const accueil = document.getElementById("accueilPersonnalise");
+
+  if (!catalogue) return;
+
+  /* Corriger les liens vers le catalogue */
+  document.querySelectorAll('a[href="#catalogue"]').forEach(function (lien) {
+    lien.setAttribute("href", "#/romans");
+  });
+
+  /* Le bouton Romans de la barre du bas ouvre le catalogue */
+  const navRomans = document.querySelector('#navBas a[data-n="romans"]');
+  if (navRomans) navRomans.setAttribute("href", "#/romans");
+
+  function actualiserNavigation() {
+    const pageRomans = location.hash === "#/romans";
+
+    /* Le catalogue apparaît uniquement dans la rubrique Romans */
+    catalogue.style.display = pageRomans ? "" : "none";
+
+    /* Masquer les éléments d'accueil dans la rubrique Romans */
+    if (hero) hero.style.display = pageRomans ? "none" : "";
+    if (accueil) accueil.style.display = pageRomans ? "none" : "";
+
+    /* Revenir en haut à chaque changement de rubrique */
+    if (pageRomans) {
+      document.getElementById("fiche").classList.remove("ouverte");
+      document.body.classList.remove("fige");
+      window.scrollTo(0, 0);
+    }
+
+    /* Mettre à jour le bouton actif en bas */
+    document.querySelectorAll("#navBas a").forEach(function (lien) {
+      lien.classList.toggle(
+        "actif",
+        pageRomans
+          ? lien.dataset.n === "romans"
+          : location.hash === "#/quiz"
+            ? lien.dataset.n === "quiz"
+            : location.hash === "#/sagesse"
+              ? lien.dataset.n === "sagesse"
+              : !location.hash && lien.dataset.n === "romans"
+      );
+    });
+  }
+
+  window.addEventListener("hashchange", actualiserNavigation);
+  actualiserNavigation();
+})();
+
