@@ -348,3 +348,89 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   window.addEventListener("hashchange", arreter);
   document.addEventListener("click", e => { const b = e.target.closest("[data-ec]"); if (b) lire(b.dataset.ec); });
 })();
+/* ===== Quiz mis à jour : 15 questions et test avec « Sessi, mon étoile » ===== */
+(function () {
+  if (typeof PAGES === "undefined" || typeof ROMANS === "undefined") return;
+
+  /* q = question, o = 4 réponses, a = numéro de la bonne réponse (0 à 3), n = explication */
+  const QUIZ2 = [
+    { q: "Quel surnom Lénis donne-t-elle à Benoli dans « Elle m'appelait Chéco » ?", o: ["Chéco", "Cobi", "Chef", "Coco"], a: 0, n: "Lénis l'appelle toujours « Chéco », un surnom que personne ne comprend vraiment." },
+    { q: "Dans « Cobi », que veut dire le surnom « Cobi » pour Belvida ?", o: ["Court pour « Cobra »", "Le nom de leur association", "Un surnom d'enfance", "Le titre d'un livre"], a: 0, n: "Pour elle, c'est un garçon qui frappe froidement, sans jamais montrer ses émotions." },
+    { q: "Pourquoi Bienvenue et Belvida doivent-ils travailler ensemble à l'université ?", o: ["Ils sont élus à la tête d'une même liste pour présider une association étudiante", "Ils sont voisins", "Ils préparent un voyage", "Ils jouent dans la même équipe"], a: 0, n: "Rivaux depuis le lycée, ils sont obligés de collaborer." },
+    { q: "Dans « Je ne suis pas ce qu'ils ont fait de moi », qui est Ermine ?", o: ["Une fille de ministre", "La sœur de Lénis", "Une professeure", "Une voisine d'enfance"], a: 0, n: "Ermine est habituée à ce que tout le monde plie devant elle." },
+    { q: "Dans quelle ville se passent « Je ne suis pas ce qu'ils ont fait de moi », « Ce que tu m'as coûté » et « Le Cœur de Fridaous » ?", o: ["Cotonou", "Porto-Novo", "Parakou", "Abomey"], a: 0, n: "Cotonou est le décor de plusieurs romans de Benoli." },
+    { q: "Quel est le rêve de Kévin dans « Ce que tu m'as coûté » ?", o: ["Devenir footballeur", "Devenir médecin", "Devenir musicien", "Partir à l'étranger"], a: 0, n: "Kévin a quinze ans et un rêve : le football." },
+    { q: "Pour qui Kévin est-il prêt à tout donner ?", o: ["Mélissa", "Jade", "Élodie", "Lénis"], a: 0, n: "Pour elle, il donne son temps, ses amis et ses rêves." },
+    { q: "Qu'a Jade dans sa tête, dans « Elle choisit mal, mais c'est ta faute » ?", o: ["Une liste de ce qu'elle veut chez un homme", "Un plan pour voyager", "Un secret de famille", "Un projet d'entreprise"], a: 0, n: "Jade a des règles très précises, jusqu'à ce que quelqu'un les lui fasse oublier." },
+    { q: "Quel homme charismatique et imprévisible fait oublier ses règles à Jade ?", o: ["Darel", "Nathan", "Gabriel", "Bienvenue"], a: 0, n: "Nathan, lui, est le bon garçon que personne ne choisit." },
+    { q: "Dans « La Maison d'en face », comment s'appelle l'épouse de Richard Dossou ?", o: ["Élodie", "Mélissa", "Belvida", "Fridaous"], a: 0, n: "La mort de Richard bouleverse son existence." },
+    { q: "Avec quel homme Élodie se remarie-t-elle ?", o: ["Gabriel Ahouansou", "Darel", "Nathan", "Kévin"], a: 0, n: "Un homme aussi attentionné qu'énigmatique." },
+    { q: "Quelle formation Fridaous choisit-elle d'abord dans « Le Cœur de Fridaous » ?", o: ["L'informatique", "La couture", "La cuisine", "Le droit"], a: 0, n: "Puis la sérigraphie : elle avance, jour après jour." },
+    { q: "Dans « Sessi, mon étoile », comment s'appelle la mère de Sessi ?", o: ["Maman Adjo", "Tante Esther", "Amina", "Clarisse"], a: 0, n: "Maman Adjo est forte, aimante, mais stricte." },
+    { q: "Dans quelles circonstances Sessi rencontre-t-elle Bénoli ?", o: ["Lors d'un voyage d'affaires", "À l'église", "Au marché", "À l'université"], a: 0, n: "Une simple conversation devient une amitié profonde, puis un amour sincère." },
+    { q: "Qu'est-ce qui rend l'amour de Sessi et Bénoli si difficile ?", o: ["La famille, les responsabilités, la distance et une rivale", "Une dispute au travail", "Un héritage", "Un secret de naissance"], a: 0, n: "Parfois, aimer ne suffit pas." }
+  ];
+
+  const ID2 = { sessi: "sessi-mon-etoile", checo: "elle-m-appelait-checo", cobi: "cobi", jns: "je-ne-suis-pas-ce-qu-ils-ont-fait-de-moi", coute: "ce-que-tu-m-as-coute", choisit: "elle-choisit-mal", maison: "la-maison-d-en-face", fridaous: "le-coeur-de-fridaous" };
+  const TEST2 = [
+    { q: "Quel genre d'histoire te donne envie de tourner la page ?", o: [["Une rivalité qui change peu à peu", ["cobi", "checo"]], ["Un mystère où personne n'est ce qu'il paraît", ["maison"]], ["Un amour qui coûte tout", ["coute", "choisit", "sessi"]], ["Une femme qui se bat pour sa place", ["jns", "fridaous"]]] },
+    { q: "Dans une histoire, tu aimes surtout…", o: [["Les disputes qui cachent des sentiments", ["cobi"]], ["Les silences et les regards", ["checo", "coute"]], ["Les secrets de famille", ["maison", "sessi"]], ["Les choix amoureux qui font débat", ["choisit"]]] },
+    { q: "Le personnage que tu préfères :", o: [["Le rival brillant", ["cobi"]], ["Le meilleur ami fidèle", ["checo", "coute"]], ["La femme déterminée", ["jns", "fridaous", "sessi"]], ["Celui qui cache quelque chose", ["maison", "choisit"]]] },
+    { q: "L'ambiance qui te plaît :", o: [["Campus et ambitions", ["cobi", "checo"]], ["Quartiers et familles de Cotonou", ["maison", "fridaous"]], ["Pouvoir, apparences et jeux d'influence", ["jns"]], ["Cœurs brisés et reconstruction", ["coute", "sessi"]]] },
+    { q: "Tu veux finir le livre avec…", o: [["Le sourire", ["fridaous", "cobi"]], ["Un débat avec tes amis", ["choisit"]], ["Un frisson", ["maison", "jns"]], ["Les larmes", ["coute", "checo", "sessi"]]] }
+  ];
+
+  const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+  const zone = () => $("#quizZone");
+  let S = null;
+
+  const menu = () => `<p class="attente">Deux façons de jouer, sans compte et sans rien à payer.</p><div class="qmenu"><button class="qcarte" type="button" data-q2="start-quiz"><b>Connais-tu les romans de Benoli ?</b><span>${QUIZ2.length} questions · sans spoiler</span></button><button class="qcarte" type="button" data-q2="start-test"><b>Quel roman est fait pour toi ?</b><span>${TEST2.length} questions · ton résultat en 1 minute</span></button></div>`;
+  PAGES.quiz = () => { S = null; return `<h2 class="serif">Quiz</h2><div id="quizZone">${menu()}</div>`; };
+
+  const barre = (i, n) => `<p class="qmeta">Question ${i + 1} / ${n}</p><div class="qbar"><i style="width:${(i / n) * 100}%"></i></div>`;
+  const questionHtml = () => {
+    const q = S.list[S.i];
+    return barre(S.i, S.list.length) + `<h3 class="serif qtitre">${esc(q.q)}</h3><div class="qopts">${q.o.map((o, k) => `<button class="qopt" type="button" data-q2="rep" data-k="${k}">${esc(o)}</button>`).join("")}</div><div id="qfb"></div>`;
+  };
+  const scoreHtml = () => {
+    const n = S.list.length, s = S.score;
+    const msg = s >= n - 1 ? "Fan numéro 1 ! Tu connais l'univers de Benoli sur le bout des doigts." : s >= Math.ceil(n * 0.65) ? "Bravo, tu connais bien les romans !" : s >= Math.ceil(n * 0.4) ? "Pas mal ! Relis quelques extraits pour faire mieux." : "Tu as tout à découvrir : commence par un extrait gratuit.";
+    const texte = `J'ai eu ${s}/${n} au quiz des romans de Benoli. Et toi ? ${lienApp()}#/quiz`;
+    return `<p class="qmeta">Ton résultat</p><div class="score">${s}/${n}</div><p style="margin:12px 0 18px">${esc(msg)}</p><div class="actions" style="margin:0 0 30px"><a class="btn" href="https://wa.me/?text=${encodeURIComponent(texte)}" target="_blank" rel="noopener">Partager mon score sur WhatsApp</a><button class="btn sec" type="button" data-q2="start-quiz">Rejouer</button><a class="btn sec" href="#">Découvrir les romans</a></div>`;
+  };
+  const testQ = () => {
+    const q = TEST2[S.i];
+    return barre(S.i, TEST2.length) + `<h3 class="serif qtitre">${esc(q.q)}</h3><div class="qopts">${q.o.map((o, k) => `<button class="qopt" type="button" data-q2="tep" data-k="${k}">${esc(o[0])}</button>`).join("")}</div>`;
+  };
+  const testResult = () => {
+    const ids = Object.keys(ID2); let best = ids[0];
+    ids.forEach(k => { if ((S.pts[k] || 0) > (S.pts[best] || 0)) best = k; });
+    const r = ROMANS.find(x => x.id === ID2[best]) || ROMANS[0];
+    const pitch = (r.resume || "").split("\n")[0];
+    const texte = `Mon roman de Benoli : « ${r.titre} ». Fais le test, et toi ? ${lienApp()}#/quiz`;
+    return `<p class="qmeta">Le roman fait pour toi</p><h3 class="serif" style="font-size:1.6rem;line-height:1.15">${esc(r.titre)}</h3>${r.sousTitre ? `<p class="attente" style="margin-top:6px">${esc(r.sousTitre)}</p>` : ""}${pitch ? `<p style="margin:14px 0">${esc(pitch)}</p>` : ""}<div class="actions" style="margin:16px 0 30px"><a class="btn" href="#/${r.id}">Lire l'extrait gratuit</a><a class="btn sec" href="https://wa.me/?text=${encodeURIComponent(texte)}" target="_blank" rel="noopener">Partager mon résultat</a><button class="btn sec" type="button" data-q2="start-test">Refaire le test</button></div>`;
+  };
+
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-q2]"); if (!b) return;
+    const a = b.dataset.q2;
+    if (a === "start-quiz") {
+      S = { type: "quiz", i: 0, score: 0, done: false, list: shuffle(QUIZ2).map(q => { const o = shuffle([0, 1, 2, 3]); return { q: q.q, o: o.map(k => q.o[k]), a: o.indexOf(q.a), n: q.n }; }) };
+      zone().innerHTML = questionHtml();
+    } else if (a === "rep" && S && !S.done) {
+      const q = S.list[S.i], k = +b.dataset.k; S.done = true; if (k === q.a) S.score++;
+      zone().querySelectorAll(".qopt").forEach((x, j) => { x.disabled = true; if (j === q.a) x.classList.add("ok"); else if (j === k) x.classList.add("non"); });
+      $("#qfb").innerHTML = `<div class="qfb"><b>${k === q.a ? "Bonne réponse ✓" : "Pas tout à fait"}</b><br>${esc(q.n)}</div><button class="btn" type="button" data-q2="suite">${S.i + 1 < S.list.length ? "Question suivante" : "Voir mon score"}</button>`;
+    } else if (a === "suite" && S) {
+      S.i++; S.done = false;
+      zone().innerHTML = S.i >= S.list.length ? scoreHtml() : questionHtml();
+    } else if (a === "start-test") {
+      S = { type: "test", i: 0, pts: {} };
+      zone().innerHTML = testQ();
+    } else if (a === "tep" && S && S.type === "test") {
+      TEST2[S.i].o[+b.dataset.k][1].forEach(id => { S.pts[id] = (S.pts[id] || 0) + 1; });
+      S.i++;
+      zone().innerHTML = S.i >= TEST2.length ? testResult() : testQ();
+    }
+  });
+})();
