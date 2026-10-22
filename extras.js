@@ -524,3 +524,386 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   /* Si on ouvre directement un lien comme #/quiz ou #/reglages, on affiche la page maintenant que tout est prêt */
   if (typeof route === "function" && location.hash) route();
 })();
+
+/* =========================================================
+   BENOLI LITTÉRAIRE — MENU LATÉRAL + COULEURS PERSONNELLES
+   Extension indépendante : ne remplace pas les fonctions existantes.
+   ========================================================= */
+(function () {
+  if (window.__benoliMenuPersoV1) return;
+  if (typeof PAGES === "undefined") return;
+  window.__benoliMenuPersoV1 = true;
+
+  const CLE = "benoli-couleurs-personnelles";
+  const VARS = {
+    papier: "--papier",
+    carte: "--carte",
+    encre: "--encre",
+    vert: "--vert",
+    or: "--or"
+  };
+
+  let couleurs = {};
+  try {
+    couleurs = JSON.parse(localStorage.getItem(CLE) || "{}");
+    if (!couleurs || typeof couleurs !== "object" ||
+        Array.isArray(couleurs)) couleurs = {};
+  } catch (e) {
+    couleurs = {};
+  }
+
+  function couleurValide(v) {
+    return typeof v === "string" && /^#[0-9a-fA-F]{6}$/.test(v);
+  }
+
+  function enregistrer() {
+    try {
+      localStorage.setItem(CLE, JSON.stringify(couleurs));
+    } catch (e) {}
+  }
+
+  const style = document.createElement("style");
+  style.id = "benoli-menu-perso-style";
+  style.textContent = `
+    #benoliMenuBtn {
+      position:fixed;
+      top:calc(env(safe-area-inset-top) + 12px);
+      right:14px;
+      z-index:28;
+      border:1px solid var(--trait);
+      border-radius:14px;
+      padding:10px 13px;
+      background:var(--carte);
+      color:var(--encre);
+      font:inherit;
+      font-weight:700;
+      box-shadow:0 3px 12px rgba(0,0,0,.12);
+      cursor:pointer;
+    }
+    #benoliVoile {
+      position:fixed;
+      inset:0;
+      z-index:49;
+      background:rgba(0,0,0,.48);
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .2s,visibility .2s;
+    }
+    #benoliVoile.ouvert {
+      opacity:1;
+      visibility:visible;
+    }
+    #benoliMenu {
+      position:fixed;
+      z-index:50;
+      top:0;
+      right:0;
+      bottom:0;
+      width:min(86vw,340px);
+      overflow-y:auto;
+      padding:calc(env(safe-area-inset-top) + 20px) 18px
+        calc(env(safe-area-inset-bottom) + 24px);
+      background:var(--carte);
+      color:var(--encre);
+      box-shadow:-8px 0 30px rgba(0,0,0,.2);
+      transform:translateX(105%);
+      visibility:hidden;
+      transition:transform .23s ease,visibility .23s;
+    }
+    #benoliMenu.ouvert {
+      transform:translateX(0);
+      visibility:visible;
+    }
+    #benoliMenu .bm-entete {
+      padding:12px 0 20px;
+      border-bottom:1px solid var(--trait);
+      margin-bottom:14px;
+    }
+    #benoliMenu .bm-entete strong {
+      display:block;
+      font-family:Georgia,serif;
+      font-size:1.45rem;
+      line-height:1.2;
+    }
+    #benoliMenu .bm-entete p {
+      color:var(--doux);
+      font-size:.9rem;
+      margin-top:6px;
+    }
+    #benoliMenu .bm-lien {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      width:100%;
+      padding:13px 12px;
+      margin:5px 0;
+      border:1px solid var(--trait);
+      border-radius:12px;
+      background:var(--papier);
+      color:var(--encre);
+      text-decoration:none;
+      font:inherit;
+      text-align:left;
+      cursor:pointer;
+    }
+    #benoliMenu .bm-emoji {
+      width:30px;
+      text-align:center;
+      font-size:1.25rem;
+      flex-shrink:0;
+    }
+    #benoliMenu .bm-bas {
+      color:var(--doux);
+      font-size:.8rem;
+      margin-top:20px;
+      line-height:1.5;
+    }
+    .bp-couleurs {
+      margin:18px 0 24px;
+      padding:15px;
+      border:1px solid var(--trait);
+      border-radius:14px;
+      background:var(--carte);
+    }
+    .bp-couleurs h3 { margin-bottom:6px; }
+    .bp-couleurs p {
+      color:var(--doux);
+      font-size:.9rem;
+      margin-bottom:12px;
+    }
+    .bp-couleur {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:9px 0;
+      border-bottom:1px solid var(--trait);
+    }
+    .bp-couleur:last-of-type { border-bottom:0; }
+    .bp-couleur label { font-size:.94rem; }
+    .bp-couleur input[type="color"] {
+      width:48px;
+      height:38px;
+      padding:2px;
+      border:1px solid var(--trait);
+      border-radius:9px;
+      background:var(--carte);
+      cursor:pointer;
+    }
+    #benoliMenuBtn:focus-visible,
+    #benoliMenu button:focus-visible,
+    #benoliMenu a:focus-visible {
+      outline:3px solid var(--or);
+      outline-offset:3px;
+    }
+    @media(prefers-reduced-motion:reduce) {
+      #benoliVoile,#benoliMenu { transition:none; }
+    }
+  `;
+  document.head.appendChild(style);
+
+  /* Appliquer uniquement les couleurs choisies personnellement */
+  function appliquerCouleurs() {
+    Object.keys(VARS).forEach(k => {
+      const variable = VARS[k];
+      if (couleurValide(couleurs[k])) {
+        document.documentElement.style.setProperty(
+          variable, couleurs[k]
+        );
+      } else {
+        document.documentElement.style.removeProperty(variable);
+      }
+    });
+
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.content = getComputedStyle(document.documentElement)
+        .getPropertyValue("--vert").trim() || "#0b5d3b";
+    }
+  }
+
+  appliquerCouleurs();
+
+  /* Ajouter les couleurs à la page de réglages existante */
+  const anciennePageReglages = PAGES.reglages;
+
+  function blocCouleurs() {
+    const noms = {
+      papier: "Fond de l'application",
+      carte: "Fond des cartes",
+      encre: "Couleur du texte",
+      vert: "Couleur principale",
+      or: "Couleur des détails"
+    };
+
+    const variablesDefaut = {
+      papier: "#f3f5f0",
+      carte: "#ffffff",
+      encre: "#12201a",
+      vert: "#0b5d3b",
+      or: "#f2b01e"
+    };
+
+    const actuel = getComputedStyle(document.documentElement);
+
+    return `
+      <section class="bp-couleurs">
+        <h3 class="serif">🎨 Mes couleurs personnelles</h3>
+        <p>Choisis les couleurs qui correspondent à ton univers.
+        Tes choix sont conservés sur ce téléphone.</p>
+        ${Object.keys(VARS).map(k => {
+          const valeur = couleurValide(couleurs[k])
+            ? couleurs[k]
+            : (actuel.getPropertyValue(VARS[k]).trim()
+               || variablesDefaut[k]);
+
+          return `
+            <div class="bp-couleur">
+              <label for="bp-${k}">${noms[k]}</label>
+              <input type="color" id="bp-${k}"
+                data-bp-couleur="${k}"
+                value="${couleurValide(valeur) ? valeur : variablesDefaut[k]}"
+                aria-label="${noms[k]}">
+            </div>`;
+        }).join("")}
+        <button class="btn sec" type="button"
+          data-bp-reset-couleurs
+          style="margin-top:14px;width:100%">
+          Restaurer les couleurs d'origine
+        </button>
+      </section>`;
+  }
+
+  PAGES.reglages = function () {
+    const base = typeof anciennePageReglages === "function"
+      ? anciennePageReglages()
+      : '<h2 class="serif">Réglages</h2>';
+
+    return base + blocCouleurs();
+  };
+
+  /* Choix de couleur et restauration */
+  document.addEventListener("input", function (e) {
+    const input = e.target.closest("[data-bp-couleur]");
+    if (!input) return;
+
+    const cle = input.dataset.bpCouleur;
+    if (!Object.prototype.hasOwnProperty.call(VARS, cle)) return;
+
+    couleurs[cle] = input.value;
+    enregistrer();
+    appliquerCouleurs();
+  });
+
+  document.addEventListener("click", function (e) {
+    const reset = e.target.closest("[data-bp-reset-couleurs]");
+    if (reset) {
+      couleurs = {};
+      enregistrer();
+      appliquerCouleurs();
+
+      const page = document.querySelector("#ficheContenu .page");
+      if (page) page.innerHTML = PAGES.reglages();
+    }
+  });
+
+  /* Construire le menu latéral une seule fois */
+  const bouton = document.createElement("button");
+  bouton.id = "benoliMenuBtn";
+  bouton.type = "button";
+  bouton.textContent = "☰ Menu";
+  bouton.setAttribute("aria-label", "Ouvrir le menu");
+  bouton.setAttribute("aria-controls", "benoliMenu");
+  bouton.setAttribute("aria-expanded", "false");
+
+  const voile = document.createElement("div");
+  voile.id = "benoliVoile";
+
+  const menu = document.createElement("nav");
+  menu.id = "benoliMenu";
+  menu.setAttribute("aria-label", "Menu principal");
+  menu.setAttribute("aria-hidden", "true");
+
+  menu.innerHTML = `
+    <div class="bm-entete">
+      <strong>Benoli Littéraire</strong>
+      <p>Entre dans mon univers littéraire 📚</p>
+      <button type="button" class="bm-lien" data-bm-fermer>
+        <span class="bm-emoji">✕</span> Fermer le menu
+      </button>
+    </div>
+
+    <a class="bm-lien" href="#">
+      <span class="bm-emoji">🏠</span> Accueil et romans
+    </a>
+    <a class="bm-lien" href="#/quiz">
+      <span class="bm-emoji">🎯</span> Quiz et test littéraire
+    </a>
+    <a class="bm-lien" href="#/reglages">
+      <span class="bm-emoji">🎨</span> Personnaliser l'application
+    </a>
+    <a class="bm-lien" href="#/a-propos">
+      <span class="bm-emoji">✍️</span> Découvrir l'auteur
+    </a>
+    <a class="bm-lien" href="#/mentions">
+      <span class="bm-emoji">📄</span> Mentions légales
+    </a>
+    <a class="bm-lien" href="#/conditions">
+      <span class="bm-emoji">📖</span> Conditions d'achat
+    </a>
+    <a class="bm-lien" href="https://chat.whatsapp.com/GVNCwcmL0P57pGiBn7AQn"
+       target="_blank" rel="noopener">
+      <span class="bm-emoji">💬</span> Groupe WhatsApp
+    </a>
+
+    <div class="bm-bas">
+      Lokonon B. Tiziano<br>
+      Des histoires, des émotions, un univers.
+    </div>
+  `;
+
+  document.body.appendChild(voile);
+  document.body.appendChild(menu);
+  document.body.appendChild(bouton);
+
+  function ouvrirMenu(ouvrir) {
+    menu.classList.toggle("ouvert", ouvrir);
+    voile.classList.toggle("ouvert", ouvrir);
+    bouton.setAttribute("aria-expanded", String(ouvrir));
+    menu.setAttribute("aria-hidden", String(!ouvrir));
+    bouton.textContent = ouvrir ? "✕ Fermer" : "☰ Menu";
+  }
+
+  bouton.addEventListener("click", function () {
+    ouvrirMenu(!menu.classList.contains("ouvert"));
+  });
+
+  voile.addEventListener("click", function () {
+    ouvrirMenu(false);
+  });
+
+  menu.addEventListener("click", function (e) {
+    if (e.target.closest("[data-bm-fermer]")) {
+      ouvrirMenu(false);
+      return;
+    }
+
+    if (e.target.closest("a")) ouvrirMenu(false);
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") ouvrirMenu(false);
+  });
+
+  /* Appliquer à nouveau les couleurs après les réglages existants */
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("[data-rg]")) {
+      setTimeout(appliquerCouleurs, 0);
+    }
+  });
+
+  /* Corriger l'affichage lors d'une navigation directe */
+  if (typeof route === "function" && location.hash) route();
+
+})();
+       
