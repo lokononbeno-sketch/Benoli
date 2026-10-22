@@ -275,13 +275,92 @@ footer a{color:var(--vert);font-weight:600}
 </head>
 <body>
 
-<header class="hero"><div class="wrap">
-  <div class="drapeau" aria-hidden="true"><i></i><i></i><i></i></div>
-  <h1 class="serif">Benoli<br>Littéraire</h1>
-  <p class="sous">Les romans de Benoli, made in Bénin. Lisez un extrait gratuit, puis choisissez votre histoire.</p>
-  <a class="auteur" href="#/a-propos"><img id="photoAuteur" alt="Portrait de l'auteur" width="60" height="60"><span><b id="nomAuteur"></b>Auteur béninois. Chaque roman est disponible en version numérique.<small>En savoir plus sur l'auteur →</small></span></a>
-</div></header>
+<header class="hero">
+  <div class="wrap">
+    <div class="drapeau" aria-hidden="true">
+      <i></i><i></i><i></i>
+    </div>
+    <h1 class="serif">Benoli<br>Littéraire</h1>
+    <p class="sous">Des histoires, des émotions, un univers.</p>
+    <a class="auteur" href="#/a-propos">
+      <img id="photoAuteur" alt="Portrait de l'auteur"
+        width="60" height="60">
+      <span>
+        <b id="nomAuteur"></b>
+        Auteur béninois · Plume : Lokonon B. Tiziano
+        <small>Découvrir mon univers →</small>
+      </span>
+    </a>
+  </div>
+</header>
 
+<section class="accueil-bienvenue" id="accueilPersonnalise">
+  <p class="accueil-salut">Bienvenue dans mon univers</p>
+  <h2 class="serif">Chaque histoire a une âme.</h2>
+  <p class="accueil-intro">
+    Découvre mes romans, plonge dans mes histoires,
+    partage tes pensées et trouve ta prochaine lecture.
+  </p>
+
+  <article class="accueil-vedette">
+    <a href="#/elle-m-appelait-checo"
+       aria-label="Découvrir Elle m'appelait Chéco">
+      <img class="accueil-couverture"
+           src="Chéco.png"
+           alt="Couverture du roman Elle m'appelait Chéco">
+    </a>
+
+    <div>
+      <span class="accueil-etiquette">MON PREMIER ROMAN</span>
+      <h3 class="serif">Elle m'appelait Chéco</h3>
+      <p>Je croyais être son ami jusqu'à ce regard.</p>
+      <a class="accueil-bouton"
+         href="#/elle-m-appelait-checo">
+        Découvrir le roman →
+      </a>
+    </div>
+  </article>
+
+  <section class="accueil-rubriques">
+    <h3 class="serif">Explore l'application</h3>
+
+    <div class="accueil-grille">
+      <a class="accueil-rubrique" href="#catalogue">
+        <span class="accueil-icone">📚</span>
+        <strong>Mes romans</strong>
+        <small>Découvre toutes mes histoires.</small>
+      </a>
+
+      <a class="accueil-rubrique" href="#/sagesse">
+        <span class="accueil-icone">✨</span>
+        <strong>Pensées et citations</strong>
+        <small>Des mots pour réfléchir et avancer.</small>
+      </a>
+
+      <a class="accueil-rubrique" href="#/quiz">
+        <span class="accueil-icone">🎯</span>
+        <strong>Quiz littéraires</strong>
+        <small>Teste tes connaissances et trouve ton roman.</small>
+      </a>
+
+      <a class="accueil-rubrique" href="#/reglages">
+        <span class="accueil-icone">🎨</span>
+        <strong>Personnaliser</strong>
+        <small>Choisis tes couleurs, ta police et ton thème.</small>
+      </a>
+    </div>
+  </section>
+
+  <aside class="accueil-pensee">
+    <small>Une pensée pour toi</small>
+    <blockquote>
+      « Aimer, ce n'est pas se perdre :
+      c'est se choisir ensemble, chaque jour. »
+    </blockquote>
+    <a href="#/sagesse">Découvrir d'autres pensées →</a>
+  </aside>
+</section>
+  
 <main class="wrap" id="catalogue">
   <div class="recherche"><input id="q" type="search" placeholder="Chercher un titre ou un mot-clé" autocomplete="off" aria-label="Chercher un roman"></div>
   <p class="nb" id="nb"></p>
