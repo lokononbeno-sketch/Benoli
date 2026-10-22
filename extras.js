@@ -434,3 +434,93 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
     }
   });
 })();
+/* ===== Réglages : chacun personnalise l'application (thème, couleur, police, taille, forme) ===== */
+(function () {
+  if (typeof PAGES === "undefined") return;
+  const CLE = "benoli-reglages";
+  const DEFAUT = { theme: "auto", accent: "vert", police: "moderne", taille: "normal", forme: "normal" };
+
+  /* Thèmes : couleurs de fond et de texte */
+  const THEMES = {
+    clair:  { "--papier": "#f3f5f0", "--carte": "#ffffff", "--encre": "#12201a", "--doux": "#58665e", "--trait": "#dbe2d9" },
+    sombre: { "--papier": "#0e1511", "--carte": "#17211b", "--encre": "#eef3ec", "--doux": "#9fb0a5", "--trait": "#27352d" },
+    sepia:  { "--papier": "#f4ecd8", "--carte": "#fbf5e6", "--encre": "#3b2f1e", "--doux": "#7a6a4f", "--trait": "#e0d3b4" }
+  };
+  /* Couleurs principales : [pour fond clair, pour fond sombre] */
+  const ACCENTS = {
+    vert:   ["#0b5d3b", "#1f9a62"],
+    terre:  ["#b4472d", "#e0765a"],
+    bleu:   ["#1d4ed8", "#6ea0ff"],
+    violet: ["#6d28d9", "#a78bfa"],
+    rose:   ["#be185d", "#f472b6"]
+  };
+  const SANS = "system-ui,-apple-system,'Segoe UI',Roboto,sans-serif";
+  const SERIF = "'Iowan Old Style',Palatino,'Palatino Linotype',Georgia,serif";
+  const POLICES = { moderne: [SANS, SERIF], classique: [SERIF, SERIF], simple: [SANS, SANS], lisible: ["Verdana,Tahoma,sans-serif", "Verdana,Tahoma,sans-serif"] };
+  const TAILLES = { normal: 100, grand: 112, tres: 125 };
+
+  let RG = Object.assign({}, DEFAUT);
+  try { RG = Object.assign(RG, JSON.parse(localStorage.getItem(CLE) || "{}")); } catch (e) {}
+  const sauver = () => { try { localStorage.setItem(CLE, JSON.stringify(RG)); } catch (e) {} };
+
+  const st = document.createElement("style");
+  st.id = "rg-style";
+  st.textContent = ".rg-liste{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 20px}.rg-pt{display:inline-block;width:14px;height:14px;border-radius:50%;margin-right:7px;vertical-align:-2px;border:1px solid rgba(128,128,128,.6)}.scat.actif .rg-pt{border-color:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.35)}";
+  document.head.appendChild(st);
+  const dyn = document.createElement("style");
+  dyn.id = "rg-dyn";
+  document.head.appendChild(dyn);
+
+  const sombre = () => RG.theme === "sombre" || (RG.theme === "auto" && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches);
+
+  function appliquer() {
+    const r = document.documentElement.style;
+    ["--papier", "--carte", "--encre", "--doux", "--trait", "--vert", "--sur-vert"].forEach(k => r.removeProperty(k));
+    const T = THEMES[RG.theme];
+    if (T) Object.keys(T).forEach(k => r.setProperty(k, T[k]));
+    const A = ACCENTS[RG.accent] || ACCENTS.vert, nuit = sombre();
+    r.setProperty("--vert", nuit ? A[1] : A[0]);
+    r.setProperty("--sur-vert", nuit ? "#08130c" : "#ffffff");
+    const F = POLICES[RG.police] || POLICES.moderne, pct = TAILLES[RG.taille] || 100;
+    let css = `html{font-size:${pct}%}body{font-size:1rem !important}body,button,input{font-family:${F[0]} !important}.serif,h1,h2,h3,.score{font-family:${F[1]} !important}`;
+    if (RG.forme === "carre") css += "body *:not(img):not(i):not(.drapeau){border-radius:2px !important}.auteur img{border-radius:50% !important}";
+    if (RG.forme === "ronde") css += ".btn,.pbtn,.chip,.scat,#aBtn{border-radius:99px !important}.qopt,.qcarte,.partage,.pcard,.m,.qfb,.auteur,.cv{border-radius:24px !important}";
+    dyn.textContent = css;
+    const tc = document.querySelector('meta[name="theme-color"]');
+    if (tc) tc.setAttribute("content", getComputedStyle(document.documentElement).getPropertyValue("--vert").trim() || "#0b5d3b");
+  }
+  appliquer();
+  if (window.matchMedia) matchMedia("(prefers-color-scheme: dark)").addEventListener("change", appliquer);
+
+  const groupe = (titre, cle, options) => `<h3 class="serif">${titre}</h3><div class="rg-liste">${options.map(([v, nom, pt]) => `<button class="scat${RG[cle] === v ? " actif" : ""}" type="button" aria-pressed="${RG[cle] === v}" data-rg="${cle}" data-v="${v}">${pt ? `<i class="rg-pt" style="background:${pt}"></i>` : ""}${nom}</button>`).join("")}</div>`;
+
+  PAGES.reglages = () => `<h2 class="serif">Réglages</h2><p class="attente" style="margin-bottom:14px">Personnalise l'application à ton goût. Tes choix restent sur ton téléphone.</p>
+    ${groupe("Thème", "theme", [["auto", "Auto"], ["clair", "Clair"], ["sombre", "Sombre"], ["sepia", "Sépia"]])}
+    ${groupe("Couleur", "accent", [["vert", "Vert", "#1f9a62"], ["terre", "Terre", "#b4472d"], ["bleu", "Bleu", "#1d4ed8"], ["violet", "Violet", "#6d28d9"], ["rose", "Rose", "#be185d"]])}
+    ${groupe("Police", "police", [["moderne", "Moderne"], ["classique", "Classique"], ["simple", "Simple"], ["lisible", "Lisible"]])}
+    ${groupe("Taille du texte", "taille", [["normal", "Normale"], ["grand", "Grande"], ["tres", "Très grande"]])}
+    ${groupe("Forme", "forme", [["carre", "Carrée"], ["normal", "Normale"], ["ronde", "Ronde"]])}
+    <button class="btn sec" type="button" data-rg="reset" style="margin:6px 0 30px">Tout remettre par défaut</button>`;
+
+  /* Onglet « Réglages » dans la barre du bas */
+  const nav = document.getElementById("navBas");
+  if (nav) nav.insertAdjacentHTML("beforeend", '<a href="#/reglages" data-n="reglages"><span>⚙️</span>Réglages</a>');
+  const majNav = () => {
+    if (!nav || location.hash !== "#/reglages") return;
+    nav.querySelectorAll("a").forEach(a => a.classList.toggle("actif", a.dataset.n === "reglages"));
+  };
+  window.addEventListener("hashchange", majNav);
+  majNav();
+
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-rg]"); if (!b) return;
+    if (b.dataset.rg === "reset") RG = Object.assign({}, DEFAUT);
+    else RG[b.dataset.rg] = b.dataset.v;
+    sauver(); appliquer();
+    const pg = document.querySelector("#ficheContenu .page");
+    if (pg) pg.innerHTML = PAGES.reglages();
+  });
+
+  /* Si on ouvre directement un lien comme #/quiz ou #/reglages, on affiche la page maintenant que tout est prêt */
+  if (typeof route === "function" && location.hash) route();
+})();
