@@ -475,6 +475,32 @@ footer a{color:var(--vert);font-weight:600}
   font-weight: 800;
   }
   
+<!-- PERSONNAGES DE MES ROMANS -->
+<section id="personnages">
+  <h2>📚 Les personnages de mes romans</h2>
+
+  <p class="personnages-intro">
+    Fais connaissance avec les personnages qui donnent vie
+    aux histoires de Benoli. Chaque visage cache une histoire,
+    chaque choix peut tout changer.
+  </p>
+
+  <div class="personnages-commandes">
+    <input
+      type="search"
+      id="recherchePersonnage"
+      placeholder="🔎 Rechercher un personnage..."
+      aria-label="Rechercher un personnage"
+    />
+
+    <select id="filtreRoman" aria-label="Filtrer par roman">
+      <option value="">Tous mes romans</option>
+    </select>
+  </div>
+
+  <div id="grillePersonnages" class="personnages-grille"></div>
+</section>
+  
 /* ===== PERSONNAGES BENOLI LITTERAIRE ===== */
 #personnages {
   max-width: 1000px;
