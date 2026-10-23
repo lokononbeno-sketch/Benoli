@@ -960,3 +960,355 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   actualiserNavigation();
 })();
 
+/* ===== PERSONNAGES BENOLI LITTERAIRE ===== */
+
+const personnagesBenoli = [
+  // ELLE M'APPELAIT CHECO
+  {
+    nom: "Bénoli",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un jeune homme dont l'amitié avec Lénis va prendre une tournure inattendue."
+  },
+  {
+    nom: "Lénis",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Une jeune femme au cœur d'une histoire d'amitié, de sentiments et de non-dits."
+  },
+  {
+    nom: "Bienvenue",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'entourage de Bénoli et Lénis."
+  },
+  {
+    nom: "Sessi",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/sessi-mon-etoile.jpg",
+    description: "Un personnage dont l'histoire mérite d'être découverte au fil des pages."
+  },
+  {
+    nom: "Larissa",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'univers de Bénoli et Lénis."
+  },
+  {
+    nom: "Lucrèce",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Prudencia",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Amandine",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Jordanie",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Mathilde",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Axel",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Rosane",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Louange",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Sergio",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Ingrid",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Monsieur André",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Éric",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Mika",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Alicia",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Naima",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+  {
+    nom: "Kevin",
+    roman: "Elle m'appelait Chéco",
+    image: "covers/elle-m-appelait-checo.jpg",
+    description: "Un personnage de l'histoire."
+  },
+
+  // ELLE CHOISIT MAL, MAIS C'EST TA FAUTE
+  {
+    nom: "Jade",
+    roman: "Elle choisit mal, mais c'est ta faute",
+    image: "covers/elle-choisit-mal.jpg",
+    description: "Étudiante de 22 ans, ambitieuse et moderne, qui cherche sa voie dans les choix amoureux."
+  },
+  {
+    nom: "Nathan",
+    roman: "Elle choisit mal, mais c'est ta faute",
+    image: "covers/elle-choisit-mal.jpg",
+    description: "À 23 ans, il est sérieux, stable et attentionné. Mais être quelqu'un de bien suffit-il en amour ?"
+  },
+  {
+    nom: "Darel",
+    roman: "Elle choisit mal, mais c'est ta faute",
+    image: "covers/elle-choisit-mal.jpg",
+    description: "Charismatique, imprévisible et mystérieux."
+  },
+
+  // LE COEUR DE FRIDAOUS
+  {
+    nom: "Fridaous",
+    roman: "Le cœur de Fridaous",
+    image: "covers/le-coeur-de-fridaous.jpg",
+    description: "Une jeune femme discrète qui apprend à croire en elle et à avancer à son rythme."
+  },
+  {
+    nom: "Aïcha",
+    roman: "Le cœur de Fridaous",
+    image: "covers/le-coeur-de-fridaous.jpg",
+    description: "Une camarade chaleureuse qui aide Fridaous à trouver sa place."
+  },
+  {
+    nom: "Jean-Marc",
+    roman: "Le cœur de Fridaous",
+    image: "covers/le-coeur-de-fridaous.jpg",
+    description: "Un camarade qui encourage Fridaous à reconnaître ses capacités."
+  },
+  {
+    nom: "Ibrahim",
+    roman: "Le cœur de Fridaous",
+    image: "covers/le-coeur-de-fridaous.jpg",
+    description: "Une présence importante dans le parcours de Fridaous."
+  },
+
+  // JE NE SUIS PAS CE QU'ILS ONT FAIT DE MOI
+  {
+    nom: "Lenis Adjoa",
+    roman: "Je ne suis pas ce qu'ils ont fait de moi",
+    image: "covers/je-ne-suis-pas-ce-quils-ont-fait.jpg",
+    description: "Intelligente et déterminée, elle veut reprendre le contrôle de son destin."
+  },
+  {
+    nom: "Ermine",
+    roman: "Je ne suis pas ce qu'ils ont fait de moi",
+    image: "covers/je-ne-suis-pas-ce-quils-ont-fait.jpg",
+    description: "Fille de ministre, intelligente et habituée à évoluer dans les cercles influents."
+  },
+  {
+    nom: "Bienvenue",
+    roman: "Je ne suis pas ce qu'ils ont fait de moi",
+    image: "covers/je-ne-suis-pas-ce-quils-ont-fait.jpg",
+    description: "Un allié fidèle de Lenis dans son parcours."
+  },
+  {
+    nom: "David",
+    roman: "Je ne suis pas ce qu'ils ont fait de moi",
+    image: "covers/je-ne-suis-pas-ce-quils-ont-fait.jpg",
+    description: "Un informaticien de génie qui détient des informations importantes."
+  },
+  {
+    nom: "Enie",
+    roman: "Je ne suis pas ce qu'ils ont fait de moi",
+    image: "covers/je-ne-suis-pas-ce-quils-ont-fait.jpg",
+    description: "Un personnage lié au cercle d'Ermine et à des tensions du passé."
+  },
+  {
+    nom: "Louange",
+    roman: "Je ne suis pas ce qu'ils ont fait de moi",
+    image: "covers/je-ne-suis-pas-ce-quils-ont-fait.jpg",
+    description: "La sœur de Lenis, qui commence elle aussi à explorer ses ambitions."
+  },
+
+  // LA MAISON D'EN FACE
+  {
+    nom: "Richard Dossou",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Sa mort mystérieuse déclenche une succession de questions et de soupçons."
+  },
+  {
+    nom: "Élodie Dossou",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Frappée par le deuil, elle cherche à reconstruire sa vie et à comprendre."
+  },
+  {
+    nom: "Madeleine Dossou",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "La mère de Richard, soucieuse de protéger sa famille et sa réputation."
+  },
+  {
+    nom: "Christian Dossou",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Le frère de Richard, dont l'attitude attire les soupçons."
+  },
+  {
+    nom: "Nathalie",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Elle cherche à comprendre les indices laissés derrière Richard."
+  },
+  {
+    nom: "Gabriel Ahouansou",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Un homme énigmatique dont le passé pourrait éclairer certains mystères."
+  },
+  {
+    nom: "Mireille Hounkpe",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Une voisine dont l'histoire familiale semble cacher bien des secrets."
+  },
+  {
+    nom: "Patrice Hounkpe",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Le mari de Mireille, voisin de la famille Dossou."
+  },
+  {
+    nom: "Nathan",
+    roman: "La Maison d'en face",
+    image: "covers/la-maison-den-face.jpg",
+    description: "Un enfant observateur qui remarque des détails troublants."
+  }
+];
+
+function afficherPersonnages() {
+  const grille = document.getElementById("grillePersonnages");
+  const recherche = document.getElementById("recherchePersonnage");
+  const filtre = document.getElementById("filtreRoman");
+
+  if (!grille || !recherche || !filtre) return;
+
+  const romans = [...new Set(personnagesBenoli.map(p => p.roman))];
+
+  romans.forEach(roman => {
+    if (![...filtre.options].some(o => o.value === roman)) {
+      const option = document.createElement("option");
+      option.value = roman;
+      option.textContent = roman;
+      filtre.appendChild(option);
+    }
+  });
+
+  function dessiner() {
+    const terme = recherche.value.trim().toLowerCase();
+    const romanChoisi = filtre.value;
+
+    const resultat = personnagesBenoli.filter(p =>
+      p.nom.toLowerCase().includes(terme) &&
+      (!romanChoisi || p.roman === romanChoisi)
+    );
+
+    grille.replaceChildren();
+
+    if (!resultat.length) {
+      const vide = document.createElement("p");
+      vide.className = "personnages-vide";
+      vide.textContent = "Aucun personnage trouvé.";
+      grille.appendChild(vide);
+      return;
+    }
+
+    resultat.forEach(p => {
+      const carte = document.createElement("article");
+      carte.className = "personnage-carte";
+
+      const image = document.createElement("img");
+      image.src = p.image;
+      image.alt = "Image associée à " + p.nom;
+      image.loading = "lazy";
+      image.onerror = function () {
+        this.onerror = null;
+        this.src = "covers/default-character.jpg";
+      };
+
+      const contenu = document.createElement("div");
+      contenu.className = "personnage-contenu";
+
+      const nom = document.createElement("h3");
+      nom.textContent = p.nom;
+
+      const titre = document.createElement("span");
+      titre.className = "personnage-roman";
+      titre.textContent = p.roman;
+
+      const description = document.createElement("p");
+      description.textContent = p.description;
+
+      contenu.append(nom, titre, description);
+      carte.append(image, contenu);
+      grille.appendChild(carte);
+    });
+  }
+
+  recherche.addEventListener("input", dessiner);
+  filtre.addEventListener("change", dessiner);
+  dessiner();
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", afficherPersonnages);
+} else {
+  afficherPersonnages();
+     }
+
