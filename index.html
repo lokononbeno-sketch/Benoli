@@ -653,11 +653,34 @@ function fermerFiche() {
   document.title = "Benoli Littéraire";
 }
 
+
 function route() {
   const m = location.hash.match(/^#\/(.+)$/);
-  if (!m) return fermerFiche();
+
+  if (!m) {
+    fermerFiche();
+    return;
+  }
+
   const id = decodeURIComponent(m[1]);
-  Object.prototype.hasOwnProperty.call(PAGES, id) ? afficherPage(id) : afficherFiche(id);
+
+  if (id === "romans") {
+    fermerFiche();
+    document.body.classList.remove("fige");
+    document.title = "Mes romans • Benoli Littéraire";
+
+    const catalogue = document.querySelector("#catalogue");
+    if (catalogue) {
+      catalogue.scrollIntoView({ behavior: "smooth" });
+    }
+    return;
+  }
+
+  if (Object.prototype.hasOwnProperty.call(PAGES, id)) {
+    afficherPage(id);
+  } else {
+    afficherFiche(id);
+  }
 }
 
 $("#nomAuteur").textContent = CONFIG.auteur;
