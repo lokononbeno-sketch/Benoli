@@ -473,62 +473,7 @@ footer a{color:var(--vert);font-weight:600}
   color: #2a1e00;
   text-decoration: none;
   font-weight: 800;
-  }
-  
-<!-- PROCHAINEMENT CHEZ BENOLI -->
-<section id="prochainement" class="coming-soon">
-  <h2>✨ Prochainement chez Benoli</h2>
-  <p class="coming-intro">
-    De nouvelles histoires se préparent…
-    Restez connectés pour découvrir les prochaines publications
-    de Benoli Littéraire !
-  </p>
-
-  <div class="coming-card">
-    <div class="coming-icon">📖</div>
-    <div class="coming-content">
-      <span class="coming-badge">En préparation</span>
-      <h3>Une nouvelle histoire arrive…</h3>
-      <p>
-        Un nouveau roman est en cours d’écriture.
-        De nouveaux personnages, des émotions et des surprises
-        vous attendent bientôt.
-      </p>
-      <p class="coming-date">Date de sortie : à annoncer</p>
-    </div>
-  </div>
-
-  <p class="coming-footer">
-    ❤️ Merci de faire vivre l'univers de Benoli Littéraire.
-  </p>
-</section>
-  
-<!-- PERSONNAGES DE MES ROMANS -->
-<section id="personnages">
-  <h2>📚 Les personnages de mes romans</h2>
-
-  <p class="personnages-intro">
-    Fais connaissance avec les personnages qui donnent vie
-    aux histoires de Benoli. Chaque visage cache une histoire,
-    chaque choix peut tout changer.
-  </p>
-
-  <div class="personnages-commandes">
-    <input
-      type="search"
-      id="recherchePersonnage"
-      placeholder="🔎 Rechercher un personnage..."
-      aria-label="Rechercher un personnage"
-    />
-
-    <select id="filtreRoman" aria-label="Filtrer par roman">
-      <option value="">Tous mes romans</option>
-    </select>
-  </div>
-
-  <div id="grillePersonnages" class="personnages-grille"></div>
-</section>
-  
+  } 
 /* ===== PERSONNAGES BENOLI LITTERAIRE ===== */
 #personnages {
   max-width: 1000px;
@@ -617,8 +562,59 @@ footer a{color:var(--vert);font-weight:600}
     grid-template-columns: 2fr 1fr;
   }
   }
-  
 /* PROCHAINEMENT CHEZ BENOLI */
+  <section id="prochainement" class="coming-soon">
+  <h2>✨ Prochainement chez Benoli</h2>
+  <p class="coming-intro">
+    De nouvelles histoires se préparent…
+    Restez connectés pour découvrir les prochaines publications
+    de Benoli Littéraire !
+  </p>
+
+  <div class="coming-card">
+    <div class="coming-icon">📖</div>
+    <div class="coming-content">
+      <span class="coming-badge">En préparation</span>
+      <h3>Une nouvelle histoire arrive…</h3>
+      <p>
+        Un nouveau roman est en cours d’écriture.
+        De nouveaux personnages, des émotions et des surprises
+        vous attendent bientôt.
+      </p>
+      <p class="coming-date">Date de sortie : à annoncer</p>
+    </div>
+  </div>
+
+  <p class="coming-footer">
+    ❤️ Merci de faire vivre l'univers de Benoli Littéraire.
+  </p>
+</section>
+  
+<!-- PERSONNAGES DE MES ROMANS -->
+<section id="personnages">
+  <h2>📚 Les personnages de mes romans</h2>
+
+  <p class="personnages-intro">
+    Fais connaissance avec les personnages qui donnent vie
+    aux histoires de Benoli. Chaque visage cache une histoire,
+    chaque choix peut tout changer.
+  </p>
+
+  <div class="personnages-commandes">
+    <input
+      type="search"
+      id="recherchePersonnage"
+      placeholder="🔎 Rechercher un personnage..."
+      aria-label="Rechercher un personnage"
+    />
+
+    <select id="filtreRoman" aria-label="Filtrer par roman">
+      <option value="">Tous mes romans</option>
+    </select>
+  </div>
+
+  <div id="grillePersonnages" class="personnages-grille"></div>
+</section>
 .coming-soon {
   padding: 22px 15px;
   margin: 20px 0;
