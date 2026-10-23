@@ -427,6 +427,105 @@ footer a{color:var(--vert);font-weight:600}
   background: var(--trait);
   color: var(--encre);
 }
+ /* PROCHAINEMENT CHEZ BENOLI */
+  <section id="prochainement" class="coming-soon">
+  <h2>✨ Prochainement chez Benoli</h2>
+  <p class="coming-intro">
+    De nouvelles histoires se préparent…
+    Restez connectés pour découvrir les prochaines publications
+    de Benoli Littéraire !
+  </p>
+
+  <div class="coming-card">
+    <div class="coming-icon">📖</div>
+    <div class="coming-content">
+      <span class="coming-badge">En préparation</span>
+      <h3>Une nouvelle histoire arrive…</h3>
+      <p>
+        Un nouveau roman est en cours d’écriture.
+        De nouveaux personnages, des émotions et des surprises
+        vous attendent bientôt.
+      </p>
+      <p class="coming-date">Date de sortie : à annoncer</p>
+    </div>
+  </div>
+
+  <p class="coming-footer">
+    ❤️ Merci de faire vivre l'univers de Benoli Littéraire.
+  </p>
+</section>
+  
+<!-- PERSONNAGES DE MES ROMANS -->
+<section id="personnages">
+  <h2>📚 Les personnages de mes romans</h2>
+
+  <p class="personnages-intro">
+    Fais connaissance avec les personnages qui donnent vie
+    aux histoires de Benoli. Chaque visage cache une histoire,
+    chaque choix peut tout changer.
+  </p>
+
+  <div class="personnages-commandes">
+    <input
+      type="search"
+      id="recherchePersonnage"
+      placeholder="🔎 Rechercher un personnage..."
+      aria-label="Rechercher un personnage"
+    />
+
+    <select id="filtreRoman" aria-label="Filtrer par roman">
+      <option value="">Tous mes romans</option>
+    </select>
+  </div>
+
+  <div id="grillePersonnages" class="personnages-grille"></div>
+</section>
+.coming-soon {
+  padding: 22px 15px;
+  margin: 20px 0;
+}
+
+.coming-soon h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.coming-intro {
+  text-align: center;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+.coming-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px;
+  border-radius: 16px;
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="drapeau" aria-hidden="true">
+      <i></i><i></i><i></i>
+    </div>
+    <h1 class="serif">Benoli<br>Littéraire</h1>
+    <p class="sous">Des histoires, des émotions, un univers.</p>
+    <a class="auteur" href="#/a-propos">
+      <img id="photoAuteur" alt="Portrait de l'auteur"
+        width="60" height="60">
+      <span>
+        <b id="nomAuteur"></b>
+        Auteur béninois · Plume : Lokonon B. Tiziano
+        <small>Découvrir mon univers →</small>
+      </span>
+    </a>
+  </div>
+</header> 
   
 /* ===== ESPACE À LA UNE ===== */
 #aLaUne {
@@ -562,105 +661,7 @@ footer a{color:var(--vert);font-weight:600}
     grid-template-columns: 2fr 1fr;
   }
   }
-/* PROCHAINEMENT CHEZ BENOLI */
-  <section id="prochainement" class="coming-soon">
-  <h2>✨ Prochainement chez Benoli</h2>
-  <p class="coming-intro">
-    De nouvelles histoires se préparent…
-    Restez connectés pour découvrir les prochaines publications
-    de Benoli Littéraire !
-  </p>
-
-  <div class="coming-card">
-    <div class="coming-icon">📖</div>
-    <div class="coming-content">
-      <span class="coming-badge">En préparation</span>
-      <h3>Une nouvelle histoire arrive…</h3>
-      <p>
-        Un nouveau roman est en cours d’écriture.
-        De nouveaux personnages, des émotions et des surprises
-        vous attendent bientôt.
-      </p>
-      <p class="coming-date">Date de sortie : à annoncer</p>
-    </div>
-  </div>
-
-  <p class="coming-footer">
-    ❤️ Merci de faire vivre l'univers de Benoli Littéraire.
-  </p>
-</section>
   
-<!-- PERSONNAGES DE MES ROMANS -->
-<section id="personnages">
-  <h2>📚 Les personnages de mes romans</h2>
-
-  <p class="personnages-intro">
-    Fais connaissance avec les personnages qui donnent vie
-    aux histoires de Benoli. Chaque visage cache une histoire,
-    chaque choix peut tout changer.
-  </p>
-
-  <div class="personnages-commandes">
-    <input
-      type="search"
-      id="recherchePersonnage"
-      placeholder="🔎 Rechercher un personnage..."
-      aria-label="Rechercher un personnage"
-    />
-
-    <select id="filtreRoman" aria-label="Filtrer par roman">
-      <option value="">Tous mes romans</option>
-    </select>
-  </div>
-
-  <div id="grillePersonnages" class="personnages-grille"></div>
-</section>
-.coming-soon {
-  padding: 22px 15px;
-  margin: 20px 0;
-}
-
-.coming-soon h2 {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-.coming-intro {
-  text-align: center;
-  line-height: 1.6;
-  opacity: 0.85;
-  margin-bottom: 20px;
-}
-
-.coming-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  padding: 18px;
-  border-radius: 16px;
-
-</style>
-</head>
-<body>
-
-<header class="hero">
-  <div class="wrap">
-    <div class="drapeau" aria-hidden="true">
-      <i></i><i></i><i></i>
-    </div>
-    <h1 class="serif">Benoli<br>Littéraire</h1>
-    <p class="sous">Des histoires, des émotions, un univers.</p>
-    <a class="auteur" href="#/a-propos">
-      <img id="photoAuteur" alt="Portrait de l'auteur"
-        width="60" height="60">
-      <span>
-        <b id="nomAuteur"></b>
-        Auteur béninois · Plume : Lokonon B. Tiziano
-        <small>Découvrir mon univers →</small>
-      </span>
-    </a>
-  </div>
-</header>
 <!-- STORIES LOCALES -->
 <section id="storiesBenoli" aria-label="Stories de Benoli">
   <div class="stories-entete">
