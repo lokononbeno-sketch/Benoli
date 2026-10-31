@@ -361,13 +361,6 @@ header.hero .auteur small{color:#e7c27c}
 .accueil-vedette-premium a{display:inline-block;text-decoration:none;color:#111827;background:linear-gradient(110deg,#f2d28a,#c18e3d);padding:11px 16px;border-radius:99px;font-weight:800}
 .accueil-vedette-premium a span{margin-left:8px}
 
-/* Annonce des nouveautés et installation */
-.annonce-mises-a-jour{margin:22px 0 8px;padding:20px;border:1px solid rgba(231,194,124,.42);border-radius:19px;background:radial-gradient(circle at 100% 0%,rgba(210,166,83,.2),transparent 48%),linear-gradient(130deg,#17223a,#0d1425);box-shadow:0 12px 30px rgba(0,0,0,.28)}
-.annonce-top{font-size:.66rem;font-weight:850;letter-spacing:.16em;color:#e8c47d}
-.annonce-mises-a-jour h3{font:700 1.5rem/1.15 Georgia,serif;color:#f5d99d;margin:8px 0}
-.annonce-mises-a-jour p{font-size:.88rem;line-height:1.55;color:#d7dbe5;margin-bottom:15px}
-.annonce-installer{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:12px 18px;border:1px solid #ffe2a2;border-radius:999px;background:linear-gradient(110deg,#f2d28a,#c18e3d);color:#151b29;font:800 .9rem system-ui;cursor:pointer}
-.annonce-mises-a-jour small{display:block;margin-top:10px;color:#bfc5d2;font-size:.74rem}
 .recherche{background:#080d19}
 .recherche input{background:#111a2b;color:#f4f0e8;border-color:rgba(218,181,104,.3)}
 .livre h3{color:#f5f0e7}
@@ -428,14 +421,6 @@ footer a{color:#e7c27c}
     <div class="vedette-label">✦ À DÉCOUVRIR</div>
     <div><span class="vedette-surtitre">LE PREMIER ROMAN</span><h3>Elle m'appelait Chéco</h3><p>Une histoire d'amour, de secrets et de choix qui bouleversent les vies. Entre émotions, révélations et réalités humaines, découvre un récit qui invite aussi à réfléchir.</p><a href="#/elle-m-appelait-checo">Découvrir le roman <span>↗</span></a></div>
   </div>
-
-  <section class="annonce-mises-a-jour">
-    <div class="annonce-top">✦ NOUVEAUTÉS SUR L'APPLICATION</div>
-    <h3>Benoli Littéraire évolue !</h3>
-    <p>Retrouve les fiches des personnages, de nouveaux quiz autour des romans, de la littérature et de la culture générale. D'autres améliorations arrivent bientôt.</p>
-    <button type="button" class="annonce-installer" id="installerApp">⬇ Installer l'application</button>
-    <small id="installAide">Installe Benoli Littéraire sur ton téléphone pour y accéder plus facilement.</small>
-  </section>
 
   <div class="accueil-rubriques">
     <div class="accueil-section-titre">
@@ -1026,40 +1011,6 @@ route();
   <script>
 /* Installation de l'application (PWA) */
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
-</script>
-
-<script>
-/* Installation PWA : bouton visible sur la page d'accueil */
-(function(){
-  let inviteInstallation=null;
-  const bouton=document.getElementById("installerApp");
-  const aide=document.getElementById("installAide");
-  if(!bouton)return;
-  const dejaInstallee=()=>window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone===true;
-  if(dejaInstallee()){bouton.textContent="✓ Application installée";bouton.disabled=true;if(aide)aide.textContent="Benoli Littéraire est déjà installé sur cet appareil.";return;}
-  window.addEventListener("beforeinstallprompt",e=>{
-    e.preventDefault();inviteInstallation=e;
-    if(aide)aide.textContent="Appuie ici pour installer l'application directement.";
-  });
-  window.addEventListener("appinstalled",()=>{
-    inviteInstallation=null;bouton.textContent="✓ Application installée";bouton.disabled=true;
-    if(aide)aide.textContent="Bienvenue dans ton application Benoli Littéraire !";
-  });
-  bouton.addEventListener("click",async()=>{
-    if(inviteInstallation){
-      inviteInstallation.prompt();
-      const choix=await inviteInstallation.userChoice;
-      if(choix && choix.outcome==="accepted"){bouton.textContent="Installation en cours…";}
-      inviteInstallation=null;
-      return;
-    }
-    if(/iphone|ipad|ipod/i.test(navigator.userAgent)){
-      alert("Pour installer Benoli Littéraire sur iPhone : ouvre le menu Partager de Safari, puis choisis « Sur l’écran d’accueil ».");
-    }else{
-      alert("Pour installer Benoli Littéraire : ouvre le menu ⋮ de ton navigateur, puis choisis « Installer l'application » ou « Ajouter à l'écran d'accueil ».");
-    }
-  });
-})();
 </script>
 
 <script src="extras.js"></script>
