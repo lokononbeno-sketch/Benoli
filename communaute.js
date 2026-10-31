@@ -31,6 +31,46 @@ async function newConversation(e){e.preventDefault();const pseudo=$("bl-target")
 async function openChat(id,names){activeConversation=id;const win=$("bl-chat-window");win.innerHTML='<div class="bl-card"><h4>Conversation privée</h4><div id="bl-chat-log" class="bl-chat"></div><form id="bl-send-form" class="bl-send"><input id="bl-message" maxlength="5000" placeholder="Écris ton message…" required><button class="bl-quiet">Envoyer</button></form></div>';$("bl-send-form").addEventListener("submit",sendMessage);await loadMessages();if(channel)client.removeChannel(channel);channel=client.channel("bl-chat-"+id).on("postgres_changes",{event:"INSERT",schema:"public",table:"private_messages",filter:"conversation_id=eq."+id},()=>loadMessages()).subscribe();}
 async function loadMessages(){if(!activeConversation)return;const log=$("bl-chat-log");if(!log)return;const {data,error}=await client.from("private_messages").select("id,sender_id,body,created_at").eq("conversation_id",activeConversation).order("created_at",{ascending:true}).limit(200);if(error){log.textContent=error.message;return;}log.innerHTML=(data||[]).map(m=>'<div class="bl-bubble '+(m.sender_id===user.id?"mine":"")+'">'+esc(m.body)+'<div class="bl-meta">'+new Date(m.created_at).toLocaleString("fr-FR",{hour:"2-digit",minute:"2-digit",day:"2-digit",month:"short"})+'</div></div>').join("");log.scrollTop=log.scrollHeight;}
 async function sendMessage(e){e.preventDefault();const input=$("bl-message"),body=input.value.trim();if(!body)return;const {error}=await client.from("private_messages").insert({conversation_id:activeConversation,sender_id:user.id,body});if(error){status("Message non envoyé : "+error.message);return;}input.value="";loadMessages();}
+async function loadFriends(){
+const box=$("bl-friends");
+box.innerHTML='<div class="bl-panel"><h3>Mes amis</h3><p>Recherche un lecteur par son pseudonyme pour lui envoyer une invitation.</p><form id="bl-friend-search" class="bl-send"><input id="bl-friend-pseudo" placeholder="Pseudonyme exact" required><button class="bl-quiet">Rechercher</button></form><div id="bl-friend-result"></div></div><div id="bl-friend-requests"></div><div id="bl-friend-list"></div>';
+$("bl-friend-search").addEventListener("submit",searchFriend);
+const q=await client.from("friend_requests").select("id,sender_id,recipient_id,status,created_at").or("sender_id.eq."+user.id+",recipient_id.eq."+user.id).order("created_at",{ascending:false});
+if(q.error){$("bl-friend-requests").textContent=q.error.message;return;}
+const requests=q.data||[], ids=[...new Set(requests.flatMap(r=>[r.sender_id,r.recipient_id]).filter(id=>id!==user.id))];
+let profiles=[];if(ids.length){const p=await client.from("reader_profiles").select("id,pseudonym").in("id",ids);profiles=p.data||[];}
+const names=Object.fromEntries(profiles.map(p=>[p.id,p.pseudonym]));
+const incoming=requests.filter(r=>r.recipient_id===user.id&&r.status==="pending"), outgoing=requests.filter(r=>r.sender_id===user.id&&r.status==="pending");
+$("bl-friend-requests").innerHTML='<div class="bl-card"><h4>Invitations reçues</h4>'+(incoming.length?incoming.map(r=>'<div class="bl-row"><span>'+esc(names[r.sender_id]||"Lecteur")+'</span><span><button data-accept="'+r.id+'" class="bl-quiet">Accepter</button> <button data-reject="'+r.id+'" class="bl-quiet">Refuser</button></span></div>').join(""):'<p>Aucune invitation en attente.</p>')+'<h4 style="margin-top:14px">Invitations envoyées</h4>'+(outgoing.length?outgoing.map(r=>'<div class="bl-row">'+esc(names[r.recipient_id]||"Lecteur")+' · En attente</div>').join(""):'<p>Aucune invitation envoyée.</p>')+'</div>';
+$("bl-friend-requests").querySelectorAll("[data-accept]").forEach(b=>b.addEventListener("click",()=>respondFriend(b.dataset.accept,"accepted")));
+$("bl-friend-requests").querySelectorAll("[data-reject]").forEach(b=>b.addEventListener("click",()=>respondFriend(b.dataset.reject,"rejected")));
+const accepted=requests.filter(r=>r.status==="accepted");
+$("bl-friend-list").innerHTML='<div class="bl-card"><h4>Ma liste d’amis</h4>'+(accepted.length?accepted.map(r=>{const id=r.sender_id===user.id?r.recipient_id:r.sender_id;return '<div class="bl-row"><span>'+esc(names[id]||"Lecteur")+'</span><button data-friend-chat="'+id+'">Écrire</button></div>';}).join(""):'<p>Ta liste d’amis est encore vide.</p>')+'</div>';
+$("bl-friend-list").querySelectorAll("[data-friend-chat]").forEach(b=>b.addEventListener("click",()=>startChatWith(b.dataset.friendChat,names[b.dataset.friendChat])));
+}
+async function searchFriend(e){
+e.preventDefault();const pseudo=$("bl-friend-pseudo").value.trim(),result=$("bl-friend-result");
+const found=await client.from("reader_profiles").select("id,pseudonym").ilike("pseudonym",pseudo).maybeSingle();
+if(found.error||!found.data){result.innerHTML='<p>Aucun lecteur trouvé avec ce pseudonyme.</p>';return;}
+const p=found.data;if(p.id===user.id){result.innerHTML='<p>C’est ton propre profil.</p>';return;}
+const prior=await client.from("friend_requests").select("id,status").or("and(sender_id.eq."+user.id+",recipient_id.eq."+p.id+"),and(sender_id.eq."+p.id+",recipient_id.eq."+user.id+")").maybeSingle();
+if(prior.data?.status==="accepted"){result.innerHTML='<p>Vous êtes déjà amis.</p>';return;}
+if(prior.data?.status==="pending"){result.innerHTML='<p>Une invitation est déjà en attente.</p>';return;}
+result.innerHTML='<div class="bl-row"><strong>'+esc(p.pseudonym)+'</strong><button id="bl-send-friend" class="bl-quiet">Envoyer une invitation</button></div>';
+$("bl-send-friend").addEventListener("click",async()=>{const sent=await client.from("friend_requests").insert({sender_id:user.id,recipient_id:p.id});status(sent.error?"Invitation non envoyée : "+sent.error.message:"Invitation envoyée !");loadFriends();});
+}
+async function respondFriend(id,decision){
+const r=await client.from("friend_requests").update({status:decision,responded_at:new Date().toISOString()}).eq("id",id);
+status(r.error?"Action impossible : "+r.error.message:(decision==="accepted"?"Invitation acceptée !":"Invitation refusée."));loadFriends();
+}
+async function startChatWith(otherId,pseudonym){
+const pair=[user.id,otherId].sort();
+const found=await client.from("private_conversations").select("id").eq("participant_one",pair[0]).eq("participant_two",pair[1]).maybeSingle();
+let conv=found.data;
+if(!conv){const made=await client.from("private_conversations").insert({participant_one:pair[0],participant_two:pair[1],created_by:user.id}).select("id").single();if(made.error){status(made.error.message);return;}conv=made.data;}
+setTab("messages");openChat(conv.id,{[otherId]:pseudonym||"Ami"});
+}
+
 const tile=document.querySelector(".accueil-grille");if(tile&&!tile.querySelector('[href="#/communaute"]')){const a=document.createElement("a");a.className="accueil-rubrique";a.href="#/communaute";a.innerHTML='<span class="accueil-icone">✉</span><strong>Communauté</strong><small>Messages privés et histoires des lecteurs.</small><span class="accueil-fleche">↗</span>';tile.appendChild(a);}
 function openIfRoute(){const open=location.hash==="#/communaute";root.classList.toggle("bl-open",open);if(open&&!client)boot();if(!open&&channel&&client){client.removeChannel(channel);channel=null;}}
 window.addEventListener("hashchange",openIfRoute);openIfRoute();authMode("login");
