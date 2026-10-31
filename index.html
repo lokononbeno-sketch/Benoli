@@ -343,7 +343,7 @@ footer a{color:var(--vert);font-weight:600}
 <div class="wrap"><div class="partage" id="partageAccueil"></div></div>
 
 <footer><div class="wrap">
-  <div class="liens"><a href="#/nouveautes">Nouveautés</a><a href="#/a-propos">À propos de l'auteur</a><a href="#/mentions">Mentions légales</a><a href="#/conditions">Conditions d'achat</a></div>
+  <div class="liens"><a href="#/a-propos">À propos de l'auteur</a><a href="#/mentions">Mentions légales</a><a href="#/conditions">Conditions d'achat</a></div>
   © <span id="annee"></span> Benoli Littéraire. Tous droits réservés.
 </div></footer>
 
@@ -868,47 +868,7 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
 afficherListe();
 route();
   </script>
-<button id="installApp" style="
-display:none;
-position:fixed;
-bottom:20px;
-right:15px;
-z-index:99999;
-padding:14px 18px;
-border:none;
-border-radius:30px;
-background:#222;
-color:white;
-font-size:15px;
-font-weight:bold;
-box-shadow:0 4px 12px rgba(0,0,0,.3);
-">
-📲 Installer Benoli Littéraire
-</button>
 
-<script>
-let deferredPrompt;
-const installButton = document.getElementById("installApp");
-
-window.addEventListener("beforeinstallprompt", (event) => {
-  event.preventDefault();
-  deferredPrompt = event;
-  installButton.style.display = "block";
-});
-
-installButton.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
-
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  installButton.style.display = "none";
-});
-
-window.addEventListener("appinstalled", () => {
-  installButton.style.display = "none";
-});
-</script>
   <script>
 /* Installation de l'application (PWA) */
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
