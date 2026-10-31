@@ -867,6 +867,7 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
 
 afficherListe();
 route();
+  </script>
 <button id="installApp" style="
 display:none;
 position:fixed;
@@ -908,7 +909,7 @@ window.addEventListener("appinstalled", () => {
   installButton.style.display = "none";
 });
 </script>
-  
+  <script>
 /* Installation de l'application (PWA) */
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 </script>
