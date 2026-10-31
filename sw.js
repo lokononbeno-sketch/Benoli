@@ -1,8 +1,8 @@
-const V = "benoli-v11";
+const V = "benoli-v12";
 const FICHIERS = [
   "./", "./index.html", "./manifest.json",
   "./icon-192.png", "./icon-512.png", "./maskable-512.png",
-  "./extras.js", "./stories.js", "./nouveautes.js", "./profil.js", "./univers.js"
+  "./extras.js", "./stories.js", "./nouveautes.js", "./profil.js", "./univers.js", "./communaute.js"
 ];
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(V).then(c => c.addAll(FICHIERS)));
