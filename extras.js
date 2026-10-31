@@ -821,6 +821,9 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
     <a class="bm-lien" href="#">
       <span class="bm-emoji">🏠</span> Accueil et romans
     </a>
+    <a class="bm-lien" href="#/communaute">
+      <span class="bm-emoji">✉️</span> Communauté — messages, histoires et amis
+    </a>
     <a class="bm-lien" href="#/nouveautes">
       <span class="bm-emoji">🆕</span> Nouveautés
     </a>
