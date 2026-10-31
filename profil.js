@@ -1,6 +1,19 @@
-/* Profil lecteur local Benoli Littéraire */
+/* Profil lecteur local Benoli */
 (function(){
-  if(window.__benoliProfilLocal)return;
-  window.__benoliProfilLocal=true;
-  // Le formulaire complet sera ajouté dans cette extension.
+ if(window.__benoliProfilReady)return;window.__benoliProfilReady=true;
+ const KEY="benoli-profil-lecteur-v1";
+ const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ const get=()=>{try{return JSON.parse(localStorage.getItem(KEY)||"null")}catch(e){return null}};
+ const page=()=>{
+  const p=get();
+  if(p)return '<section class="bp"><h2 class="serif">Bienvenue, '+esc(p.pseudo)+' !</h2>'+(p.photo?'<img class="bp-photo" src="'+p.photo+'" alt="Photo de profil">':'')+'<p>Ton espace lecteur est prêt.</p><p>📱 Téléphone : '+(p.tel?esc(p.tel):"Non renseigné")+'</p><div class="bp-links"><a href="#/favoris">❤️ Mes favoris</a><a href="#/carnet">📔 Mon carnet de lecture</a></div><div class="bp-warning"><b>Rappel :</b> ton profil est conservé uniquement sur cet appareil. Si tu effaces les données de l’application ou du navigateur, tu risques de le perdre. Il n’est pas synchronisé en ligne.</div><button class="btn off" id="bp-delete" type="button">Supprimer mon profil</button></section>';
+  return '<section class="bp"><h2 class="serif">Créer mon compte lecteur</h2><p>Choisis un pseudonyme, ajoute une photo si tu le souhaites et retrouve ton espace personnel.</p><form id="bp-form"><label>Pseudonyme *<input id="bp-name" maxlength="30" required placeholder="Ton pseudonyme"></label><label>Téléphone (facultatif)<input id="bp-tel" type="tel" placeholder="+229 …"></label><label>Photo de profil (facultative)<input id="bp-photo-file" type="file" accept="image/*"></label><div id="bp-preview"></div><div class="bp-warning"><b>À savoir :</b> ton profil sera enregistré uniquement sur cet appareil. Il n’y a pas de vérification SMS ni de sauvegarde en ligne. Si tu effaces les données de l’application ou changes d’appareil, tu risques de perdre ton profil.</div><label class="bp-check"><input id="bp-ok" type="checkbox" required> J’ai compris et j’accepte cet enregistrement local.</label><button class="btn" type="submit">Créer mon espace lecteur</button></form></section>';
+ };
+ const st=document.createElement("style");st.textContent='.bp{padding:8px 0 30px}.bp h2{font-size:1.8rem;margin-bottom:10px}.bp>p{color:var(--doux);margin:10px 0}.bp form{display:grid;gap:14px}.bp form label{display:grid;gap:6px;font-weight:650}.bp input:not([type=checkbox]){padding:12px;border:1px solid var(--trait);border-radius:10px;background:var(--carte);color:var(--encre);font:inherit}.bp-photo{width:78px;height:78px;border-radius:50%;object-fit:cover}.bp-warning{padding:13px;margin:14px 0;border:1px solid #d9bd83;border-radius:12px;background:rgba(201,155,72,.1);font-size:.88rem}.bp-check{display:flex;gap:8px;align-items:center;font-size:.88rem}.bp-links{display:grid;gap:10px;margin:18px 0}.bp-links a{padding:13px;border:1px solid var(--trait);border-radius:10px;text-decoration:none;color:var(--vert);font-weight:700}';document.head.appendChild(st);
+ if(typeof PAGES!=="undefined")PAGES.profil=page;
+ let photo="";
+ document.addEventListener("change",e=>{if(e.target.id!=="bp-photo-file"||!e.target.files[0])return;const f=e.target.files[0];if(!f.type.startsWith("image/"))return alert("Choisis une image.");if(f.size>3*1024*1024)return alert("Choisis une photo de moins de 3 Mo.");const rd=new FileReader();rd.onload=()=>{photo=rd.result;document.getElementById("bp-preview").innerHTML='<img class="bp-photo" src="'+photo+'" alt="Aperçu de la photo">'};rd.readAsDataURL(f)});
+ document.addEventListener("submit",e=>{if(e.target.id!=="bp-form")return;e.preventDefault();if(!document.getElementById("bp-ok").checked)return alert("Confirme l’avertissement avant de continuer.");const p={pseudo:document.getElementById("bp-name").value.trim(),tel:document.getElementById("bp-tel").value.trim(),photo:photo};try{localStorage.setItem(KEY,JSON.stringify(p));const el=document.querySelector("#ficheContenu .page");if(el)el.innerHTML=page()}catch(err){alert("Impossible d’enregistrer. Essaie une photo plus petite.")}});
+ document.addEventListener("click",e=>{if(e.target.closest("#bp-delete")&&confirm("Supprimer ton profil de cet appareil ?")){localStorage.removeItem(KEY);const el=document.querySelector("#ficheContenu .page");if(el)el.innerHTML=page()}});
+ const menu=document.getElementById("benoliMenu");if(menu&&!menu.querySelector('[href="#/profil"]')){const a=document.createElement("a");a.className="bm-lien";a.href="#/profil";a.textContent="👤 Mon profil lecteur";const foot=menu.querySelector(".bm-bas");if(foot)menu.insertBefore(a,foot);else menu.appendChild(a)}
 })();
