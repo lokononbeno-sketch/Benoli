@@ -821,6 +821,18 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
     <a class="bm-lien" href="#">
       <span class="bm-emoji">🏠</span> Accueil et romans
     </a>
+    <a class="bm-lien" href="#/nouveautes">
+      <span class="bm-emoji">🆕</span> Nouveautés
+    </a>
+    <a class="bm-lien" href="#/favoris">
+      <span class="bm-emoji">❤️</span> Mes favoris
+    </a>
+    <a class="bm-lien" href="#/carnet">
+      <span class="bm-emoji">📔</span> Mon carnet de lecture
+    </a>
+    <button class="bm-lien" type="button" id="benoliInstaller">
+      <span class="bm-emoji">📲</span> Installer Benoli Littéraire
+    </button>
     <a class="bm-lien" href="#/quiz">
       <span class="bm-emoji">🎯</span> Quiz et test littéraire
     </a>
@@ -850,6 +862,23 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   document.body.appendChild(voile);
   document.body.appendChild(menu);
   document.body.appendChild(bouton);
+
+  /* Installation PWA depuis le menu */
+  let invitationInstallation = null;
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    invitationInstallation = e;
+  });
+  const boutonInstaller = menu.querySelector("#benoliInstaller");
+  boutonInstaller.addEventListener("click", async function () {
+    if (invitationInstallation) {
+      invitationInstallation.prompt();
+      await invitationInstallation.userChoice;
+      invitationInstallation = null;
+      return;
+    }
+    alert("Pour installer Benoli Littéraire : ouvre le menu de ton navigateur (⋮), puis choisis « Installer l'application » ou « Ajouter à l'écran d'accueil ». Si cette option n'apparaît pas, le navigateur ne propose pas encore l'installation sur cet appareil.");
+  });
 
   function ouvrirMenu(ouvrir) {
     menu.classList.toggle("ouvert", ouvrir);
