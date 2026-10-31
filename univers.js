@@ -32,6 +32,7 @@
   .pers-corps h3{font:700 1.08rem Georgia,serif;margin-bottom:4px}
   .pers-roman{color:var(--or);font-size:.75rem;font-weight:750;line-height:1.35;margin-bottom:8px}
   .pers-corps p{font-size:.84rem;line-height:1.45;margin:6px 0;color:var(--doux)}
+  .pers-corps .pbtn{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;max-width:100%;font-size:.76rem;line-height:1.1;padding:9px 10px;margin-top:4px;}
   .pers-corps b{color:var(--encre)}
   .pers-note{font-size:.78rem;color:var(--doux);margin:14px 0 26px}
   .jeu-menu{display:grid;gap:10px;margin:16px 0}
