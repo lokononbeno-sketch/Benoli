@@ -909,7 +909,7 @@ function aRepondre(t) {
     return `<p><b>${esc(r.titre)}</b>${r.sousTitre ? "<br><i>" + esc(r.sousTitre) + "</i>" : ""}</p><p>${res}</p><p>${prix(r.prix)} • <a href="#/${r.id}">Voir la fiche et l'extrait gratuit</a></p><p>Je ne dévoile jamais la fin. 😊</p>`;
   }
   if (a("spoil", "la fin", "denouement")) return "<p>Je préfère préserver le plaisir de la découverte ! Je ne dévoile pas la fin d'un roman. Donne-moi son titre et je te présenterai son résumé sans spoiler.</p>";
-  if (a("favori", "favoris")) return '<p>Tu peux retrouver tes romans préférés dans <a href="#/favoris">Mes favoris ❤️</a>. Depuis la fiche d'un roman, touche « Ajouter aux favoris » pour l'enregistrer sur cet appareil.</p>';
+  if (a("favori", "favoris")) return '<p>Tu peux retrouver tes romans préférés dans <a href="#/favoris">Mes favoris ❤️</a>. Depuis la fiche d'un roman, touche « Ajouter aux favoris » pour l\'enregistrer sur cet appareil.</p>';
   if (a("carnet", "mes notes", "note de lecture")) return '<p>Ton <a href="#/carnet">carnet de lecture 📔</a> te permet de noter les livres lus et tes impressions. Les notes restent enregistrées dans le navigateur de cet appareil.</p>';
   if (a("nouveaute", "nouveautes", "nouveau roman", "derniere parution")) return '<p>Retrouve la rubrique <a href="#/nouveautes">Nouveautés</a> pour consulter les annonces et les prochaines parutions de Benoli.</p>';
   if (a("quiz", "jeu", "defi", "test quel roman")) return '<p>Tu peux jouer aux <a href="#/quiz">quiz et tests littéraires</a> pour voir ce que tu connais des romans ou découvrir celui qui pourrait te plaire. 🎯</p>';
