@@ -271,6 +271,58 @@ footer a{color:var(--vert);font-weight:600}
     font-size: .8rem;
   }
 }
+
+/* Identité visuelle signature — Benoli Littéraire */
+:root{--papier:#f6f3ec;--carte:#fffdf8;--encre:#18251f;--doux:#68766e;--trait:#e4ded1;--vert:#173d32;--or:#c99b48;--sur-vert:#fffdf8}
+@media(prefers-color-scheme:dark){:root{--papier:#101a18;--carte:#192522;--encre:#f2eee4;--doux:#aab8ae;--trait:#30413a;--vert:#c49a50;--or:#e2b85e;--sur-vert:#111b17}}
+body{background:var(--papier)}
+header.hero{position:relative;padding:28px 0 20px;background:radial-gradient(ellipse at 90% 0%,rgba(201,155,72,.16),transparent 48%),linear-gradient(135deg,#102b25,#1c4035 65%,#132a25);color:#fffdf6;overflow:hidden}
+header.hero:after{content:"";position:absolute;width:220px;height:220px;border:1px solid rgba(224,184,103,.23);border-radius:50%;right:-110px;top:-110px;box-shadow:0 0 0 22px rgba(224,184,103,.035),0 0 0 48px rgba(224,184,103,.025);pointer-events:none}
+header.hero .drapeau{opacity:.9}
+header.hero .sous{color:#d9e2da}
+header.hero .auteur{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.17);border-left:3px solid #d6ad65;backdrop-filter:blur(8px)}
+header.hero .auteur small{color:#e7c27c}
+.accueil-bienvenue{padding:20px 0 34px}
+.accueil-hero{position:relative;isolation:isolate;overflow:hidden;min-height:310px;padding:28px 22px 18px;border-radius:24px;background:linear-gradient(120deg,#122e28 0%,#1d4036 58%,#263b31 100%);color:#fffdf5;box-shadow:0 18px 40px rgba(17,42,34,.18)}
+.accueil-hero:before{content:"";position:absolute;z-index:-1;width:250px;height:250px;border:1px solid rgba(221,181,105,.28);border-radius:50%;right:-90px;top:15px;box-shadow:0 0 0 18px rgba(221,181,105,.045),0 0 0 42px rgba(221,181,105,.035),0 0 0 68px rgba(221,181,105,.025)}
+.accueil-hero-texte{position:relative;z-index:2;max-width:440px}
+.accueil-salut{display:block;color:#d9b875;font-size:.68rem;font-weight:850;letter-spacing:.19em;margin-bottom:12px}
+.accueil-hero h2{font-size:clamp(2.05rem,8vw,3.15rem);line-height:1.02;letter-spacing:-.035em;max-width:12ch;margin-bottom:13px;color:#fffdf5}
+.accueil-hero h2 em{color:#e4c17e;font-weight:500}
+.accueil-hero .accueil-intro{color:#d8e1d9;max-width:38ch;font-size:.92rem;line-height:1.65;margin-bottom:20px}
+.accueil-cta{display:flex;align-items:center;flex-wrap:wrap;gap:15px}
+.accueil-bouton{background:#d9b36d;color:#182a23;padding:12px 16px;border-radius:999px;font-weight:800;box-shadow:0 5px 18px rgba(0,0,0,.16)}
+.accueil-bouton span{margin-left:8px}
+.accueil-lien{color:#f4e5c4;font-size:.85rem;font-weight:700;text-decoration:none}
+.accueil-hero-art{position:absolute;right:18px;bottom:24px;width:145px;height:175px;opacity:.82;display:flex;align-items:center;justify-content:center;pointer-events:none}
+.accueil-orbite{position:absolute;width:138px;height:138px;border-radius:50%;border:1px solid rgba(226,190,121,.45);box-shadow:0 0 45px rgba(216,171,89,.12),inset 0 0 32px rgba(216,171,89,.1)}
+.accueil-livre{position:relative;width:82px;height:112px;border-radius:4px 12px 12px 4px;background:linear-gradient(145deg,#d8b16a,#8b6535);box-shadow:inset 6px 0 0 rgba(255,255,255,.18),9px 12px 24px rgba(0,0,0,.35);display:grid;place-items:center;color:#21362b;font:700 3.8rem Georgia,serif;transform:rotate(-9deg)}
+.accueil-livre:after{content:"";position:absolute;inset:8px;border:1px solid rgba(38,53,40,.45);border-radius:2px 8px 8px 2px}
+.accueil-livre span{position:absolute;top:13px;right:15px;font-size:.8rem}
+.accueil-art-note{position:absolute;bottom:0;color:#e7c987;font-size:.5rem;letter-spacing:.16em;white-space:nowrap}
+.accueil-signature{position:relative;margin-top:24px;padding-top:12px;border-top:1px solid rgba(224,190,126,.25);font-size:.59rem;letter-spacing:.16em;color:#d4d9ce}
+.accueil-signature span{color:#dfb96f;margin:0 7px}
+.accueil-rubriques{margin-top:30px}
+.accueil-section-titre{display:flex;align-items:end;justify-content:space-between;margin-bottom:14px}
+.accueil-section-titre .accueil-salut{margin-bottom:5px}
+.accueil-section-titre h3{font-size:1.55rem;line-height:1.1}
+.accueil-numero{font-size:.68rem;color:var(--doux);letter-spacing:.12em}
+.accueil-grille{gap:11px}
+.accueil-rubrique{position:relative;min-height:142px;padding:17px 15px;background:var(--carte);border:1px solid var(--trait);border-radius:16px;box-shadow:0 5px 16px rgba(29,40,32,.035);transition:transform .18s,border-color .18s,box-shadow .18s}
+.accueil-rubrique:active{transform:translateY(2px)}
+.accueil-rubrique:hover{border-color:var(--or);box-shadow:0 9px 22px rgba(29,40,32,.08)}
+.accueil-icone{font-size:1.45rem;color:var(--or);margin-bottom:12px}
+.accueil-rubrique strong{font-family:Georgia,serif;font-size:1.04rem}
+.accueil-rubrique small{font-size:.79rem;max-width:25ch}
+.accueil-fleche{position:absolute;right:13px;top:13px;color:var(--or);font-size:1rem}
+.accueil-pensee{display:flex;gap:12px;align-items:flex-start;margin-top:20px;padding:20px 18px;border-radius:18px;background:linear-gradient(115deg,#eadfc9,#f4ecdc);color:#28372e;border:1px solid #dfcfad;box-shadow:0 8px 22px rgba(65,52,31,.07)}
+.accueil-pensee-symbole{font:4rem/.8 Georgia,serif;color:#b68a46}
+.accueil-pensee small{color:#8c6a36;font-size:.65rem;letter-spacing:.16em}
+.accueil-pensee blockquote{font:italic 1.05rem/1.5 Georgia,serif;margin:7px 0 10px}
+.accueil-pensee a{font-size:.82rem;color:#385243;font-weight:800;text-decoration:none}
+@media(max-width:420px){.accueil-hero{padding:24px 18px 16px;min-height:340px}.accueil-hero-texte{max-width:100%}.accueil-hero-art{right:7px;bottom:18px;transform:scale(.78);transform-origin:bottom right;opacity:.45}.accueil-hero .accueil-intro{max-width:32ch}.accueil-hero h2{max-width:11ch}.accueil-rubrique{min-height:145px}}
+@media(prefers-reduced-motion:reduce){.accueil-rubrique{transition:none}}
+
 </style>
 </head>
 <body>
@@ -292,48 +344,46 @@ footer a{color:var(--vert);font-weight:600}
       </span>
     </a>
   </div>
-</header> 
+</header>
 
-  <section class="accueil-rubriques">
-    <h3 class="serif">Explore l'application</h3>
-
-    <div class="accueil-grille">
-      <a class="accueil-rubrique" href="#/romans">
-  <span class="accueil-icone">📚</span>
-  <strong>Mes romans</strong>
-  <small>Découvre toutes mes histoires.</small>
-      </a>
-
-      <a class="accueil-rubrique" href="#/sagesse">
-        <span class="accueil-icone">✨</span>
-        <strong>Pensées et citations</strong>
-        <small>Des mots pour réfléchir et avancer.</small>
-      </a>
-
-      <a class="accueil-rubrique" href="#/quiz">
-        <span class="accueil-icone">🎯</span>
-        <strong>Quiz littéraires</strong>
-        <small>Teste tes connaissances et trouve ton roman.</small>
-      </a>
-
-      <a class="accueil-rubrique" href="#/reglages">
-        <span class="accueil-icone">🎨</span>
-        <strong>Personnaliser</strong>
-        <small>Choisis tes couleurs, ta police et ton thème.</small>
-      </a>
+<section class="accueil-bienvenue">
+  <div class="accueil-hero">
+    <div class="accueil-hero-texte">
+      <span class="accueil-salut">✦ L'UNIVERS DE BENOLI</span>
+      <h2 class="serif">Les histoires qui restent <em>dans le cœur.</em></h2>
+      <p class="accueil-intro">Bienvenue dans un espace où les mots prennent vie, où chaque page révèle une émotion et où chaque lecture devient un voyage.</p>
+      <div class="accueil-cta">
+        <a class="accueil-bouton" href="#/romans">Explorer les romans <span>↗</span></a>
+        <a class="accueil-lien" href="#/a-propos">Rencontrer l'auteur</a>
+      </div>
     </div>
-  </section>
+    <div class="accueil-hero-art" aria-hidden="true">
+      <div class="accueil-orbite"></div>
+      <div class="accueil-livre">B<span>✦</span></div>
+      <div class="accueil-art-note">LIRE · RÊVER · GRANDIR</div>
+    </div>
+    <div class="accueil-signature">BENOLI LITTÉRAIRE <span>—</span> UNE HISTOIRE À PART</div>
+  </div>
+
+  <div class="accueil-rubriques">
+    <div class="accueil-section-titre">
+      <div><span class="accueil-salut">À TON RYTHME</span><h3 class="serif">Explore ton univers</h3></div>
+      <span class="accueil-numero">01 / 04</span>
+    </div>
+    <div class="accueil-grille">
+      <a class="accueil-rubrique" href="#/romans"><span class="accueil-icone">📚</span><strong>Les romans</strong><small>Des histoires à dévorer, des émotions à vivre.</small><span class="accueil-fleche">↗</span></a>
+      <a class="accueil-rubrique" href="#/sagesse"><span class="accueil-icone">✦</span><strong>Pensées & citations</strong><small>Quelques mots pour éclairer ta journée.</small><span class="accueil-fleche">↗</span></a>
+      <a class="accueil-rubrique" href="#/quiz"><span class="accueil-icone">◈</span><strong>Quiz littéraires</strong><small>Joue, découvre et teste ta curiosité.</small><span class="accueil-fleche">↗</span></a>
+      <a class="accueil-rubrique" href="#/reglages"><span class="accueil-icone">☼</span><strong>Ton expérience</strong><small>Personnalise couleurs, police et ambiance.</small><span class="accueil-fleche">↗</span></a>
+    </div>
+  </div>
 
   <aside class="accueil-pensee">
-    <small>Une pensée pour toi</small>
-    <blockquote>
-      « Aimer, ce n'est pas se perdre :
-      c'est se choisir ensemble, chaque jour. »
-    </blockquote>
-    <a href="#/sagesse">Découvrir d'autres pensées →</a>
+    <span class="accueil-pensee-symbole">“</span>
+    <div><small>LA PENSÉE À EMPORTER</small><blockquote>« Aimer, ce n'est pas se perdre : c'est se choisir ensemble, chaque jour. »</blockquote><a href="#/sagesse">Explorer les pensées <span>→</span></a></div>
   </aside>
 </section>
-  
+
 <main class="wrap" id="catalogue">
   <div class="recherche"><input id="q" type="search" placeholder="Chercher un titre ou un mot-clé" autocomplete="off" aria-label="Chercher un roman"></div>
   <p class="nb" id="nb"></p>
