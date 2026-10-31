@@ -867,7 +867,47 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
 
 afficherListe();
 route();
+<button id="installApp" style="
+display:none;
+position:fixed;
+bottom:20px;
+right:15px;
+z-index:99999;
+padding:14px 18px;
+border:none;
+border-radius:30px;
+background:#222;
+color:white;
+font-size:15px;
+font-weight:bold;
+box-shadow:0 4px 12px rgba(0,0,0,.3);
+">
+📲 Installer Benoli Littéraire
+</button>
 
+<script>
+let deferredPrompt;
+const installButton = document.getElementById("installApp");
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+  installButton.style.display = "block";
+});
+
+installButton.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installButton.style.display = "none";
+});
+
+window.addEventListener("appinstalled", () => {
+  installButton.style.display = "none";
+});
+</script>
 /* Installation de l'application (PWA) */
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 </script>
