@@ -3,19 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0b5d3b">
+<meta name="theme-color" content="#080d19">
 <title>Benoli Littéraire</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<script>
-window.addEventListener("error", function (e) {
-  var d = document.createElement("div");
-  d.style.cssText = "position:fixed;left:0;right:0;top:0;z-index:99;background:#b8442b;color:#fff;padding:10px 14px;font:14px system-ui";
-  d.textContent = "Erreur : " + e.message + " (" + String(e.filename || "").split("/").pop() + ", ligne " + e.lineno + ")";
-  document.documentElement.appendChild(d);
-});
-</script>
 <style>
 :root{
   --papier:#f3f5f0; --carte:#ffffff; --encre:#12201a; --doux:#58665e; --trait:#dbe2d9;
