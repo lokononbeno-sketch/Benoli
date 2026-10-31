@@ -908,6 +908,7 @@ window.addEventListener("appinstalled", () => {
   installButton.style.display = "none";
 });
 </script>
+  
 /* Installation de l'application (PWA) */
 if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
 </script>
