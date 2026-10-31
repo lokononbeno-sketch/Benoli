@@ -83,37 +83,16 @@
     if(del) { const entries=lire(CARNET,[]); entries.splice(Number(del.dataset.carnetDelete),1); if(sauver(CARNET,entries)){const page=document.querySelector("#ficheContenu .page");if(page)page.innerHTML=PAGES.carnet();} }
   });
 
-  /* Ajouter les rubriques au menu latéral déjà créé dans extras.js */
+  /* Le menu principal contient déjà Nouveautés, Favoris, Quiz, Carnet et Installation.
+     On ajoute uniquement la rubrique Pensée du jour si elle n'existe pas. */
   const menu = document.getElementById("benoliMenu");
-  if (menu && !menu.querySelector("[data-benoli-rubriques]")) {
-    const zone=document.createElement("div"); zone.dataset.benoliRubriques="1";
-    zone.innerHTML=`
-      <a class="bm-lien" href="#/nouveautes"><span class="bm-emoji">🆕</span> Nouveautés</a>
-      <a class="bm-lien" href="#/favoris"><span class="bm-emoji">❤️</span> Mes favoris</a>
-      <a class="bm-lien" href="#/sagesse"><span class="bm-emoji">💡</span> Pensée du jour</a>
-      <a class="bm-lien" href="#/quiz"><span class="bm-emoji">🎯</span> Défis et quiz littéraires</a>
-      <a class="bm-lien" href="#/carnet"><span class="bm-emoji">📔</span> Mon carnet de lecture</a>`;
-    const entete=menu.querySelector(".bm-entete");
-    if(entete) entete.insertAdjacentElement("afterend",zone); else menu.prepend(zone);
+  if (menu && !menu.querySelector('a[href="#/sagesse"]')) {
+    const link = document.createElement("a");
+    link.className = "bm-lien";
+    link.href = "#/sagesse";
+    link.innerHTML = '<span class="bm-emoji">💡</span> Pensée du jour';
+    const head = menu.querySelector(".bm-entete");
+    if (head) head.insertAdjacentElement("afterend", link);
+    else menu.prepend(link);
   }
-
-  /* Le bouton d'installation est visible dans le menu, même si le navigateur
-     ne propose pas le prompt automatique. */
-  let inviteInstallation = null;
-  window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); inviteInstallation=e; });
-  const install = document.createElement("button");
-  install.type="button"; install.className="bm-lien";
-  install.innerHTML='<span class="bm-emoji">📲</span> Installer Benoli Littéraire';
-  install.addEventListener("click", async () => {
-    if (inviteInstallation) {
-      inviteInstallation.prompt();
-      try { await inviteInstallation.userChoice; } catch (_) {}
-      inviteInstallation=null;
-    } else if (window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone) {
-      alert("Benoli Littéraire est déjà installé sur cet appareil.");
-    } else {
-      alert("Pour installer Benoli Littéraire : ouvre le menu ⋮ de Chrome, puis choisis « Installer l'application » ou « Ajouter à l'écran d'accueil », si cette option est proposée.");
-    }
-  });
-  if(menu && !menu.querySelector("[data-benoli-install]")) { install.dataset.benoliInstall="1"; const zone=menu.querySelector("[data-benoli-rubriques]"); if(zone) zone.appendChild(install); else menu.appendChild(install); }
 })();
