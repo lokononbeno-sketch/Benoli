@@ -829,29 +829,56 @@ function trouverRoman(t) {
 }
 
 function aRepondre(t) {
-  const q = norm(t), a = (...m) => m.some(x => q.includes(x));
+  const q = norm(t).replace(/[^a-z0-9 ]/g, " ").replace(/\\s+/g, " ").trim();
+  const a = (...m) => m.some(x => q.includes(norm(x)));
   const wa = `https://wa.me/${CONFIG.whatsapp}`;
   const r = trouverRoman(t);
-  if (r) {
-    const res = r.resume ? esc(r.resume).replace(/\n/g, "<br>") : "Le résumé détaillé arrive bientôt.";
-    return `<p><b>${esc(r.titre)}</b>${r.sousTitre ? "<br><i>" + esc(r.sousTitre) + "</i>" : ""}</p><p>${res}</p><p>${prix(r.prix)} • <a href="#/${r.id}">Voir la fiche et l'extrait gratuit</a></p><p>Je ne dévoile jamais la fin.</p>`;
+
+  // Salutations et échanges simples
+  if (a("bonjour", "salut", "bonsoir", "hello", "coucou", "bjr", "bsr", "bon matin", "bonne soiree")) {
+    return "<p>Bonjour et bienvenue sur Benoli Littéraire ! 😊</p><p>Je suis Salomé, ton assistante. Comment puis-je t'aider aujourd'hui ?</p><p>On peut découvrir les romans, chercher une lecture, parler des achats ou explorer les rubriques du site.</p>";
   }
-  if (a("spoil", "la fin", "denouement")) return "<p>Je ne dévoile jamais la fin d'un roman. Je peux te donner son résumé sans spoiler : dis-moi le titre.</p>";
-  if (a("mention", "condition", "remboursement", "legal")) return `<p>Tu peux lire <a href="#/conditions">les conditions d'achat</a> et <a href="#/mentions">les mentions légales</a>.</p>`;
-  if (a("partag", "inviter")) return `<div class="partage" style="margin:0">${partageHtml(lienApp(), TEXTE_PARTAGE, "Partager l'application")}</div>`;
-  if (a("regle", "interdit", "restriction", "partage", "pdf", "copier", "pirat", "droit", "procedure", "faut-il", "ne pas")) return "<p>À respecter :</p><ul>" + ASSISTANT.regles.map(x => `<li>${esc(x)}</li>`).join("") + "</ul>";
-  if (a("acheter", "achat", "payer", "paiement", "prix", "combien", "mobile money", "momo")) return `<p>${mini === Math.max(...ROMANS.map(x => x.prix)) ? "Chaque roman coûte" : "Les romans coûtent à partir de"} ${prix(mini)}.</p><p>${esc(ASSISTANT.achat)}</p>`;
-  if (a("lire", "extrait", "gratuit", "lecture")) return `<p>${esc(ASSISTANT.lecture)}</p><p>Choisis un roman :</p>${liste()}`;
-  if (a("contact", "whatsapp", "aide", "probleme", "bug", "auteur", "benoli")) return `<p>Pour parler à Benoli : <a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>.</p><p><a href="#/a-propos">À propos de l'auteur</a></p>`;
+  if (a("comment vas tu", "comment tu vas", "ca va", "tu vas bien", "comment allez vous")) {
+    return "<p>Je vais très bien, merci ! 😊 Je suis heureuse de t'accueillir sur Benoli Littéraire.</p><p>Et toi, comment vas-tu ? Tu veux qu'on parle lecture ou que je t'aide à utiliser le site ?</p>";
+  }
+  if (a("merci", "je te remercie", "thanks", "c est gentil")) {
+    return "<p>Avec grand plaisir ! 💚 C'est toujours un plaisir de t'aider.</p><p>Si tu as une autre question, je suis là.</p>";
+  }
+  if (a("au revoir", "a bientot", "bonne nuit", "a plus", "a la prochaine")) {
+    return "<p>À très bientôt sur Benoli Littéraire ! 📚 Merci pour ta visite et bonne continuation à toi.</p>";
+  }
+  if (a("qui es tu", "tu es qui", "ton nom", "presente toi", "qui etes vous")) {
+    return "<p>Je m'appelle Salomé. 😊 Je suis l'assistante virtuelle de Benoli Littéraire.</p><p>Je suis là pour te guider dans le catalogue, te présenter les romans de Benoli, t'expliquer les achats et t'aider à découvrir les différentes rubriques du site.</p>";
+  }
+  if (a("que peux tu faire", "comment peux tu m aider", "tes fonctionnalites", "aide moi", "aide")) {
+    return "<p>Bien sûr ! Voici ce que je peux faire avec toi :</p><ul><li>Présenter les romans et leurs résumés.</li><li>Te conseiller une lecture selon tes goûts.</li><li>T'expliquer comment lire un extrait ou acheter un roman.</li><li>Te guider vers tes favoris et ton carnet de lecture.</li><li>Te faire découvrir les quiz et les pensées pour la vie.</li><li>Te donner les moyens de contacter Benoli.</li></ul><p>Dis-moi simplement ce que tu recherches.</p>";
+  }
+
+  if (r) {
+    const res = r.resume ? esc(r.resume).replace(/\\n/g, "<br>") : "Le résumé détaillé arrive bientôt.";
+    return `<p><b>${esc(r.titre)}</b>${r.sousTitre ? "<br><i>" + esc(r.sousTitre) + "</i>" : ""}</p><p>${res}</p><p>${prix(r.prix)} • <a href="#/${r.id}">Voir la fiche et l'extrait gratuit</a></p><p>Je ne dévoile jamais la fin. 😊</p>`;
+  }
+  if (a("spoil", "la fin", "denouement")) return "<p>Je préfère préserver le plaisir de la découverte ! Je ne dévoile pas la fin d'un roman. Donne-moi son titre et je te présenterai son résumé sans spoiler.</p>";
+  if (a("favori", "favoris")) return '<p>Tu peux retrouver tes romans préférés dans <a href="#/favoris">Mes favoris ❤️</a>. Depuis la fiche d'un roman, touche « Ajouter aux favoris » pour l'enregistrer sur cet appareil.</p>';
+  if (a("carnet", "mes notes", "note de lecture")) return '<p>Ton <a href="#/carnet">carnet de lecture 📔</a> te permet de noter les livres lus et tes impressions. Les notes restent enregistrées dans le navigateur de cet appareil.</p>';
+  if (a("nouveaute", "nouveautes", "nouveau roman", "derniere parution")) return '<p>Retrouve la rubrique <a href="#/nouveautes">Nouveautés</a> pour consulter les annonces et les prochaines parutions de Benoli.</p>';
+  if (a("quiz", "jeu", "defi", "test quel roman")) return '<p>Tu peux jouer aux <a href="#/quiz">quiz et tests littéraires</a> pour voir ce que tu connais des romans ou découvrir celui qui pourrait te plaire. 🎯</p>';
+  if (a("pensee", "sagesse", "citation", "pensee du jour")) return '<p>La rubrique <a href="#/sagesse">Pensées pour la vie</a> rassemble des pensées autour de plusieurs thèmes. 💡</p>';
+  if (a("mention", "condition", "remboursement", "legal")) return '<p>Tu peux consulter les <a href="#/conditions">conditions d’achat</a> et les <a href="#/mentions">mentions légales</a>.</p>';
+  if (a("partag", "inviter", "faire connaitre")) return `<div class="partage" style="margin:0">${partageHtml(lienApp(), TEXTE_PARTAGE, "Partager l'application")}</div>`;
+  if (a("regle", "interdit", "restriction", "partage", "pdf", "copier", "pirat", "droit", "procedure")) return "<p>Voici les règles à respecter :</p><ul>" + ASSISTANT.regles.map(x => `<li>${esc(x)}</li>`).join("") + "</ul>";
+  if (a("acheter", "achat", "payer", "paiement", "prix", "combien", "mobile money", "momo", "cout")) return `<p>${mini === Math.max(...ROMANS.map(x => x.prix)) ? "Chaque roman coûte" : "Les romans coûtent à partir de"} ${prix(mini)}.</p><p>${esc(ASSISTANT.achat)}</p><p>Tu peux aussi ouvrir la fiche du roman qui t'intéresse pour voir son prix exact.</p>`;
+  if (a("lire", "extrait", "gratuit", "lecture")) return `<p>${esc(ASSISTANT.lecture)}</p><p>Choisis un roman dans le catalogue :</p>${liste()}`;
+  if (a("contact", "whatsapp", "probleme", "bug", "auteur", "benoli", "parler a quelqu un")) return `<p>Pour joindre Benoli, tu peux lui écrire directement sur <a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>.</p><p>Tu peux aussi consulter la page <a href="#/a-propos">À propos de l'auteur</a>.</p>`;
   if (a("recommande", "conseille", "suggere", "que lire", "quoi lire", "genre", "theme", "amour", "histoire")) {
     const mq = mots(t).filter(w => w.length >= 5);
     const t1 = ROMANS.filter(x => mq.some(w => norm(x.resume + " " + x.genre).includes(w)));
-    if (t1.length) return "<p>Ça pourrait te plaire :</p><ul>" + t1.map(x => `<li>${lien(x)}</li>`).join("") + "</ul>";
-    return `<p>Voici les romans de Benoli. Touche un titre pour lire le résumé et l'extrait gratuit :</p>${liste()}`;
+    if (t1.length) return "<p>Voici quelques romans qui pourraient t'intéresser :</p><ul>" + t1.map(x => `<li>${lien(x)}</li>`).join("") + "</ul><p>Ouvre leur fiche pour lire les résumés et les extraits gratuits.</p>";
+    return `<p>Avec plaisir ! Voici le catalogue de Benoli. Tu peux ouvrir chaque titre pour découvrir son histoire :</p>${liste()}`;
   }
-  if (a("liste", "catalogue", "romans", "quels", "titres", "disponible")) return `<p>Les romans de Benoli :</p>${liste()}`;
-  if (a("bonjour", "salut", "bonsoir", "hello", "coucou")) return "<p>Bonjour ! Tu veux découvrir les romans, savoir comment acheter, ou connaître les règles ?</p>";
-  return `<p>Je n'ai pas compris. Tu peux écrire le titre d'un roman, ou demander : « quels romans », « comment acheter », « les règles ».</p><p>Pour autre chose : <a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>.</p>`;
+  if (a("liste", "catalogue", "romans", "quels", "titres", "disponible")) return `<p>Voici les romans disponibles dans le catalogue de Benoli :</p>${liste()}`;
+  if (a("site", "application", "rubrique", "menu", "naviguer")) return '<p>Tu peux explorer le catalogue, les <a href="#/nouveautes">Nouveautés</a>, tes <a href="#/favoris">Favoris</a>, ton <a href="#/carnet">Carnet de lecture</a>, les <a href="#/quiz">Quiz</a> et les <a href="#/sagesse">Pensées pour la vie</a>.</p>';
+  return "<p>Je veux bien t'aider, mais je n'ai pas encore compris précisément ta demande. 😊</p><p>Tu peux me poser une question avec tes propres mots, par exemple : « Comment vas-tu ? », « Présente-moi un roman », « Comment acheter ? », « Où trouver mes favoris ? » ou « Conseille-moi une histoire d'amour ».</p><p>Si ta question concerne un problème personnel d'achat ou de paiement, je peux aussi t'orienter vers <a href=\"" + wa + "\" target=\"_blank\" rel=\"noopener\">Benoli sur WhatsApp</a>.</p>";
 }
 
 function aEnvoyer(t) { t = t.trim(); if (!t) return; aUser(t); aDire(aRepondre(t)); }
