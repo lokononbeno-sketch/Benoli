@@ -510,12 +510,68 @@ header.hero h1,header.hero .sous,header.hero .auteur,.drapeau{position:relative;
  #benoli-covers .covers-track{animation:none;transform:translate(-15%,-50%)}
 }
 
+
+/* Barre supérieure et identité Benoli */
+.benoli-topbar{position:relative;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 auto 24px;max-width:1100px;padding:10px 0 16px;border-bottom:1px solid rgba(222,181,104,.2)}
+.benoli-brand{display:flex;align-items:center;gap:10px;min-width:0;text-decoration:none}
+.benoli-brand img{width:58px;height:58px;object-fit:contain;filter:drop-shadow(0 0 12px rgba(255,160,35,.6));flex:none}
+.benoli-brand span{font:800 clamp(1.05rem,3.4vw,1.55rem)/1.02 Georgia,serif;letter-spacing:-.025em;background:linear-gradient(110deg,#fff2c4,#ffb32e 52%,#c18aff);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 22px rgba(255,165,55,.18)}
+.benoli-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.benoli-auth{display:inline-flex;align-items:center;justify-content:center;padding:9px 13px;border:1px solid rgba(220,190,255,.35);border-radius:999px;color:#f7f1ff;text-decoration:none;font-size:.83rem;font-weight:750;background:rgba(27,28,56,.65)}
+.benoli-auth.inscription{background:linear-gradient(120deg,#ffd56b,#ff941d);border-color:#ffe1a0;color:#21142b}
+.benoli-lang{position:relative}
+.benoli-lang select{appearance:none;max-width:142px;padding:9px 30px 9px 12px;border-radius:999px;border:1px solid rgba(220,190,255,.4);background:#151b32;color:#fff;font:700 .82rem system-ui;cursor:pointer}
+.benoli-lang:after{content:"⌄";position:absolute;right:12px;top:50%;transform:translateY(-55%);color:#ffd477;pointer-events:none}
+.benoli-lang select option{background:#11182c;color:#fff}
+@media(max-width:600px){
+ .benoli-topbar{align-items:flex-start;gap:8px;padding:7px 0 13px;margin-bottom:18px}
+ .benoli-brand{gap:7px}.benoli-brand img{width:44px;height:44px}
+ .benoli-actions{gap:6px;max-width:60%}
+ .benoli-auth{padding:7px 9px;font-size:.72rem}
+ .benoli-lang select{max-width:116px;padding:7px 25px 7px 9px;font-size:.72rem}
+}
+@media(max-width:370px){.benoli-auth{font-size:.66rem;padding:7px}.benoli-brand span{font-size:1rem}.benoli-brand img{width:39px;height:39px}}
+
 </style>
 </head>
 <body>
 
 <header class="hero">
   <div class="wrap">
+    <nav class="benoli-topbar" aria-label="Navigation principale">
+      <a class="benoli-brand" href="./" aria-label="Benoli Littéraire, accueil">
+        <img src="assets/benoli-logo.svg" alt="Logo Benoli Littéraire" width="58" height="58">
+        <span>Benoli<br>Littéraire</span>
+      </a>
+      <div class="benoli-actions">
+        <a class="benoli-auth" href="#/profil">Connexion</a>
+        <a class="benoli-auth inscription" href="#/profil">Inscription</a>
+        <label class="benoli-lang" aria-label="Choisir la langue">
+          <select id="benoli-language" aria-label="Langue de l'application">
+            <option value="fr">🇫🇷 Français</option><option value="en">🇬🇧 English</option>
+            <option value="es">🇪🇸 Español</option><option value="pt">🇵🇹 Português</option>
+            <option value="de">🇩🇪 Deutsch</option><option value="it">🇮🇹 Italiano</option>
+            <option value="nl">🇳🇱 Nederlands</option><option value="ru">🇷🇺 Русский</option>
+            <option value="ar">🇸🇦 العربية</option><option value="zh">🇨🇳 中文</option>
+            <option value="ja">🇯🇵 日本語</option><option value="ko">🇰🇷 한국어</option>
+            <option value="hi">🇮🇳 हिन्दी</option><option value="sw">🌍 Kiswahili</option>
+            <option value="yo">🌍 Yorùbá</option><option value="ha">🌍 Hausa</option>
+            <option value="ig">🌍 Igbo</option><option value="am">🇪🇹 አማርኛ</option>
+            <option value="tr">🇹🇷 Türkçe</option><option value="pl">🇵🇱 Polski</option>
+            <option value="uk">🇺🇦 Українська</option><option value="el">🇬🇷 Ελληνικά</option>
+            <option value="he">🇮🇱 עברית</option><option value="th">🇹🇭 ไทย</option>
+            <option value="vi">🇻🇳 Tiếng Việt</option><option value="id">🇮🇩 Bahasa Indonesia</option>
+            <option value="ms">🇲🇾 Bahasa Melayu</option><option value="bn">🇧🇩 বাংলা</option>
+            <option value="ur">🇵🇰 اردو</option><option value="fa">🇮🇷 فارسی</option>
+            <option value="sv">🇸🇪 Svenska</option><option value="no">🇳🇴 Norsk</option>
+            <option value="da">🇩🇰 Dansk</option><option value="fi">🇫🇮 Suomi</option>
+            <option value="ro">🇷🇴 Română</option><option value="cs">🇨🇿 Čeština</option>
+            <option value="hu">🇭🇺 Magyar</option><option value="zu">🌍 isiZulu</option>
+            <option value="xh">🌍 isiXhosa</option><option value="rw">🌍 Ikinyarwanda</option>
+          </select>
+        </label>
+      </div>
+    </nav>
     <div id="benoli-covers" aria-hidden="true"><div class="covers-track"></div></div>
     <div class="drapeau" aria-hidden="true">
       <i></i><i></i><i></i>
@@ -1173,7 +1229,21 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
 
 afficherListe();
 route();
-  </script>
+  
+/* Préférence de langue — la traduction complète sera activée avec les contenus multilingues */
+(function initBenoliLanguage(){
+ const select=document.getElementById("benoli-language");
+ if(!select)return;
+ let saved="fr";
+ try{saved=localStorage.getItem("benoli-language")||"fr"}catch(_){}
+ if([...select.options].some(o=>o.value===saved))select.value=saved;
+ select.addEventListener("change",()=>{
+   try{localStorage.setItem("benoli-language",select.value)}catch(_){}
+   document.documentElement.lang=select.value;
+ });
+})();
+
+</script>
 
   <script>
 /* Installation de l'application (PWA) */
