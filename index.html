@@ -716,6 +716,56 @@ header.hero h1,header.hero .sous,header.hero .auteur{ text-shadow:0 2px 14px rgb
 }
 @media(prefers-reduced-motion:reduce){#benoli-covers .covers-track{animation:none;transform:translate(-15%,-50%)}}
 
+
+/* Accueil plus fluide : priorité aux romans et aux actions utiles */
+.accueil-bienvenue{padding:15px 0 26px}
+.accueil-hero{
+ min-height:275px;
+ padding:24px 22px 17px;
+ border-radius:21px;
+}
+.accueil-hero h2{font-size:clamp(1.9rem,7.4vw,2.75rem);max-width:11.5ch;margin-bottom:10px}
+.accueil-hero .accueil-intro{font-size:.88rem;line-height:1.55;margin-bottom:15px;max-width:36ch}
+.accueil-salut{font-size:.64rem;margin-bottom:9px}
+.accueil-hero-art{right:12px;bottom:17px;transform:scale(.88);transform-origin:bottom right;opacity:.68}
+.accueil-signature{margin-top:18px;padding-top:9px;font-size:.55rem}
+.accueil-vedette-premium{margin-top:22px}
+.accueil-rubriques{margin-top:22px}
+.accueil-section-titre{margin-bottom:10px}
+.accueil-grille{gap:9px}
+.accueil-rubrique{padding:13px 11px;border-radius:13px}
+.accueil-icone{font-size:1.45rem;margin-bottom:6px}
+.accueil-rubrique strong{font-size:.94rem;line-height:1.2}
+.accueil-rubrique small{font-size:.79rem;line-height:1.35}
+.accueil-pensee{margin-top:18px;padding:16px;border-radius:14px}
+.accueil-pensee blockquote{font-size:1.02rem;line-height:1.4}
+@media(min-width:760px){
+ .accueil-bienvenue{max-width:1040px;padding-top:18px}
+ .accueil-hero{min-height:300px;padding:28px 30px 20px}
+ .accueil-hero-art{transform:scale(.98)}
+ .accueil-grille{gap:12px}
+ .accueil-rubrique{padding:15px 13px}
+}
+@media(max-width:600px){
+ .accueil-hero{min-height:255px;padding:21px 17px 15px}
+ .accueil-hero-texte{max-width:100%}
+ .accueil-hero h2{max-width:10.5ch;font-size:clamp(1.85rem,8vw,2.35rem)}
+ .accueil-hero .accueil-intro{max-width:31ch;font-size:.83rem}
+ .accueil-hero-art{right:0;bottom:13px;transform:scale(.68);opacity:.48}
+ .accueil-signature{margin-top:15px}
+ .accueil-vedette-premium{margin-top:18px}
+ .accueil-rubriques{margin-top:19px}
+}
+@media(max-width:360px){
+ .accueil-hero{min-height:245px;padding:19px 14px 13px}
+ .accueil-hero-art{transform:scale(.56);opacity:.38}
+ .accueil-grille{gap:8px}
+ .accueil-rubrique{padding:11px 9px}
+}
+/* Conserver la lisibilité des titres sur les trois thèmes */
+html[data-benoli-theme="masculin"] .accueil-hero h2,
+html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
+
 </style>
 </head>
 <body>
