@@ -708,6 +708,117 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
     @media(prefers-reduced-motion:reduce) {
       #benoliVoile,#benoliMenu { transition:none; }
     }
+    /* Finition premium du menu — palette Benoli */
+    #benoliMenu{
+      background:
+        radial-gradient(ellipse at 100% 0%,rgba(171,130,255,.18),transparent 42%),
+        linear-gradient(155deg,#17152b 0%,#11172a 58%,#17152b 100%);
+      color:#f7f1ff;
+      border-left:1px solid rgba(204,174,255,.28);
+      box-shadow:-18px 0 50px rgba(0,0,0,.42),inset 1px 0 rgba(255,255,255,.04);
+      scrollbar-color:rgba(190,154,255,.45) transparent;
+    }
+    #benoliMenu .bm-entete{
+      padding:15px 0 18px;
+      border-bottom:1px solid rgba(190,154,255,.25);
+      position:relative;
+    }
+    #benoliMenu .bm-entete strong{
+      font-family:'Playfair Display',Georgia,serif;
+      font-size:1.55rem;
+      letter-spacing:-.025em;
+      background:linear-gradient(100deg,#fff5dc,#d9c1ff 62%,#ffd27a);
+      -webkit-background-clip:text;background-clip:text;color:transparent;
+    }
+    #benoliMenu .bm-entete p{color:#c9bfdc;font-size:.88rem}
+    #benoliMenu .bm-entete:after{
+      content:"";display:block;width:54px;height:3px;margin-top:14px;border-radius:9px;
+      background:linear-gradient(90deg,#b99aff,#ffd27a)
+    }
+    #benoliMenu .bm-lien{
+      position:relative;
+      padding:12px 13px;
+      margin:7px 0;
+      min-height:49px;
+      border:1px solid rgba(190,158,255,.18);
+      border-radius:14px;
+      background:linear-gradient(120deg,rgba(255,255,255,.065),rgba(184,154,255,.045));
+      color:#f1eaff;
+      font-family:'DM Sans',system-ui,sans-serif;
+      font-size:.91rem;
+      font-weight:650;
+      line-height:1.3;
+      box-shadow:inset 0 1px rgba(255,255,255,.035);
+      transition:transform .18s ease,border-color .18s ease,background .18s ease;
+    }
+    #benoliMenu .bm-lien:hover,#benoliMenu .bm-lien:focus-visible{
+      border-color:rgba(255,210,122,.58);
+      background:linear-gradient(110deg,rgba(184,154,255,.17),rgba(255,210,122,.09));
+    }
+    #benoliMenu .bm-lien:active{transform:scale(.985)}
+    #benoliMenu .bm-emoji{
+      width:32px;height:32px;display:grid;place-items:center;
+      border-radius:10px;
+      background:rgba(184,154,255,.13);
+      border:1px solid rgba(190,158,255,.15);
+      font-size:1.16rem;
+    }
+    #benoliMenu .bm-entete .bm-lien{
+      width:auto;min-height:38px;margin-top:14px;padding:8px 12px;
+      background:rgba(255,255,255,.055);color:#e9ddff;border-color:rgba(190,158,255,.2);
+    }
+    #benoliMenu .bm-entete .bm-lien .bm-emoji{width:26px;height:26px}
+    #benoliMenu .bm-bas{
+      color:#bfb5d2;border-top:1px solid rgba(190,158,255,.18);
+      padding-top:15px;font-size:.78rem
+    }
+    #benoliMenuBtn{
+      background:linear-gradient(120deg,#30234b,#1c2038)!important;
+      color:#fff0d0!important;border-color:rgba(255,210,122,.48)!important;
+      box-shadow:0 4px 14px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.12)!important;
+      font-family:'DM Sans',system-ui,sans-serif!important;
+    }
+    html[data-benoli-theme="masculin"] #benoliMenu{
+      background:radial-gradient(ellipse at 100% 0%,rgba(63,173,239,.2),transparent 42%),linear-gradient(155deg,#0b1e35,#0a172a 58%,#10233b);
+      border-left-color:rgba(91,183,255,.3)
+    }
+    html[data-benoli-theme="masculin"] #benoliMenu .bm-entete{border-color:rgba(91,183,255,.25)}
+    html[data-benoli-theme="masculin"] #benoliMenu .bm-entete strong{
+      background:linear-gradient(100deg,#f3fbff,#8bdcff 65%,#ffd27a);
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
+    html[data-benoli-theme="masculin"] #benoliMenu .bm-entete:after{background:linear-gradient(90deg,#45baff,#ffd27a)}
+    html[data-benoli-theme="masculin"] #benoliMenu .bm-lien{
+      background:linear-gradient(120deg,rgba(91,183,255,.11),rgba(255,255,255,.035));
+      border-color:rgba(91,183,255,.2);color:#e9f6ff
+    }
+    html[data-benoli-theme="masculin"] #benoliMenu .bm-emoji{background:rgba(65,170,235,.14);border-color:rgba(91,183,255,.2)}
+    html[data-benoli-theme="masculin"] #benoliMenuBtn{
+      background:linear-gradient(120deg,#164a72,#10233d)!important;color:#eaf8ff!important;border-color:rgba(91,183,255,.55)!important
+    }
+    html[data-benoli-theme="feminin"] #benoliMenu{
+      background:radial-gradient(ellipse at 100% 0%,rgba(255,116,193,.2),transparent 42%),linear-gradient(155deg,#32152f,#211126 58%,#351a3b);
+      border-left-color:rgba(255,139,207,.3)
+    }
+    html[data-benoli-theme="feminin"] #benoliMenu .bm-entete{border-color:rgba(255,139,207,.25)}
+    html[data-benoli-theme="feminin"] #benoliMenu .bm-entete strong{
+      background:linear-gradient(100deg,#fff4fa,#ffb0d9 65%,#ffe0a8);
+      -webkit-background-clip:text;background-clip:text;color:transparent
+    }
+    html[data-benoli-theme="feminin"] #benoliMenu .bm-entete:after{background:linear-gradient(90deg,#ff83c4,#ffe0a8)}
+    html[data-benoli-theme="feminin"] #benoliMenu .bm-lien{
+      background:linear-gradient(120deg,rgba(255,139,207,.11),rgba(255,255,255,.035));
+      border-color:rgba(255,139,207,.2);color:#fff0f8
+    }
+    html[data-benoli-theme="feminin"] #benoliMenu .bm-emoji{background:rgba(255,111,187,.14);border-color:rgba(255,139,207,.2)}
+    html[data-benoli-theme="feminin"] #benoliMenuBtn{
+      background:linear-gradient(120deg,#742653,#351a3b)!important;color:#fff0f8!important;border-color:rgba(255,139,207,.55)!important
+    }
+    @media(max-width:380px){
+      #benoliMenu{width:min(90vw,340px);padding-left:14px;padding-right:14px}
+      #benoliMenu .bm-lien{font-size:.86rem;padding:11px 10px}
+    }
+
   `;
   document.head.appendChild(style);
 
