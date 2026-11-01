@@ -121,26 +121,26 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 #navBas{
   position:fixed;left:9px;right:9px;bottom:calc(8px + env(safe-area-inset-bottom));
   z-index:25;display:flex;align-items:stretch;gap:4px;padding:6px;
-  border:1px solid rgba(225,185,103,.72);border-radius:27px;
-  background:linear-gradient(145deg,#18243a 0%,#0b1324 58%,#101a2d 100%);
-  box-shadow:0 7px 24px rgba(0,0,0,.42),0 0 0 1px rgba(255,218,145,.12) inset,0 0 18px rgba(213,169,78,.13);
+  border:1px solid rgba(190,151,255,.62);border-radius:27px;
+  background:linear-gradient(145deg,#292044 0%,#17172f 58%,#211735 100%);
+  box-shadow:0 7px 24px rgba(0,0,0,.45),0 0 0 1px rgba(255,180,126,.10) inset,0 0 18px rgba(167,123,233,.16);
   padding-bottom:6px
 }
 #navBas a{
   flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
   text-align:center;text-decoration:none;padding:8px 2px 7px;border:1px solid transparent;border-radius:21px;
-  font-size:clamp(.64rem,2.8vw,.76rem);line-height:1.12;font-weight:650;color:#c4cbd8;
+  font-size:clamp(.64rem,2.8vw,.76rem);line-height:1.12;font-weight:650;color:#d1c9df;
   transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease
 }
 #navBas a span{display:block;font-size:1.42rem;line-height:1.05;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
 #navBas a.actif{
-  color:#fff4d7;border-color:rgba(242,202,123,.8);
-  background:linear-gradient(145deg,rgba(218,174,91,.28),rgba(126,87,34,.13));
-  box-shadow:0 0 13px rgba(230,184,93,.24),inset 0 1px rgba(255,239,199,.16)
+  color:#fff2e8;border-color:rgba(255,166,107,.85);
+  background:linear-gradient(145deg,rgba(255,151,91,.28),rgba(137,93,204,.18));
+  box-shadow:0 0 13px rgba(255,151,91,.24),inset 0 1px rgba(255,239,220,.16)
 }
-#navBas a.actif span{filter:drop-shadow(0 0 7px rgba(255,207,107,.75))}
+#navBas a.actif span{filter:drop-shadow(0 0 7px rgba(255,157,99,.8))}
 #navBas a:active{transform:scale(.96)}
-#navBas a:focus-visible{outline:2px solid #f0c875;outline-offset:-3px}
+#navBas a:focus-visible{outline:2px solid #ff9b60;outline-offset:-3px}
 @media(max-width:360px){#navBas{left:5px;right:5px;gap:2px;padding:4px}#navBas a{font-size:.61rem;padding:7px 1px}#navBas a span{font-size:1.25rem}}
 .qmeta{color:var(--doux);font-size:.88rem;margin:6px 0}
 .qbar{height:6px;background:var(--trait);border-radius:99px;overflow:hidden;margin-bottom:16px}
