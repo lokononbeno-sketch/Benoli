@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="t d">
+<title id="t">Benoli Littéraire</title><desc id="d">Livre ouvert violet et or surmonté d'une plume lumineuse.</desc>
+<defs>
+ <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1a8"/><stop offset=".42" stop-color="#ff9d18"/><stop offset=".72" stop-color="#a64cff"/><stop offset="1" stop-color="#4b8dff"/></linearGradient>
+ <linearGradient id="p" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff3bd"/><stop offset=".45" stop-color="#ff9c16"/><stop offset="1" stop-color="#9b43ff"/></linearGradient>
+ <filter id="glow" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<circle cx="128" cy="128" r="112" fill="#10162b" stroke="url(#g)" stroke-width="7" filter="url(#glow)"/>
+<path d="M128 75 C151 35 190 28 207 29 C204 75 178 112 137 130 C150 99 160 76 184 52 C158 65 141 87 128 111Z" fill="url(#p)" stroke="#ffe8a0" stroke-width="3"/>
+<path d="M128 109 L151 53 M133 98 L175 62 M124 117 L145 78" fill="none" stroke="#fff0bf" stroke-width="3" stroke-linecap="round"/>
+<path d="M128 137 C101 113 67 112 43 126 L43 191 C76 176 103 183 128 204 C153 183 180 176 213 191 L213 126 C189 112 155 113 128 137Z" fill="url(#g)" stroke="#ffe7a0" stroke-width="5" stroke-linejoin="round"/>
+<path d="M128 137 L128 204 M57 139 C81 131 103 139 119 151 M199 139 C175 131 153 139 137 151" fill="none" stroke="#fff7d8" stroke-width="4" stroke-linecap="round"/>
+<path d="M128 133 L128 203" stroke="#6e39a8" stroke-width="3"/>
+<path d="M34 93 L40 82 L46 93 L57 99 L46 105 L40 116 L34 105 L23 99Z M211 103 L216 94 L221 103 L230 108 L221 113 L216 122 L211 113 L202 108Z" fill="#ffd15c" filter="url(#glow)"/>
+</svg>
