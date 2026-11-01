@@ -532,6 +532,25 @@ header.hero h1,header.hero .sous,header.hero .auteur,.drapeau{position:relative;
 }
 @media(max-width:370px){.benoli-auth{font-size:.66rem;padding:7px}.benoli-brand span{font-size:1rem}.benoli-brand img{width:39px;height:39px}}
 
+
+/* Centre d'aide — guide des nouveaux lecteurs */
+.aide-benoli{max-width:1040px;margin:42px auto 34px;padding:clamp(20px,4vw,34px);border:1px solid rgba(183,145,255,.25);border-radius:24px;background:linear-gradient(145deg,rgba(31,27,61,.94),rgba(15,22,43,.96));box-shadow:0 18px 48px rgba(0,0,0,.2)}
+.aide-entete{text-align:center;margin:0 auto 22px;max-width:680px}
+.aide-entete .aide-surtitre{color:#ffc16b;font-size:.76rem;font-weight:850;letter-spacing:.16em;text-transform:uppercase}
+.aide-entete h2{margin:8px 0;color:#fff;font-size:clamp(1.55rem,4vw,2.25rem)}
+.aide-entete p{color:#d0cadd;line-height:1.65;margin:0}
+.aide-liste{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.aide-item{border:1px solid rgba(198,169,255,.2);border-radius:15px;background:rgba(255,255,255,.035);overflow:hidden}
+.aide-item summary{cursor:pointer;list-style:none;padding:16px 44px 16px 16px;color:#fff;font-weight:800;position:relative}
+.aide-item summary::-webkit-details-marker{display:none}
+.aide-item summary:after{content:"＋";position:absolute;right:16px;top:13px;color:#ffc16b;font-size:1.2rem}
+.aide-item[open] summary:after{content:"−"}
+.aide-reponse{padding:0 16px 16px;color:#d8d2e3;line-height:1.65;font-size:.94rem}
+.aide-reponse a{color:#ffc078}
+.aide-bas{margin:20px 0 0;text-align:center;color:#d8d2e3}
+.aide-bas a{display:inline-flex;margin:10px 5px 0;padding:10px 16px;border-radius:999px;background:linear-gradient(120deg,#ffcf69,#ff8e32);color:#25172b;text-decoration:none;font-weight:850}
+@media(max-width:650px){.aide-liste{grid-template-columns:1fr}.aide-benoli{margin:30px 12px;padding:19px}}
+
 </style>
 </head>
 <body>
@@ -642,6 +661,26 @@ header.hero h1,header.hero .sous,header.hero .auteur,.drapeau{position:relative;
 </main>
 
 <div class="wrap"><div class="partage" id="partageAccueil"></div></div>
+
+
+<section class="aide-benoli wrap" id="besoin-aide" aria-labelledby="aide-titre">
+  <div class="aide-entete">
+    <span class="aide-surtitre">BENOLI VOUS ACCOMPAGNE</span>
+    <h2 class="serif" id="aide-titre">Besoin d'aide ?</h2>
+    <p>Tout savoir avant de commencer : voici les réponses aux questions les plus fréquentes pour profiter pleinement de Benoli Littéraire.</p>
+  </div>
+  <div class="aide-liste">
+    <details class="aide-item"><summary>Comment fonctionne l'application ?</summary><div class="aide-reponse">Explore le catalogue, ouvre la fiche d'un roman pour lire son résumé et découvrir les informations disponibles. Tu peux ensuite accéder aux extraits ou aux options d'achat proposées sur la fiche. Les rubriques du menu te permettent aussi de retrouver les nouveautés, ton espace et les autres contenus de l'univers Benoli.</div></details>
+    <details class="aide-item"><summary>Pourquoi créer un compte ?</summary><div class="aide-reponse">Ton compte te permet de disposer d'un espace personnel et de retrouver plus facilement les fonctionnalités réservées aux lecteurs inscrits. Utilise une adresse ou des informations auxquelles tu as accès et conserve tes identifiants en lieu sûr.</div></details>
+    <details class="aide-item"><summary>Comment lire un roman ?</summary><div class="aide-reponse">Choisis un titre dans le catalogue, puis ouvre sa fiche. Tu y trouveras son résumé et, lorsque disponible, un extrait ou un accès à la lecture. Certains contenus peuvent être gratuits et d'autres payants : vérifie les indications affichées sur chaque fiche.</div></details>
+    <details class="aide-item"><summary>Comment fonctionnent les paiements ?</summary><div class="aide-reponse">Le prix et les instructions de paiement doivent être consultés sur la fiche du roman ou sur la page d'achat indiquée. Suis uniquement les instructions officielles affichées. Ne communique jamais ton code PIN Mobile Money, ton mot de passe ni un code de validation à une autre personne.</div></details>
+    <details class="aide-item"><summary>Comment retrouver mon compte ?</summary><div class="aide-reponse">Ouvre la rubrique Profil ou Mon espace et utilise les options proposées pour te connecter. Si tu rencontres un problème d'accès, contacte l'équipe Benoli via le lien WhatsApp disponible sur l'application.</div></details>
+    <details class="aide-item"><summary>Que faire si mon paiement ou ma lecture pose problème ?</summary><div class="aide-reponse">Vérifie d'abord les informations affichées sur la fiche du roman. Si le problème persiste, contacte Benoli sur WhatsApp en expliquant le souci. Ne transmets jamais ton code secret ou ton code de confirmation.</div></details>
+    <details class="aide-item"><summary>L'application fonctionne-t-elle sur téléphone ?</summary><div class="aide-reponse">Oui, l'interface est conçue pour s'adapter aux écrans de téléphone, de tablette et d'ordinateur. Tu peux également utiliser les fonctions d'installation proposées par ton navigateur lorsque celles-ci sont disponibles.</div></details>
+    <details class="aide-item"><summary>Comment suivre les actualités de Benoli ?</summary><div class="aide-reponse">Retrouve les liens de la communauté et les annonces directement dans l'application. La page Facebook officielle sera ajoutée ici dès que tu auras créé ta page et transmis son adresse.</div></details>
+  </div>
+  <div class="aide-bas">Une autre question ? <a href="#/a-propos">Découvrir Benoli</a></div>
+</section>
 
 <footer><div class="wrap">
   <div class="liens"><a href="#/a-propos">À propos de l'auteur</a><a href="#/mentions">Mentions légales</a><a href="#/conditions">Conditions d'achat</a></div>
