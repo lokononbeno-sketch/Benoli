@@ -563,8 +563,8 @@ header.hero h1,header.hero .sous,header.hero .auteur,.drapeau{position:relative;
         <span>Benoli<br>Littéraire</span>
       </a>
       <div class="benoli-actions">
-        <a class="benoli-auth" href="#/profil">Connexion</a>
-        <a class="benoli-auth inscription" href="#/profil">Inscription</a>
+        <a class="benoli-auth" href="#/profil?mode=login">Connexion</a>
+        <a class="benoli-auth inscription" href="#/profil?mode=signup">Inscription</a>
         <label class="benoli-lang" aria-label="Choisir la langue">
           <select id="benoli-language" aria-label="Langue de l'application">
             <option value="fr">🇫🇷 Français</option><option value="en">🇬🇧 English</option>
@@ -1032,7 +1032,7 @@ function route() {
     return;
   }
 
-  const id = decodeURIComponent(m[1]);
+  const id = decodeURIComponent(m[1].split("?")[0]);
 
   if (id === "communaute") { fermerFiche(); document.body.classList.remove("fige"); return; }
 
