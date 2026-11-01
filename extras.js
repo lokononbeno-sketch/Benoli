@@ -115,14 +115,33 @@
   /* --- Style --- */
   const st = document.createElement("style");
   st.textContent = `
-body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
-#fiche{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
-#aBtn{bottom:calc(82px + env(safe-area-inset-bottom))}
-#navBas{position:fixed;left:0;right:0;bottom:0;z-index:25;display:flex;background:var(--carte);border-top:1px solid var(--trait);padding-bottom:env(safe-area-inset-bottom)}
-#navBas a{flex:1;text-align:center;text-decoration:none;padding:8px 4px 9px;font-size:.78rem;font-weight:600;color:var(--doux)}
-#navBas a span{display:block;font-size:1.35rem;line-height:1.1}
-#navBas a.actif{color:var(--vert)}
-#navBas a:focus-visible{outline:3px solid var(--or);outline-offset:-3px}
+body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+#fiche{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
+#aBtn{bottom:calc(108px + env(safe-area-inset-bottom))}
+#navBas{
+  position:fixed;left:9px;right:9px;bottom:calc(8px + env(safe-area-inset-bottom));
+  z-index:25;display:flex;align-items:stretch;gap:4px;padding:6px;
+  border:1px solid rgba(225,185,103,.72);border-radius:27px;
+  background:linear-gradient(145deg,#18243a 0%,#0b1324 58%,#101a2d 100%);
+  box-shadow:0 7px 24px rgba(0,0,0,.42),0 0 0 1px rgba(255,218,145,.12) inset,0 0 18px rgba(213,169,78,.13);
+  padding-bottom:6px
+}
+#navBas a{
+  flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+  text-align:center;text-decoration:none;padding:8px 2px 7px;border:1px solid transparent;border-radius:21px;
+  font-size:clamp(.64rem,2.8vw,.76rem);line-height:1.12;font-weight:650;color:#c4cbd8;
+  transition:background .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease
+}
+#navBas a span{display:block;font-size:1.42rem;line-height:1.05;filter:drop-shadow(0 2px 4px rgba(0,0,0,.35))}
+#navBas a.actif{
+  color:#fff4d7;border-color:rgba(242,202,123,.8);
+  background:linear-gradient(145deg,rgba(218,174,91,.28),rgba(126,87,34,.13));
+  box-shadow:0 0 13px rgba(230,184,93,.24),inset 0 1px rgba(255,239,199,.16)
+}
+#navBas a.actif span{filter:drop-shadow(0 0 7px rgba(255,207,107,.75))}
+#navBas a:active{transform:scale(.96)}
+#navBas a:focus-visible{outline:2px solid #f0c875;outline-offset:-3px}
+@media(max-width:360px){#navBas{left:5px;right:5px;gap:2px;padding:4px}#navBas a{font-size:.61rem;padding:7px 1px}#navBas a span{font-size:1.25rem}}
 .qmeta{color:var(--doux);font-size:.88rem;margin:6px 0}
 .qbar{height:6px;background:var(--trait);border-radius:99px;overflow:hidden;margin-bottom:16px}
 .qbar i{display:block;height:100%;background:var(--or)}
@@ -155,7 +174,7 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
   const nav = document.createElement("nav");
   nav.id = "navBas";
   nav.setAttribute("aria-label", "Sections");
-  nav.innerHTML = `<a href="#" data-n="romans"><span>📚</span>Romans</a><a href="#/quiz" data-n="quiz"><span>❓</span>Quiz</a><a href="#/sagesse" data-n="sagesse"><span>💡</span>Pensées</a>`;
+  nav.innerHTML = `<a href="#" data-n="romans"><span>📖</span>Romans</a><a href="#/quiz" data-n="quiz"><span>🏆</span>Quiz</a><a href="#/sagesse" data-n="sagesse"><span>✨</span>Pensées</a>`;
   document.body.appendChild(nav);
   function majNav() {
     const h = location.hash, k = h === "#/quiz" ? "quiz" : h === "#/sagesse" ? "sagesse" : "romans";
@@ -489,7 +508,7 @@ body{padding-bottom:calc(68px + env(safe-area-inset-bottom))}
 
   /* Onglet « Réglages » dans la barre du bas */
   const nav = document.getElementById("navBas");
-  if (nav) nav.insertAdjacentHTML("beforeend", '<a href="#/reglages" data-n="reglages"><span>⚙️</span>Réglages</a>');
+  if (nav) nav.insertAdjacentHTML("beforeend", '<a href="#/reglages" data-n="reglages"><span>⚙</span>Réglages</a>');
   const majNav = () => {
     if (!nav || location.hash !== "#/reglages") return;
     nav.querySelectorAll("a").forEach(a => a.classList.toggle("actif", a.dataset.n === "reglages"));
