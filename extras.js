@@ -570,19 +570,24 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
   style.id = "benoli-menu-perso-style";
   style.textContent = `
     #benoliMenuBtn {
-      position:fixed;
-      top:calc(env(safe-area-inset-top) + 12px);
-      right:14px;
-      z-index:28;
-      border:1px solid var(--trait);
-      border-radius:14px;
-      padding:10px 13px;
-      background:var(--carte);
-      color:var(--encre);
-      font:inherit;
-      font-weight:700;
-      box-shadow:0 3px 12px rgba(0,0,0,.12);
+      position:relative;
+      top:auto;
+      right:auto;
+      z-index:6;
+      flex:none;
+      border:1px solid rgba(220,190,255,.4);
+      border-radius:999px;
+      padding:9px 12px;
+      margin:0;
+      background:rgba(27,28,56,.85);
+      color:#fff2c4;
+      font:700 .83rem system-ui,sans-serif;
+      box-shadow:0 3px 12px rgba(0,0,0,.18);
       cursor:pointer;
+      white-space:nowrap;
+    }
+    @media(max-width:600px){
+      #benoliMenuBtn{padding:7px 9px;font-size:.72rem}
     }
     #benoliVoile {
       position:fixed;
@@ -883,7 +888,10 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 
   document.body.appendChild(voile);
   document.body.appendChild(menu);
-  document.body.appendChild(bouton);
+  const actionsTop = document.querySelector(".benoli-actions");
+  const langueTop = actionsTop && actionsTop.querySelector(".benoli-lang");
+  if (actionsTop) actionsTop.insertBefore(bouton, langueTop || null);
+  else document.body.appendChild(bouton);
 
   /* Installation PWA depuis le menu */
   let invitationInstallation = null;
