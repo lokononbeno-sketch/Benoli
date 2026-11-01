@@ -34,7 +34,7 @@
    if(session){
     const u=session.user;let {data:p,error:pe}=await sb.from("reader_profiles").select("pseudonym,phone,gender").eq("id",u.id).maybeSingle();
     if(pe)throw pe;
-    if(!p){const pseudo=u.user_metadata?.pseudonym||u.email?.split("@")[0]||"Lecteur";const ins=await sb.from("reader_profiles").upsert({id:u.id,pseudonym:pseudo,phone:u.user_metadata?.phone||null,gender:u.user_metadata?.gender||null},{onConflict:"id"}).select("pseudonym,phone").single();if(ins.error)throw ins.error;p=ins.data}
+    if(!p){const pseudo=u.user_metadata?.pseudonym||u.email?.split("@")[0]||"Lecteur";const ins=await sb.from("reader_profiles").upsert({id:u.id,pseudonym:pseudo,phone:u.user_metadata?.phone||null,gender:u.user_metadata?.gender||null},{onConflict:"id"}).select("pseudonym,phone,gender").single();if(ins.error)throw ins.error;p=ins.data}
     target.innerHTML=profileHtml(u,p);
    }else target.innerHTML=authHtml();
   }catch(e){const el=document.getElementById("bp-status");if(el){el.className="bp-status error";el.textContent="Impossible de charger ton espace : "+(e.message||"erreur inconnue")+". Réessaie dans un instant."}}
