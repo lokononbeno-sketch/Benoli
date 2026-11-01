@@ -366,6 +366,115 @@ footer{border-color:rgba(218,181,104,.25);color:#aeb6c7}
 footer a{color:#e7c27c}
 @media(max-width:420px){.accueil-vedette-premium{padding:17px}.accueil-vedette-premium h3{font-size:1.75rem}}
 
+
+/* ===== Nouvelle direction artistique inspirée de la référence ===== */
+:root{
+  --papier:#0c1020;--carte:#171b32;--encre:#f7f3ee;--doux:#b8b7c8;
+  --trait:rgba(177,139,255,.24);--vert:#ff8a45;--or:#ffad63;--sur-vert:#171226;
+}
+body{
+  background:radial-gradient(ellipse at 50% -18%,#39265f 0%,#17172f 36%,#0a0e1c 78%);
+  color:var(--encre);
+}
+header.hero{
+  padding:30px 0 24px;
+  background:linear-gradient(120deg,#100f25 0%,#21163d 58%,#351b43 100%);
+  border-bottom:1px solid rgba(255,151,91,.32);
+}
+header.hero:after{
+  border-color:rgba(255,145,82,.38);
+  box-shadow:0 0 0 22px rgba(255,145,82,.055),0 0 0 48px rgba(177,139,255,.045);
+}
+header.hero h1{
+  background:linear-gradient(110deg,#fff4e8 8%,#ffb16f 52%,#d7b7ff 95%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 10px 34px rgba(255,139,69,.14);
+}
+header.hero .sous{color:#d8cfe9}
+header.hero .auteur{
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(190,160,255,.24);
+  border-left:3px solid #ff9857;
+  box-shadow:0 12px 28px rgba(0,0,0,.2);
+}
+header.hero .auteur small{color:#ffb27c}
+.accueil-hero{
+  min-height:340px;
+  background:
+    radial-gradient(circle at 86% 26%,rgba(255,132,73,.22),transparent 26%),
+    radial-gradient(circle at 80% 80%,rgba(155,111,236,.2),transparent 32%),
+    linear-gradient(125deg,#21183e 0%,#292047 56%,#17172f 100%);
+  border:1px solid rgba(188,151,255,.38);
+  box-shadow:0 22px 52px rgba(0,0,0,.38);
+}
+.accueil-hero:before{border-color:rgba(255,157,99,.42)}
+.accueil-salut{color:#ffad73}
+.accueil-hero h2{color:#fff8f2}
+.accueil-hero h2 em{color:#ff9b60}
+.accueil-hero .accueil-intro{color:#ddd6eb}
+.accueil-bouton{
+  background:linear-gradient(120deg,#ffb16f,#ff7c45);
+  color:#24152a;border:1px solid #ffd0a5;
+  box-shadow:0 7px 22px rgba(255,126,69,.25);
+}
+.accueil-lien{color:#e6d7ff}
+.accueil-livre{background:linear-gradient(145deg,#ffc078,#a75c54);color:#24172e}
+.accueil-orbite{border-color:rgba(255,174,116,.55)}
+.accueil-signature{border-color:rgba(194,162,255,.28);color:#d8d1e8}
+.accueil-signature span{color:#ff9b60}
+.accueil-rubrique{
+  background:linear-gradient(145deg,#1c203a,#17182d);
+  border-color:rgba(183,151,255,.25);color:#f8f2ec;
+  box-shadow:0 10px 26px rgba(0,0,0,.2);
+}
+.accueil-rubrique:hover{border-color:#ff9b60;box-shadow:0 12px 30px rgba(0,0,0,.34)}
+.accueil-icone,.accueil-fleche{color:#ff9b60}
+.accueil-rubrique small{color:#c2bfd0}
+.accueil-pensee{
+  background:linear-gradient(120deg,#30234a,#442640);
+  color:#fff3e9;border:1px solid rgba(255,157,99,.3);
+  box-shadow:0 12px 28px rgba(0,0,0,.2);
+}
+.accueil-pensee-symbole{color:#ff9b60}
+.accueil-pensee small{color:#ffc08f}
+.accueil-pensee a{color:#ffd2b4}
+.recherche{background:rgba(12,16,32,.94);backdrop-filter:blur(12px)}
+.recherche input{background:#191b34;color:#fff4ec;border-color:rgba(180,145,255,.32)}
+.recherche input:focus{outline-color:#ff9b60}
+.livre h3{color:#fff4ec}
+.livre p{color:#c2bfd0}
+.cv{box-shadow:inset 6px 0 0 rgba(255,255,255,.14),0 10px 24px rgba(0,0,0,.42)}
+#fiche{background:#0c1020}
+.retour,.extrait,.partage{background:#171b32;color:#f7f3ee;border-color:rgba(177,139,255,.25)}
+.bloc p,.page p{color:#e2ddec}
+.btn{background:linear-gradient(120deg,#ffb16f,#ff7c45);border-color:#ff9a60;color:#21142b}
+.btn.sec{background:transparent;color:#ffb27c;border-color:#b28bea}
+.pbtn{border-color:#ff9b60;color:#ffb27c}
+footer{border-color:rgba(177,139,255,.24);color:#b8b7c8}
+footer a{color:#ffad73}
+#aBtn{background:linear-gradient(120deg,#ffb16f,#ff7c45);color:#24152a}
+#assistant{background:#11152a;color:#f7f3ee}
+.aHaut{border-color:rgba(177,139,255,.24)}
+.m.bot{background:#1b203a;border-color:rgba(177,139,255,.2)}
+.m.moi,#aForm button{background:#8c5bd6;color:#fff}
+.chip{border-color:#a77be9;color:#e5d3ff}
+@media(min-width:760px){
+ .accueil-bienvenue{max-width:1040px}
+ .accueil-hero{min-height:390px;padding:42px 42px 26px}
+ .accueil-hero-art{right:8%;transform:scale(1.18)}
+ .accueil-grille{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .wrap{max-width:1040px}
+}
+@media(max-width:420px){
+ .accueil-hero{min-height:355px;padding:25px 18px 18px}
+ .accueil-hero-art{opacity:.38}
+ .accueil-hero .accueil-intro{max-width:31ch}
+}
+@media(prefers-reduced-motion:no-preference){
+ .accueil-rubrique,.accueil-bouton,.btn{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+ .accueil-bouton:active,.btn:active{transform:translateY(1px) scale(.98)}
+}
+
 </style>
 </head>
 <body>
