@@ -551,6 +551,114 @@ header.hero h1,header.hero .sous,header.hero .auteur,.drapeau{position:relative;
 .aide-bas a{display:inline-flex;margin:10px 5px 0;padding:10px 16px;border-radius:999px;background:linear-gradient(120deg,#ffcf69,#ff8e32);color:#25172b;text-decoration:none;font-weight:850}
 @media(max-width:650px){.aide-liste{grid-template-columns:1fr}.aide-benoli{margin:30px 12px;padding:19px}}
 
+
+/* ===== Nouvelle signature lumineuse : Benoli Littéraire ===== */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap');
+:root{
+ --papier:#090b19;
+ --carte:#15172b;
+ --encre:#f8f4ff;
+ --doux:#c1bdd2;
+ --trait:rgba(190,158,255,.24);
+ --vert:#b89aff;
+ --or:#ffd27a;
+ --sur-vert:#171126;
+}
+html{scroll-behavior:smooth}
+body{
+ font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+ background:
+  radial-gradient(ellipse at 12% 0%,rgba(119,76,190,.18),transparent 34%),
+  radial-gradient(ellipse at 92% 16%,rgba(239,158,110,.10),transparent 30%),
+  linear-gradient(145deg,#090b19,#101127 55%,#0a1020);
+ color:var(--encre);
+}
+h1,h2,h3,.serif,.accueil-hero h2,.accueil-rubrique strong{
+ font-family:'Playfair Display',Georgia,serif;
+}
+h1{
+ background:linear-gradient(105deg,#fff9e9 0%,#f4d7ff 38%,#c7a8ff 72%,#ffe0a1 100%);
+ -webkit-background-clip:text;background-clip:text;color:transparent;
+ text-shadow:0 8px 32px rgba(173,128,255,.14);
+ letter-spacing:-.035em;
+}
+header.hero{
+ background:
+  radial-gradient(ellipse at 82% 8%,rgba(164,112,255,.24),transparent 42%),
+  linear-gradient(125deg,#11132b 0%,#21183d 55%,#151a35 100%);
+ border-bottom:1px solid rgba(220,190,255,.22);
+}
+header.hero:after{border-color:rgba(255,210,122,.32);box-shadow:0 0 0 22px rgba(255,210,122,.05),0 0 0 48px rgba(180,145,255,.04)}
+header.hero .sous{color:#ded8ef}
+header.hero .auteur{background:rgba(255,255,255,.075);border:1px solid rgba(222,205,255,.19);border-left:3px solid #ffd27a;backdrop-filter:blur(10px)}
+header.hero .auteur small{color:#f4d18d}
+.drapeau i:nth-child(1){background:#b89aff}.drapeau i:nth-child(2){background:#ffd27a}.drapeau i:nth-child(3){background:#f09b87}
+.recherche{background:rgba(9,11,25,.88);backdrop-filter:blur(14px)}
+.recherche input,#aForm input,.bp input,.bp textarea{
+ border-color:rgba(190,158,255,.28);background:#11152a;color:var(--encre);
+}
+.recherche input:focus,#aForm input:focus,.bp input:focus{outline:3px solid rgba(184,154,255,.3);border-color:#b89aff}
+.cv{box-shadow:inset 6px 0 0 rgba(255,255,255,.14),0 9px 22px rgba(0,0,0,.32)}
+.livre h3,.page h2,.bloc h3{color:#f4eaff}
+.btn,.accueil-bouton,#aForm button{
+ background:linear-gradient(110deg,#b99aff,#e5c5ff 58%,#ffd27a);
+ color:#1a1530;border:1px solid rgba(255,232,190,.65);
+ box-shadow:0 7px 20px rgba(142,103,220,.22);
+}
+.btn.sec,.pbtn,.chip{
+ background:rgba(184,154,255,.07);color:#d9c6ff;border-color:rgba(190,158,255,.5)
+}
+.btn.off{color:#d1c9df;border-color:rgba(190,158,255,.32)}
+.pbtn:hover,.chip:hover{background:rgba(184,154,255,.16)}
+.partage,.extrait,.accueil-vedette,.accueil-rubrique{
+ background:linear-gradient(145deg,rgba(25,27,51,.98),rgba(17,21,42,.98));
+ border-color:rgba(190,158,255,.22);
+ box-shadow:0 10px 28px rgba(0,0,0,.18);
+}
+.accueil-hero{
+ background:
+  radial-gradient(circle at 85% 18%,rgba(255,210,122,.16),transparent 30%),
+  linear-gradient(125deg,#21183d 0%,#30204c 48%,#182344 100%);
+ border:1px solid rgba(220,190,255,.18);
+ box-shadow:0 20px 48px rgba(4,5,18,.4),inset 0 1px rgba(255,255,255,.08);
+}
+.accueil-hero:before{border-color:rgba(255,210,122,.42);box-shadow:0 0 0 18px rgba(255,210,122,.055),0 0 0 42px rgba(184,154,255,.045),0 0 0 68px rgba(184,154,255,.03)}
+.accueil-salut,.accueil-etiquette{color:#e5c8ff}
+.accueil-hero h2 em{color:#ffd27a}
+.accueil-hero .accueil-intro{color:#e1d9f0}
+.accueil-bouton{background:linear-gradient(110deg,#ffd27a,#f3c9ff);color:#211631}
+.accueil-lien{color:#ffe2b2}
+.accueil-signature{border-color:rgba(255,210,122,.25);color:#d9d1e8}
+.accueil-signature span,.accueil-icone,.accueil-fleche{color:#ffd27a}
+.accueil-rubrique:hover{border-color:#c7a8ff;box-shadow:0 12px 28px rgba(118,82,190,.18)}
+.accueil-pensee{background:linear-gradient(120deg,#30234a,#202747);color:#fff4df;border-color:rgba(255,210,122,.28)}
+.accueil-pensee small,.accueil-pensee-symbole{color:#ffd27a}
+.accueil-pensee a{color:#f5d9ff}
+#fiche{background:linear-gradient(145deg,#0b0d1d,#11152a)}
+.retour,.etiq{background:#171a30;border-color:rgba(190,158,255,.28);color:#e6d8ff}
+#aBtn{background:linear-gradient(110deg,#ffd27a,#e8c1ff);color:#241831;box-shadow:0 8px 24px rgba(0,0,0,.38)}
+#assistant{background:#101428;border:1px solid rgba(190,158,255,.24)}
+.aHaut{border-color:rgba(190,158,255,.2)}
+.m.bot{background:#1a1e37;border-color:rgba(190,158,255,.2)}
+.m.moi{background:linear-gradient(110deg,#7657b6,#9a78d2);color:white}
+.m a{color:#e2c5ff}
+footer{border-color:rgba(190,158,255,.2)}
+footer a{color:#d8bdff}
+/* Barre de navigation et éléments injectés par les autres modules */
+#benoliMenuBtn,.benoli-menu-btn{border-color:rgba(190,158,255,.38)!important;background:linear-gradient(120deg,#201a39,#171a31)!important;color:#f4e7ff!important}
+.bp{color:var(--encre)}
+.bp h2{color:#f1dcff}
+.bp a,.bp-reset{color:#d8bdff}
+.bp-links a{background:#191d36;border:1px solid rgba(190,158,255,.22);border-radius:12px;padding:10px}
+input,textarea,select{accent-color:#b89aff}
+:focus-visible{outline-color:#ffd27a}
+::selection{background:#9e7bd8;color:white}
+@media(prefers-reduced-motion:no-preference){
+ .btn,.accueil-bouton,.accueil-rubrique,.pbtn{transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
+ .btn:hover,.accueil-bouton:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(160,125,230,.3)}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 </style>
 </head>
 <body>
