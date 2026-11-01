@@ -659,6 +659,35 @@ input,textarea,select{accent-color:#b89aff}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
+
+/* Thème lecteur personnalisé selon le choix fait à l'inscription */
+html[data-benoli-theme="masculin"]{
+ --papier:#071426;--carte:#10233d;--encre:#f0f7ff;--doux:#b9cde2;
+ --trait:rgba(91,183,255,.30);--vert:#69caff;--or:#ffd27a;--sur-vert:#071a2e;
+}
+html[data-benoli-theme="masculin"] body{background:radial-gradient(ellipse at 10% 0%,rgba(27,137,225,.22),transparent 38%),radial-gradient(ellipse at 90% 15%,rgba(60,190,255,.12),transparent 32%),linear-gradient(145deg,#071426,#0d1e36 55%,#081a2c)}
+html[data-benoli-theme="masculin"] header.hero{background:radial-gradient(ellipse at 82% 8%,rgba(50,177,255,.26),transparent 42%),linear-gradient(125deg,#071a32,#103a64 55%,#102a49)}
+html[data-benoli-theme="masculin"] .accueil-hero{background:radial-gradient(circle at 85% 18%,rgba(99,205,255,.18),transparent 30%),linear-gradient(125deg,#0b2850,#124b79 52%,#142d52)}
+html[data-benoli-theme="masculin"] .accueil-pensee{background:linear-gradient(120deg,#153b61,#172c4c);border-color:rgba(91,183,255,.35)}
+html[data-benoli-theme="masculin"] .partage,html[data-benoli-theme="masculin"] .extrait,html[data-benoli-theme="masculin"] .accueil-vedette,html[data-benoli-theme="masculin"] .accueil-rubrique{background:linear-gradient(145deg,#102743,#0c1d35);border-color:rgba(91,183,255,.26)}
+html[data-benoli-theme="masculin"] .btn,html[data-benoli-theme="masculin"] .accueil-bouton,html[data-benoli-theme="masculin"] #aForm button{background:linear-gradient(110deg,#168bd4,#67d5ff 60%,#d8f4ff);color:#061a2d;border-color:rgba(210,245,255,.65)}
+html[data-benoli-theme="masculin"] .btn.sec,html[data-benoli-theme="masculin"] .pbtn,html[data-benoli-theme="masculin"] .chip{background:rgba(57,160,225,.10);color:#bceaff;border-color:rgba(91,183,255,.48)}
+html[data-benoli-theme="masculin"] #assistant,html[data-benoli-theme="masculin"] #fiche{background:#09182b;border-color:rgba(91,183,255,.3)}
+html[data-benoli-theme="masculin"] .m.bot{background:#132a46;border-color:rgba(91,183,255,.22)}
+html[data-benoli-theme="feminin"]{
+ --papier:#1b0c1d;--carte:#30152f;--encre:#fff3fb;--doux:#e2c3d9;
+ --trait:rgba(255,139,207,.30);--vert:#ff9bd2;--or:#ffd0e8;--sur-vert:#260e25;
+}
+html[data-benoli-theme="feminin"] body{background:radial-gradient(ellipse at 10% 0%,rgba(236,67,163,.22),transparent 38%),radial-gradient(ellipse at 90% 15%,rgba(255,150,210,.13),transparent 32%),linear-gradient(145deg,#180b1b,#2b102c 55%,#1d1027)}
+html[data-benoli-theme="feminin"] header.hero{background:radial-gradient(ellipse at 82% 8%,rgba(255,120,199,.24),transparent 42%),linear-gradient(125deg,#32102f,#60214e 55%,#351a42)}
+html[data-benoli-theme="feminin"] .accueil-hero{background:radial-gradient(circle at 85% 18%,rgba(255,190,225,.18),transparent 30%),linear-gradient(125deg,#4b1744,#79265e 52%,#41204f)}
+html[data-benoli-theme="feminin"] .accueil-pensee{background:linear-gradient(120deg,#60264f,#392044);border-color:rgba(255,139,207,.35)}
+html[data-benoli-theme="feminin"] .partage,html[data-benoli-theme="feminin"] .extrait,html[data-benoli-theme="feminin"] .accueil-vedette,html[data-benoli-theme="feminin"] .accueil-rubrique{background:linear-gradient(145deg,#351936,#24152d);border-color:rgba(255,139,207,.27)}
+html[data-benoli-theme="feminin"] .btn,html[data-benoli-theme="feminin"] .accueil-bouton,html[data-benoli-theme="feminin"] #aForm button{background:linear-gradient(110deg,#d93691,#ff9bd2 60%,#ffe0f0);color:#35102e;border-color:rgba(255,220,240,.65)}
+html[data-benoli-theme="feminin"] .btn.sec,html[data-benoli-theme="feminin"] .pbtn,html[data-benoli-theme="feminin"] .chip{background:rgba(235,83,168,.10);color:#ffd0e8;border-color:rgba(255,139,207,.48)}
+html[data-benoli-theme="feminin"] #assistant,html[data-benoli-theme="feminin"] #fiche{background:#1d1027;border-color:rgba(255,139,207,.3)}
+html[data-benoli-theme="feminin"] .m.bot{background:#351936;border-color:rgba(255,139,207,.22)}
+
 </style>
 </head>
 <body>
