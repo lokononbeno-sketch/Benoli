@@ -1407,21 +1407,23 @@ const PAGES = {
       </article>
     </div>
     <p class="lyrics-bas">🎧 Installe-toi confortablement et laisse la musique prolonger la lecture.</p>
-    <script>
-    (function(){
-      document.querySelectorAll('.lyrics-carte').forEach(function(carte){
-        var audio=carte.querySelector('audio'), label=carte.querySelector('.lyrics-duree');
-        function afficher(){if(Number.isFinite(audio.duration)){var s=Math.floor(audio.duration),m=Math.floor(s/60),r=s%60;label.textContent='Durée : '+m+':'+String(r).padStart(2,'0');}}
-        audio.addEventListener('loadedmetadata',afficher);audio.addEventListener('durationchange',afficher);
-        if(audio.readyState>=1)afficher();
-      });
-    })();
-    <\/script>`,
+  `,
   "mentions": () => `<h2 class="serif">Mentions légales</h2>` + sections(MENTIONS),
   "conditions": () => `<h2 class="serif">Conditions d'utilisation et d'achat</h2>` + sections(CONDITIONS)
 };
 function afficherPage(id) {
   $("#ficheContenu").innerHTML = `<a class="retour" href="#">← Catalogue</a><div class="page">${PAGES[id]()}</div><div style="height:40px"></div>`;
+  $("#ficheContenu").querySelectorAll(".lyrics-carte").forEach(carte => {
+    const audio = carte.querySelector("audio"), label = carte.querySelector(".lyrics-duree");
+    const afficherDuree = () => {
+      if (!Number.isFinite(audio.duration)) return;
+      const total = Math.floor(audio.duration), minutes = Math.floor(total / 60), secondes = total % 60;
+      label.textContent = "Durée : " + minutes + ":" + String(secondes).padStart(2, "0");
+    };
+    audio.addEventListener("loadedmetadata", afficherDuree);
+    audio.addEventListener("durationchange", afficherDuree);
+    if (audio.readyState >= 1) afficherDuree();
+  });
   $("#fiche").classList.add("ouverte");
   $("#fiche").scrollTop = 0;
   document.body.classList.add("fige");
