@@ -153,7 +153,7 @@
       if (!session) { target.innerHTML = authHtml(); return; }
       const user = session.user;
       const [{ data: pub, error: pubError }, { data: priv, error: privError }] = await Promise.all([
-        sb.from("reader_profiles").select("pseudonym,phone,gender").eq("id", user.id).maybeSingle(),
+        sb.from("reader_profiles").select("pseudonym,gender").eq("id", user.id).maybeSingle(),
         sb.from("reader_private_profiles").select("first_name,last_name,whatsapp,facebook_url,residence,avatar_path").eq("id", user.id).maybeSingle()
       ]);
       if (pubError) throw pubError;
@@ -166,7 +166,7 @@
         esc(pub?.pseudonym || user.user_metadata?.pseudonym || "lecteur") + ' !</h2>' +
         '<div class="bp-profile-card">' + (avatarUrl ? '<img class="bp-avatar" src="' + esc(avatarUrl) + '" alt="Photo de profil">' : '') +
         '<p><b>Nom :</b> ' + esc(priv?.last_name || "Non renseigné") + '</p><p><b>Prénom :</b> ' + esc(priv?.first_name || "Non renseigné") +
-        '</p><p><b>E-mail :</b> ' + esc(user.email || "—") + '</p><p><b>Téléphone / WhatsApp :</b> ' + esc(priv?.whatsapp || pub?.phone || "Non renseigné") +
+        '</p><p><b>E-mail :</b> ' + esc(user.email || "—") + '</p><p><b>Téléphone / WhatsApp :</b> ' + esc(priv?.whatsapp || "Non renseigné") +
         '</p><p><b>Facebook :</b> ' + (priv?.facebook_url ? '<a href="' + esc(priv.facebook_url) + '" target="_blank" rel="noopener">Ouvrir le profil</a>' : "Non renseigné") +
         '</p><p><b>Résidence :</b> ' + esc(priv?.residence || "Non renseigné") + '</p></div>' +
         '<div class="bp-links"><a href="#/favoris">❤️ Mes favoris</a><a href="#/carnet">📔 Mon carnet de lecture</a></div>' +
