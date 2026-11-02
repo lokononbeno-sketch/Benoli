@@ -1,3 +1,15 @@
+/* Chargement du module de langue (langue.js).
+   Ce fichier est indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
+(function () {
+  try {
+    if (window.__benoliLangueLoader) return;
+    window.__benoliLangueLoader = true;
+    const s = document.createElement("script");
+    s.src = "langue.js";
+    document.body.appendChild(s);
+  } catch (_) {}
+})();
+
 /* Espace personnel — Benoli Littéraire
    Favoris et carnet conservés sur cet appareil (localStorage).
 */
