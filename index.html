@@ -860,6 +860,7 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
       <a class="accueil-rubrique" href="#/quiz"><span class="accueil-icone">◈</span><strong>Quiz littéraires</strong><small>Joue, découvre et teste ta curiosité.</small><span class="accueil-fleche">↗</span></a>
       <a class="accueil-rubrique" href="#/reglages"><span class="accueil-icone">☼</span><strong>Ton expérience</strong><small>Personnalise couleurs, police et ambiance.</small><span class="accueil-fleche">↗</span></a>
       <a class="accueil-rubrique" href="#/personnages"><span class="accueil-icone">🎭</span><strong>Les personnages</strong><small>Rencontre les héros et découvre leur univers.</small><span class="accueil-fleche">↗</span></a>
+      <a class="accueil-rubrique" href="#/lyrics"><span class="accueil-icone">🎵</span><strong>Lyrics</strong><small>Écoute les chansons associées aux romans et retrouve leurs paroles.</small><span class="accueil-fleche">↗</span></a>
     </div>
   </div>
 
@@ -1350,6 +1351,10 @@ const PAGES = {
       ${AUTEUR.facebook.map(f => `<a class="btn sec" href="${esc(lienFb(f))}" target="_blank" rel="noopener">Facebook : ${esc(f.nom)}</a>`).join("")}
     </div></div>
     <div class="partage">${partageHtml(lienApp(), TEXTE_PARTAGE, "Partager l'application")}</div>`,
+  "lyrics": () => `
+    <h2 class="serif">🎵 Lyrics & musiques</h2>
+    <p class="attente">Les chansons liées à certains romans de Benoli seront réunies ici.</p>
+    <div class="bloc"><h3 class="serif">Un morceau, une histoire</h3><p>Chaque chanson sera présentée avec son titre, le roman auquel elle se rattache et son lecteur audio. Les paroles seront ajoutées lorsqu’elles auront été fournies ou que leur utilisation sera autorisée.</p><p class="attente">La rubrique sera enrichie au fur et à mesure de l’ajout des audios.</p></div>`,
   "mentions": () => `<h2 class="serif">Mentions légales</h2>` + sections(MENTIONS),
   "conditions": () => `<h2 class="serif">Conditions d'utilisation et d'achat</h2>` + sections(CONDITIONS)
 };
