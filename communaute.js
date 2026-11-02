@@ -19,7 +19,7 @@ $("bl-auth-form").addEventListener("submit",async e=>{e.preventDefault();const e
 document.querySelectorAll("#bl-communaute [data-auth]").forEach(b=>b.addEventListener("click",()=>authMode(b.dataset.auth)));
 document.querySelectorAll("#bl-communaute [data-tab]").forEach(b=>b.addEventListener("click",()=>setTab(b.dataset.tab)));
 $("bl-logout").addEventListener("click",async()=>{if(channel)client.removeChannel(channel);if(poll)clearInterval(poll);await client.auth.signOut();user=null;showAuth();status("Tu es déconnecté(e).");});
-$("bl-communaute .bl-back").addEventListener("click",()=>{root.classList.remove("bl-open");});
+root.querySelector(".bl-back").addEventListener("click",()=>{root.classList.remove("bl-open");});
 async function loadAdmin(){
  const box=$("bl-admin");box.innerHTML='<div class="bl-empty">Vérification des droits administrateur…</div>';
  const role=await client.from("community_admins").select("user_id").eq("user_id",user.id).maybeSingle();
