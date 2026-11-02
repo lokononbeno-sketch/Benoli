@@ -1,5 +1,5 @@
 /* =====================================================================
-   CORRECTIFS — Benoli Littéraire
+   CORRECTIFS + DESIGN 2027 — Benoli Littéraire
    Chargé automatiquement après index.html (voir fin de stories.js).
    Chaque bloc est indépendant : si l'un échoue, les autres continuent.
    ===================================================================== */
@@ -15,7 +15,7 @@
     pc2.rel = "preconnect"; pc2.href = "https://fonts.gstatic.com"; pc2.crossOrigin = "";
     const css = document.createElement("link");
     css.rel = "stylesheet";
-    css.href = "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&display=swap";
+    css.href = "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Sora:wght@400;600;700;800&display=swap";
     document.head.append(pc1, pc2, css);
   } catch (_) {}
 
@@ -92,6 +92,68 @@
           if (i % moitie >= garde) track.children[i].remove();
         }
       }
+    }
+  } catch (_) {}
+
+  /* 6. DESIGN 2027 « Aurora Glass » : feuille de style + barre de navigation
+        flottante. Pour revenir à l'ancien design, supprime ce bloc 6. */
+  try {
+    const lienCss = document.createElement("link");
+    lienCss.rel = "stylesheet";
+    lienCss.href = "futur-2027.css";
+    document.head.appendChild(lienCss);
+    document.body.classList.add("futur");
+
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.setAttribute("content", "#05060f");
+
+    if (!document.querySelector(".f-dock")) {
+      const SVG = p => `<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+      const ICONES = {
+        home: SVG('<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v9.5h13V10"/>'),
+        romans: SVG('<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/>'),
+        lyrics: SVG('<path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>'),
+        communaute: SVG('<path d="M4 5h16v11H9l-5 4z"/>'),
+        profil: SVG('<circle cx="12" cy="8" r="4"/><path d="M4.5 20c.8-4 4-6 7.5-6s6.7 2 7.5 6"/>')
+      };
+      const ONGLETS = [
+        ["home", "#", "Accueil"],
+        ["romans", "#/romans", "Romans"],
+        ["lyrics", "#/lyrics", "Lyrics"],
+        ["communaute", "#/communaute", "Communauté"],
+        ["profil", "#/profil", "Profil"]
+      ];
+      const nav = document.createElement("nav");
+      nav.className = "f-dock";
+      nav.setAttribute("aria-label", "Navigation rapide");
+      nav.innerHTML = ONGLETS.map(([k, h, t]) =>
+        '<a href="' + h + '" data-k="' + k + '">' + ICONES[k] + '<span>' + t + '</span></a>').join("");
+      document.body.appendChild(nav);
+
+      const maj = () => {
+        const h = location.hash;
+        const cle = (!h || h === "#") ? "home"
+          : h.startsWith("#/romans") ? "romans"
+          : h.startsWith("#/lyrics") ? "lyrics"
+          : h.startsWith("#/communaute") ? "communaute"
+          : h.startsWith("#/profil") ? "profil" : "";
+        nav.querySelectorAll("a").forEach(a => {
+          const actif = a.dataset.k === cle;
+          a.classList.toggle("on", actif);
+          if (actif) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current");
+        });
+      };
+      window.addEventListener("hashchange", maj);
+      maj();
+
+      nav.querySelector('[data-k="home"]').addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+
+      /* La barre se cache quand le clavier est ouvert. */
+      const champ = e => /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName);
+      document.addEventListener("focusin", e => { if (champ(e)) document.body.classList.add("f-typing"); });
+      document.addEventListener("focusout", () => document.body.classList.remove("f-typing"));
     }
   } catch (_) {}
 })();

@@ -1,9 +1,9 @@
-const V = "benoli-v34";
+const V = "benoli-v35";
 const FICHIERS = [
   "./", "./index.html", "./manifest.json",
   "./icon-192.png", "./icon-512.png", "./maskable-512.png", "./assets/benoli-logo.svg",
   "./extras.js", "./stories.js", "./nouveautes.js", "./profil.js", "./univers.js", "./communaute.js",
-  "./correctifs.js", "./design.js", "./langue.js", "./installer.js"
+  "./correctifs.js", "./futur-2027.css", "./design.js", "./langue.js", "./installer.js"
 ];
 
 /* Chaque fichier est mis en cache séparément : si l'un manque,
