@@ -218,7 +218,7 @@
           residence: document.getElementById("bp-edit-residence").value.trim()
         };
         if (values.pseudonym.length < 2) throw new Error("Le pseudonyme doit contenir au moins 2 caractères.");
-        if (values.facebook_url && !/^https?:\\/\\//i.test(values.facebook_url)) throw new Error("Le lien Facebook doit commencer par https://");
+        if (values.facebook_url && !/^https?:\/\//i.test(values.facebook_url)) throw new Error("Le lien Facebook doit commencer par https://");
         const file = document.getElementById("bp-edit-avatar").files[0] || null;
         const { data: old } = await sb.from("reader_private_profiles").select("avatar_path").eq("id", user.id).maybeSingle();
         values.avatar_path = old?.avatar_path || null;
