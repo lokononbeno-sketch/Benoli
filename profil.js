@@ -83,6 +83,13 @@
     (mode() === "login" ? 'aria-current="page"' : '') + '>Connexion</a><a href="#/profil?mode=signup" ' +
     (mode() === "signup" ? 'aria-current="page"' : '') + '>Inscription</a></div>';
 
+  /* Ambiance de l’application : la valeur enregistrée reste « masculin » / « feminin » (bleu / rose) ou vide (violet). */
+  const ambianceOptions = selected => [
+    ["", "Violet — ambiance Benoli (par défaut) 💜"],
+    ["masculin", "Bleu élégant 💙"],
+    ["feminin", "Rose élégance 💗"]
+  ].map(([v, t]) => '<option value="' + v + '"' + (selected === v ? " selected" : "") + '>' + t + '</option>').join("");
+
   const authHtml = () => {
     const signup = mode() === "signup";
     return '<section class="bp"><h2 class="serif">' + (signup ? "Créer mon compte lecteur" : "Connexion à mon compte") +
@@ -95,7 +102,7 @@
           <label>Prénom *<input id="bp-first" maxlength="80" autocomplete="given-name" required placeholder="Ton prénom"></label>
         </div>
         <label>Pseudonyme public *<input id="bp-name" maxlength="40" minlength="2" autocomplete="nickname" required placeholder="Le nom affiché dans la communauté"></label>
-        <label>Genre de présentation *<select id="bp-gender" required><option value="">Choisir…</option><option value="masculin">Masculin — Style Bleu élégant 💙</option><option value="feminin">Féminin — Style Rose élégance 💗</option></select></label>
+        <label>Ambiance de l’application<select id="bp-gender">${ambianceOptions("")}</select></label>
         <p class="bp-section-title">Sécurité et contact</p>
         <label>Adresse e-mail *<input id="bp-email" type="email" autocomplete="email" required placeholder="exemple@email.com"></label>
         <label>Mot de passe *<input id="bp-password" type="password" minlength="8" autocomplete="new-password" required placeholder="8 caractères minimum"></label>
@@ -162,7 +169,7 @@
       if (seq !== renderSeq) return;
       const avatar = priv?.avatar_path ? await sb.storage.from("reader-avatars").createSignedUrl(priv.avatar_path, 3600) : null;
       const avatarUrl = avatar?.data?.signedUrl || "";
-      applyTheme(pub?.gender || user.user_metadata?.gender);
+      applyTheme(pub ? pub.gender : user.user_metadata?.gender);
       target.innerHTML = '<section class="bp"><h2 class="serif">Bienvenue, ' +
         esc(pub?.pseudonym || user.user_metadata?.pseudonym || "lecteur") + ' !</h2>' +
         '<div class="bp-profile-card">' + (avatarUrl ? '<img class="bp-avatar" src="' + esc(avatarUrl) + '" alt="Photo de profil">' : '') +
@@ -175,6 +182,7 @@
         '<div class="bp-grid"><label>Nom<input id="bp-edit-last" maxlength="80" value="' + esc(priv?.last_name || "") + '"></label>' +
         '<label>Prénom<input id="bp-edit-first" maxlength="80" value="' + esc(priv?.first_name || "") + '"></label></div>' +
         '<label>Pseudonyme public<input id="bp-edit-name" maxlength="40" minlength="2" required value="' + esc(pub?.pseudonym || "") + '"></label>' +
+        '<label>Ambiance de l’application<select id="bp-edit-gender">' + ambianceOptions(pub?.gender || "") + '</select></label>' +
         '<label>Téléphone / WhatsApp<input id="bp-edit-phone" maxlength="30" value="' + esc(priv?.whatsapp || "") + '"></label>' +
         '<label>Facebook<input id="bp-edit-facebook" type="url" maxlength="500" value="' + esc(priv?.facebook_url || "") + '" placeholder="https://facebook.com/…"></label>' +
         '<label>Lieu de résidence<input id="bp-edit-residence" maxlength="160" value="' + esc(priv?.residence || "") + '"></label>' +
@@ -213,6 +221,7 @@
           first_name: document.getElementById("bp-edit-first").value.trim(),
           last_name: document.getElementById("bp-edit-last").value.trim(),
           pseudonym: document.getElementById("bp-edit-name").value.trim(),
+          gender: document.getElementById("bp-edit-gender").value,
           whatsapp: document.getElementById("bp-edit-phone").value.trim(),
           facebook_url: document.getElementById("bp-edit-facebook").value.trim(),
           residence: document.getElementById("bp-edit-residence").value.trim()
@@ -222,12 +231,12 @@
         const file = document.getElementById("bp-edit-avatar").files[0] || null;
         const { data: old } = await sb.from("reader_private_profiles").select("avatar_path").eq("id", user.id).maybeSingle();
         values.avatar_path = old?.avatar_path || null;
-        const { data: pub } = await sb.from("reader_profiles").select("gender").eq("id", user.id).maybeSingle();
         const { error: publicError } = await sb.from("reader_profiles").upsert({
-          id: user.id, pseudonym: values.pseudonym, phone: values.whatsapp || null, gender: pub?.gender || user.user_metadata?.gender || null
+          id: user.id, pseudonym: values.pseudonym, phone: values.whatsapp || null, gender: values.gender || null
         }, { onConflict: "id" });
         if (publicError) throw publicError;
         await savePrivateProfile(sb, user, values, file);
+        applyTheme(values.gender);
         status("Profil mis à jour avec succès.", "success");
         await render();
       } catch (err) {
@@ -264,13 +273,12 @@
         const file = document.getElementById("bp-avatar").files[0] || null;
         if (!values.first_name || !values.last_name) throw new Error("Renseigne ton nom et ton prénom.");
         if (values.pseudonym.length < 2) throw new Error("Le pseudonyme doit contenir au moins 2 caractères.");
-        if (!["masculin", "feminin"].includes(values.gender)) throw new Error("Choisis ton style de présentation.");
         if (!values.whatsapp) throw new Error("Renseigne ton numéro de téléphone ou WhatsApp.");
         if (values.facebook_url && !/^https?:\/\//i.test(values.facebook_url)) throw new Error("Le lien Facebook doit commencer par https://");
         const { data, error } = await sb.auth.signUp({
           email, password,
           options: { data: {
-            pseudonym: values.pseudonym, gender: values.gender, phone: values.whatsapp,
+            pseudonym: values.pseudonym, gender: values.gender || null, phone: values.whatsapp,
             first_name: values.first_name, last_name: values.last_name,
             whatsapp: values.whatsapp, facebook_url: values.facebook_url, residence: values.residence
           } }
@@ -278,7 +286,7 @@
         if (error) throw error;
         if (data.session && data.user) {
           const { error: pubError } = await sb.from("reader_profiles").upsert({
-            id: data.user.id, pseudonym: values.pseudonym, phone: values.whatsapp, gender: values.gender
+            id: data.user.id, pseudonym: values.pseudonym, phone: values.whatsapp, gender: values.gender || null
           }, { onConflict: "id" });
           if (pubError) throw pubError;
           await savePrivateProfile(sb, data.user, values, file);
@@ -293,10 +301,13 @@
         const meta = data.user.user_metadata || {};
         const pseudonym = meta.pseudonym || data.user.email.split("@")[0];
         const gender = meta.gender || null;
-        const { error: pubError } = await sb.from("reader_profiles").upsert({
-          id: data.user.id, pseudonym, phone: meta.phone || null, gender
-        }, { onConflict: "id" });
-        if (pubError) throw pubError;
+        const { data: existingPub } = await sb.from("reader_profiles").select("id").eq("id", data.user.id).maybeSingle();
+        if (!existingPub) {
+          const { error: pubError } = await sb.from("reader_profiles").upsert({
+            id: data.user.id, pseudonym, phone: meta.phone || null, gender
+          }, { onConflict: "id" });
+          if (pubError) throw pubError;
+        }
         const { data: existing } = await sb.from("reader_private_profiles").select("id").eq("id", data.user.id).maybeSingle();
         if (!existing && (meta.first_name || meta.last_name || meta.whatsapp || meta.facebook_url || meta.residence)) {
           await savePrivateProfile(sb, data.user, {
