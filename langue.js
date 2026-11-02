@@ -1,12 +1,14 @@
-/* Chargement du module d'aide à l'installation (installer.js).
-   Fichier indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
+/* Chargement des modules indépendants : aide à l'installation (installer.js) et apparence (design.js).
+   Chaque fichier est indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
 (function () {
   try {
-    if (window.__benoliInstallerLoader) return;
-    window.__benoliInstallerLoader = true;
-    const s = document.createElement("script");
-    s.src = "installer.js";
-    document.body.appendChild(s);
+    if (window.__benoliModulesLoader) return;
+    window.__benoliModulesLoader = true;
+    ["installer.js", "design.js"].forEach(function (nom) {
+      const s = document.createElement("script");
+      s.src = nom;
+      document.body.appendChild(s);
+    });
   } catch (_) {}
 })();
 
