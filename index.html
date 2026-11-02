@@ -766,6 +766,27 @@ header.hero h1,header.hero .sous,header.hero .auteur{ text-shadow:0 2px 14px rgb
 html[data-benoli-theme="masculin"] .accueil-hero h2,
 html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
 
+
+/* ===== LYRICS & MUSIQUES ===== */
+.lyrics-entete{display:flex;align-items:center;gap:16px;padding:22px 18px;margin:16px 0 18px;border-radius:18px;background:linear-gradient(125deg,#21103f,#54228a 58%,#9b55bb);color:#fff;box-shadow:0 10px 26px rgba(47,18,82,.2)}
+.lyrics-note{display:grid;place-items:center;width:64px;height:64px;flex:none;border-radius:18px;background:rgba(255,255,255,.14);font-size:2.6rem;color:#ffd56a}
+.lyrics-surtitre{font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:#f6d98d;font-weight:800}
+.lyrics-entete h2{font-size:clamp(1.5rem,6vw,2rem);color:#fff}
+.lyrics-entete div>p:last-child{font-size:.88rem;color:#f3e9ff;margin-top:5px}
+.lyrics-intro{padding:15px 16px;margin-bottom:18px;border-left:4px solid #d5a43b;background:var(--carte);border-radius:0 12px 12px 0;color:var(--doux)}
+.lyrics-intro strong{color:var(--encre)}
+.lyrics-liste{display:grid;gap:14px}
+.lyrics-carte{display:grid;grid-template-columns:94px minmax(0,1fr);gap:14px;align-items:center;padding:13px;background:var(--carte);border:1px solid var(--trait);border-radius:16px;box-shadow:0 5px 16px rgba(0,0,0,.06)}
+.lyrics-couverture{width:94px;aspect-ratio:2/3;object-fit:cover;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.lyrics-infos{min-width:0}
+.lyrics-tag{display:inline-block;color:#8a5a0a;background:#fff2cf;border-radius:99px;padding:3px 9px;font-size:.68rem;font-weight:800;letter-spacing:.04em}
+.lyrics-infos h3{font-size:1.05rem;line-height:1.2;margin:7px 0 4px;color:var(--encre)}
+.lyrics-infos p{font-size:.82rem;color:var(--doux);margin-bottom:9px}
+.lyrics-infos audio{display:block;width:100%;height:38px;max-width:100%}
+.lyrics-duree{display:block;color:var(--doux);font-size:.75rem;margin-top:5px}
+.lyrics-bas{text-align:center;margin:20px 0 8px;padding:14px;border-radius:12px;background:var(--carte);color:var(--doux);font-size:.9rem}
+@media(max-width:380px){.lyrics-carte{grid-template-columns:78px minmax(0,1fr);gap:10px;padding:10px}.lyrics-couverture{width:78px}.lyrics-infos h3{font-size:.96rem}}
+
 </style>
 </head>
 <body>
@@ -1352,9 +1373,50 @@ const PAGES = {
     </div></div>
     <div class="partage">${partageHtml(lienApp(), TEXTE_PARTAGE, "Partager l'application")}</div>`,
   "lyrics": () => `
-    <h2 class="serif">🎵 Lyrics & musiques</h2>
-    <p class="attente">Les chansons liées à certains romans de Benoli seront réunies ici.</p>
-    <div class="bloc"><h3 class="serif">Un morceau, une histoire</h3><p>Chaque chanson sera présentée avec son titre, le roman auquel elle se rattache et son lecteur audio. Les paroles seront ajoutées lorsqu’elles auront été fournies ou que leur utilisation sera autorisée.</p><p class="attente">La rubrique sera enrichie au fur et à mesure de l’ajout des audios.</p></div>`,
+    <section class="lyrics-entete">
+      <span class="lyrics-note">♫</span>
+      <div><p class="lyrics-surtitre">L'univers musical de Benoli</p><h2 class="serif">Lyrics & musiques</h2>
+      <p>Les histoires se lisent… et se vivent aussi en musique.</p></div>
+    </section>
+    <div class="lyrics-intro"><strong>Une chanson, un roman, une émotion.</strong><br>Retrouve ici les créations audio associées aux romans de Benoli Littéraire.</div>
+    <div class="lyrics-liste">
+      <article class="lyrics-carte">
+        <img class="lyrics-couverture" src="Chéco.png" alt="Couverture de Elle m'appelait Chéco" loading="lazy">
+        <div class="lyrics-infos"><span class="lyrics-tag">Chanson du roman</span><h3>Elle m'appelait Chéco</h3><p>Associée au roman <strong>Elle m'appelait Chéco</strong></p>
+        <audio controls preload="metadata"><source src="audio/Screenrecorder-2026-10-26-19-49-56-813_20261026_195322.mp3" type="audio/mpeg">Ton navigateur ne prend pas en charge la lecture audio.</audio><small class="lyrics-duree">Durée : calcul en cours…</small></div>
+      </article>
+      <article class="lyrics-carte">
+        <img class="lyrics-couverture" src="La-maison-d'en-face.png" alt="Couverture de La Maison d'en face" loading="lazy">
+        <div class="lyrics-infos"><span class="lyrics-tag">Chanson du roman</span><h3>La Maison d'en face — Tome 1</h3><p>Associée au premier tome de <strong>La Maison d'en face</strong></p>
+        <audio controls preload="metadata"><source src="audio/Screenrecorder-2026-10-26-19-29-27-868_20261026_193345.mp3" type="audio/mpeg">Ton navigateur ne prend pas en charge la lecture audio.</audio><small class="lyrics-duree">Durée : calcul en cours…</small></div>
+      </article>
+      <article class="lyrics-carte">
+        <img class="lyrics-couverture" src="Je-ne-suis-pas-ce-qu'ils-ont-fait-de-moi.png" alt="Couverture de Je ne suis pas ce qu'ils ont fait de moi" loading="lazy">
+        <div class="lyrics-infos"><span class="lyrics-tag">Chanson du roman</span><h3>Je ne suis pas ce qu'ils ont fait de moi</h3><p>Associée au roman du même titre</p>
+        <audio controls preload="metadata"><source src="audio/Screenrecorder-2026-10-26-20-02-25-196_20261026_200549.mp3" type="audio/mpeg">Ton navigateur ne prend pas en charge la lecture audio.</audio><small class="lyrics-duree">Durée : calcul en cours…</small></div>
+      </article>
+      <article class="lyrics-carte">
+        <img class="lyrics-couverture" src="La-maison-d'en-face.png" alt="Couverture de La Maison d'en face" loading="lazy">
+        <div class="lyrics-infos"><span class="lyrics-tag">Chanson du roman</span><h3>La Maison d'en face — Tome 2</h3><p>Associée au deuxième tome de <strong>La Maison d'en face</strong></p>
+        <audio controls preload="metadata"><source src="audio/Screenrecorder-2026-10-26-20-07-55-169_20261026_201002.mp3" type="audio/mpeg">Ton navigateur ne prend pas en charge la lecture audio.</audio><small class="lyrics-duree">Durée : calcul en cours…</small></div>
+      </article>
+      <article class="lyrics-carte">
+        <img class="lyrics-couverture" src="La-maison-d'en-face.png" alt="Couverture de La Maison d'en face" loading="lazy">
+        <div class="lyrics-infos"><span class="lyrics-tag">Chanson du roman</span><h3>La Maison d'en face — Tome 3</h3><p>Associée au troisième tome de <strong>La Maison d'en face</strong></p>
+        <audio controls preload="metadata"><source src="audio/Screenrecorder-2026-10-26-20-20-27-633_20261026_202339.mp3" type="audio/mpeg">Ton navigateur ne prend pas en charge la lecture audio.</audio><small class="lyrics-duree">Durée : calcul en cours…</small></div>
+      </article>
+    </div>
+    <p class="lyrics-bas">🎧 Installe-toi confortablement et laisse la musique prolonger la lecture.</p>
+    <script>
+    (function(){
+      document.querySelectorAll('.lyrics-carte').forEach(function(carte){
+        var audio=carte.querySelector('audio'), label=carte.querySelector('.lyrics-duree');
+        function afficher(){if(Number.isFinite(audio.duration)){var s=Math.floor(audio.duration),m=Math.floor(s/60),r=s%60;label.textContent='Durée : '+m+':'+String(r).padStart(2,'0');}}
+        audio.addEventListener('loadedmetadata',afficher);audio.addEventListener('durationchange',afficher);
+        if(audio.readyState>=1)afficher();
+      });
+    })();
+    <\/script>`,
   "mentions": () => `<h2 class="serif">Mentions légales</h2>` + sections(MENTIONS),
   "conditions": () => `<h2 class="serif">Conditions d'utilisation et d'achat</h2>` + sections(CONDITIONS)
 };
