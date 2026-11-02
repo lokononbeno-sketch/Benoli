@@ -1,3 +1,15 @@
+/* Chargement du module d'aide à l'installation (installer.js).
+   Fichier indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
+(function () {
+  try {
+    if (window.__benoliInstallerLoader) return;
+    window.__benoliInstallerLoader = true;
+    const s = document.createElement("script");
+    s.src = "installer.js";
+    document.body.appendChild(s);
+  } catch (_) {}
+})();
+
 /* Langue de l'application — Benoli Littéraire
    Traduit toute l'interface avec Google Traduction (service gratuit).
    Les extraits des romans restent dans leur langue d'origine (français). */
