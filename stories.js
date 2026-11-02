@@ -1,4 +1,3 @@
-
 /* ==================================================
    STORIES LOCALES — BENOLI LITTÉRAIRE
    Stockage sur l'appareil utilisé, sans serveur.
@@ -271,4 +270,11 @@
     }
   }, 60000);
 })();
- 
+
+/* Chargement des correctifs (voir correctifs.js) */
+(function () {
+  var s = document.createElement("script");
+  s.src = "correctifs.js";
+  s.async = false;
+  document.body.appendChild(s);
+})();
