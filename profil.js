@@ -124,6 +124,7 @@
       whatsapp: values.whatsapp || null,
       facebook_url: values.facebook_url || null,
       residence: values.residence || null,
+      avatar_path: values.avatar_path || null,
       updated_at: new Date().toISOString()
     };
     if (file) {
@@ -170,6 +171,16 @@
         '</p><p><b>Facebook :</b> ' + (priv?.facebook_url ? '<a href="' + esc(priv.facebook_url) + '" target="_blank" rel="noopener">Ouvrir le profil</a>' : "Non renseigné") +
         '</p><p><b>Résidence :</b> ' + esc(priv?.residence || "Non renseigné") + '</p></div>' +
         '<div class="bp-links"><a href="#/favoris">❤️ Mes favoris</a><a href="#/carnet">📔 Mon carnet de lecture</a></div>' +
+        '<h3 class="bp-section-title">Modifier mon profil</h3><form id="bp-edit-form">' +
+        '<div class="bp-grid"><label>Nom<input id="bp-edit-last" maxlength="80" value="' + esc(priv?.last_name || "") + '"></label>' +
+        '<label>Prénom<input id="bp-edit-first" maxlength="80" value="' + esc(priv?.first_name || "") + '"></label></div>' +
+        '<label>Pseudonyme public<input id="bp-edit-name" maxlength="40" minlength="2" required value="' + esc(pub?.pseudonym || "") + '"></label>' +
+        '<label>Téléphone / WhatsApp<input id="bp-edit-phone" maxlength="30" value="' + esc(priv?.whatsapp || "") + '"></label>' +
+        '<label>Facebook<input id="bp-edit-facebook" type="url" maxlength="500" value="' + esc(priv?.facebook_url || "") + '" placeholder="https://facebook.com/…"></label>' +
+        '<label>Lieu de résidence<input id="bp-edit-residence" maxlength="160" value="' + esc(priv?.residence || "") + '"></label>' +
+        '<label>Photo de profil<input id="bp-edit-avatar" type="file" accept="image/jpeg,image/png,image/webp"><small class="bp-note">JPG, PNG ou WebP — 5 Mo maximum.</small></label>' +
+        '<button class="btn" type="submit">Enregistrer mes modifications</button></form>' +
+        '<p id="bp-edit-status" class="bp-status" role="status" aria-live="polite"></p>' +
         '<button class="btn off" id="bp-logout" type="button">Se déconnecter</button></section>';
     } catch (e) {
       if (seq !== renderSeq) return;
@@ -188,6 +199,47 @@
   window.addEventListener("hashchange", onHashChange);
 
   document.addEventListener("submit", async e => {
+    if (e.target.id === "bp-edit-form") {
+      e.preventDefault();
+      if (busy) return;
+      busy = true;
+      const button = e.target.querySelector('button[type="submit"]');
+      if (button) { button.disabled = true; button.textContent = "Enregistrement…"; }
+      try {
+        const sb = await loadClient();
+        const { data: { user }, error: userError } = await sb.auth.getUser();
+        if (userError || !user) throw userError || new Error("Reconnecte-toi pour modifier ton profil.");
+        const values = {
+          first_name: document.getElementById("bp-edit-first").value.trim(),
+          last_name: document.getElementById("bp-edit-last").value.trim(),
+          pseudonym: document.getElementById("bp-edit-name").value.trim(),
+          whatsapp: document.getElementById("bp-edit-phone").value.trim(),
+          facebook_url: document.getElementById("bp-edit-facebook").value.trim(),
+          residence: document.getElementById("bp-edit-residence").value.trim()
+        };
+        if (values.pseudonym.length < 2) throw new Error("Le pseudonyme doit contenir au moins 2 caractères.");
+        if (values.facebook_url && !/^https?:\\/\\//i.test(values.facebook_url)) throw new Error("Le lien Facebook doit commencer par https://");
+        const file = document.getElementById("bp-edit-avatar").files[0] || null;
+        const { data: old } = await sb.from("reader_private_profiles").select("avatar_path").eq("id", user.id).maybeSingle();
+        values.avatar_path = old?.avatar_path || null;
+        const { data: pub } = await sb.from("reader_profiles").select("gender").eq("id", user.id).maybeSingle();
+        const { error: publicError } = await sb.from("reader_profiles").upsert({
+          id: user.id, pseudonym: values.pseudonym, phone: values.whatsapp || null, gender: pub?.gender || user.user_metadata?.gender || null
+        }, { onConflict: "id" });
+        if (publicError) throw publicError;
+        await savePrivateProfile(sb, user, values, file);
+        status("Profil mis à jour avec succès.", "success");
+        await render();
+      } catch (err) {
+        const el = document.getElementById("bp-edit-status");
+        if (el) { el.className = "bp-status error"; el.textContent = err.message || "Enregistrement impossible."; }
+      } finally {
+        busy = false;
+        const b = document.querySelector('#bp-edit-form button[type="submit"]');
+        if (b) { b.disabled = false; b.textContent = "Enregistrer mes modifications"; }
+      }
+      return;
+    }
     if (e.target.id !== "bp-form") return;
     e.preventDefault();
     if (busy) return;
@@ -249,7 +301,7 @@
         if (!existing && (meta.first_name || meta.last_name || meta.whatsapp || meta.facebook_url || meta.residence)) {
           await savePrivateProfile(sb, data.user, {
             first_name: meta.first_name, last_name: meta.last_name, whatsapp: meta.whatsapp,
-            facebook_url: meta.facebook_url, residence: meta.residence
+            facebook_url: meta.facebook_url, residence: meta.residence, avatar_path: null
           }, null);
         }
         await render();
