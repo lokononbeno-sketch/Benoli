@@ -1,7 +1,7 @@
-const V = "benoli-v45";
+const V = "benoli-v46";
 const FICHIERS = [
   "./", "./index.html", "./manifest.json",
-  "./icon-192.png", "./icon-512.png", "./maskable-512.png", "./assets/benoli-logo.svg",
+  "./icon-192.png", "./icon-512.png", "./maskable-512.png", "./assets/benoli-logo.svg", "./assets/benoli-intro.mp4",
   "./extras.js", "./gamification.js", "./notifications.js", "./stories.js", "./nouveautes.js", "./profil.js", "./univers.js", "./communaute.js", "./immersif.js", "./bibliotheque3d.js"
 ];
 self.addEventListener("install", e => {
