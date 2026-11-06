@@ -6,6 +6,19 @@ const quotes=["« Un livre est une porte. À chaque lecture, tu découvres un mo
 const month=months[new Date().getMonth()], quote=quotes[(new Date().getDate()-1)%quotes.length];
 const section=document.createElement("section");section.id="benoli-univers-3d";section.className="benoli-univers-3d";
 section.innerHTML='<div class="b3d-stars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><header class="b3d-heading"><span>✦ BIENVENUE DANS TON UNIVERS</span><h2>Les mots prennent <em>vie.</em></h2><p>Un arbre, mille histoires… et un monde à explorer.</p></header><div class="b3d-scene"><div class="b3d-halo"></div><div class="b3d-ground"></div><div class="b3d-tree"><i class="c c1"></i><i class="c c2"></i><i class="c c3"></i><i class="c c4"></i><i class="trunk"></i><i class="roots"></i><b>✦</b><b>✧</b></div><a class="b3d-book book1" href="#/elle-m-appelait-checo">CHÉCO</a><a class="b3d-book book2" href="#/cobi">COBI</a><a class="b3d-book book3" href="#/la-maison-d-en-face">LA MAISON<br>D’EN FACE</a><i class="b3d-dust d1"></i><i class="b3d-dust d2"></i><i class="b3d-dust d3"></i><div class="b3d-motto">LIRE <b>✦</b> RÊVER <b>✦</b> GRANDIR</div></div><div class="b3d-month"><span>✧ ÉDITION DU MOIS</span><strong>'+month[0]+'</strong><small>'+month[1]+'</small></div><div class="b3d-quote"><span>LA PENSÉE DU MOMENT</span><p>'+quote+'</p></div><div class="b3d-buttons"><a href="#/romans">Explorer les romans ↗</a><a href="#/sagesse">Lire les citations</a></div><div class="b3d-scroll">Fais défiler pour découvrir la suite <b>↓</b></div>';
+const canopy=section.querySelector(".b3d-tree");
+if(canopy){
+ const leaves=[];
+ const clusters=[{cx:110,cy:64,rx:85,ry:56},{cx:65,cy:99,rx:53,ry:48},{cx:151,cy:101,rx:58,ry:48},{cx:108,cy:128,rx:75,ry:38}];
+ for(let i=0;i<58;i++){
+  const cl=clusters[i%clusters.length],a=i*2.399963,r=.28+((i*17)%67)/100;
+  const x=Math.max(2,Math.min(208,cl.cx+Math.cos(a)*cl.rx*r));
+  const y=Math.max(3,Math.min(166,cl.cy+Math.sin(a)*cl.ry*r));
+  const rot=((i*37)%100)-50,delay=((i*13)%31)/10,duration=3.2+((i*7)%25)/10;
+  leaves.push('<i class="b3d-leaf" style="left:'+x.toFixed(1)+'px;top:'+y.toFixed(1)+'px;--leaf-rot:'+rot+'deg;--leaf-delay:-'+delay.toFixed(1)+'s;--leaf-duration:'+duration.toFixed(1)+'s"></i>');
+ }
+ canopy.insertAdjacentHTML("afterbegin",'<span class="b3d-branch branch-a"></span><span class="b3d-branch branch-b"></span><span class="b3d-branch branch-c"></span>'+leaves.join(""));
+}
 root.insertBefore(section,root.firstChild);
 const css=[
 '.benoli-univers-3d{position:relative;isolation:isolate;overflow:hidden;margin:0 -18px 28px;padding:29px 16px 22px;color:#fff8e9;background:radial-gradient(ellipse at 50% 45%,#39466d,#202a4c 48%,',month[2],');border-radius:0 0 28px 28px;box-shadow:0 18px 42px #090d2444}',
@@ -27,6 +40,8 @@ const css=[
 '@keyframes b3dTwinkle{from{opacity:.25;transform:scale(.7)}to{opacity:1;transform:scale(1.35)}}@keyframes b3dOrbit{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes b3dFloat{50%{translate:0 -7px}}@keyframes b3dBook{50%{translate:0 -10px}}@keyframes b3dDust{50%{transform:translateY(-20px) scale(1.3);opacity:1}}',
 '@media(max-width:380px){.b3d-scene{height:280px}.b3d-tree{transform:translateX(-50%) scale(.9);transform-origin:bottom center}.b3d-book{width:55px;height:75px;font-size:.56rem}.b3d-book.book1{left:1%}.b3d-book.book2{right:1%}}@media(prefers-reduced-motion:reduce){.benoli-univers-3d *{animation:none!important;transition:none!important}}'
 ].join("");
+
+css += '.b3d-tree .c{display:none}.b3d-tree .trunk{z-index:3}.b3d-tree .roots{z-index:3}.b3d-branch{position:absolute;z-index:1;height:7px;border-radius:99px;background:linear-gradient(90deg,#4a3025,#a87948 48%,#523426);transform-origin:bottom center;box-shadow:0 1px 3px #0006}.b3d-branch.branch-a{left:103px;top:115px;width:100px;transform:rotate(-42deg)}.b3d-branch.branch-b{left:111px;top:119px;width:92px;transform:rotate(39deg)}.b3d-branch.branch-c{left:105px;top:91px;width:65px;transform:rotate(-8deg)}.b3d-leaf{position:absolute;z-index:2;width:15px;height:8px;border-radius:2px 11px 2px 11px;background:linear-gradient(135deg,#d4e69a 0%,#79b66c 34%,#327b50 72%,#174c39 100%);border:1px solid #d9ed9b66;box-shadow:inset 1px 1px 2px #ffffff65,1px 2px 4px #071d174f;transform-origin:20% 80%;transform:rotate(var(--leaf-rot));animation:b3dLeafWind var(--leaf-duration) ease-in-out var(--leaf-delay) infinite alternate}.b3d-leaf:after{content:"";position:absolute;left:2px;top:3px;width:10px;height:1px;background:#e6f2b47a;transform:rotate(-13deg);border-radius:2px}.b3d-leaf:nth-child(3n){background:linear-gradient(135deg,#e1e8a7,#9bc879 38%,#4b925b 75%,#286243)}.b3d-leaf:nth-child(4n){width:12px;height:7px;background:linear-gradient(135deg,#b9d88a,#6ba65e 55%,#23563e)}.b3d-leaf:nth-child(5n){filter:brightness(1.12)}@keyframes b3dLeafWind{0%{transform:rotate(calc(var(--leaf-rot) - 11deg)) translate(-2px,1px)}45%{transform:rotate(calc(var(--leaf-rot) + 5deg)) translate(2px,-1px)}100%{transform:rotate(calc(var(--leaf-rot) + 13deg)) translate(4px,1px)}}@media(prefers-reduced-motion:reduce){.b3d-leaf{animation:none!important}}';
 const style=document.createElement("style");style.id="benoli-univers-3d-style";style.textContent=css;document.head.appendChild(style);
 let n=quotes.indexOf(quote);const p=section.querySelector(".b3d-quote p");
 if(p&&!window.matchMedia("(prefers-reduced-motion: reduce)").matches)setInterval(()=>{p.style.opacity="0";setTimeout(()=>{n=(n+1)%quotes.length;p.textContent=quotes[n];p.style.opacity="1"},550)},7000);
