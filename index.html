@@ -787,6 +787,10 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
 .lyrics-bas{text-align:center;margin:20px 0 8px;padding:14px;border-radius:12px;background:var(--carte);color:var(--doux);font-size:.9rem}
 @media(max-width:380px){.lyrics-carte{grid-template-columns:78px minmax(0,1fr);gap:10px;padding:10px}.lyrics-couverture{width:78px}.lyrics-infos h3{font-size:.96rem}}
 
+
+/* Arbre vivant de l'accueil Benoli */
+.benoli-arbre-hero{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1fr;gap:2px;min-height:330px;margin:18px auto 8px;padding:25px 20px 12px;max-width:760px;border-radius:24px;background:radial-gradient(ellipse at 78% 65%,rgba(76,111,70,.22),transparent 48%),linear-gradient(145deg,#17152b,#211a32 58%,#121b27);color:#f7f0e8;border:1px solid rgba(224,190,128,.18)}
+.benoli-arbre-texte{position:relative;z-index:2;max-width:560px}.benoli-arbre-surtitre{display:block;font-size:.78rem;letter-spacing:.12em;color:#e5c78f;margin-bottom:10px}.benoli-arbre-texte h2{font-size:clamp(2.2rem,9vw,3.35rem);line-height:1.02;margin:0 0 10px;color:#fff8f0}.benoli-arbre-texte h2 em{color:#e5c78f}.benoli-arbre-texte p{font-size:clamp(1rem,4vw,1.25rem);line-height:1.45;color:#e4dce9;margin:0;max-width:32ch}.benoli-arbre-scene{position:relative;height:205px;margin:-8px -8px -6px;overflow:hidden}.benoli-arbre-svg{display:block;width:min(100%,480px);height:100%;margin:0 auto;overflow:visible;transform-origin:50% 100%;animation:benoli-arbre-balancement 7s ease-in-out infinite}.benoli-arbre-branches{transform-origin:258px 318px;animation:benoli-branches-balancement 5.5s ease-in-out infinite}.benoli-feuillage{transform-box:fill-box;transform-origin:50% 85%;}.benoli-feuillage-a{animation:benoli-feuilles-a 4.7s ease-in-out infinite}.benoli-feuillage-b{animation:benoli-feuilles-b 5.2s ease-in-out infinite}.benoli-feuillage-c{animation:benoli-feuilles-c 4.2s ease-in-out infinite}.benoli-arbre-vent{position:absolute;left:7%;width:25%;height:1px;background:linear-gradient(90deg,transparent,rgba(220,228,204,.35),transparent);border-radius:50%;animation:benoli-vent 4s ease-in-out infinite}.benoli-arbre-vent.vent-un{top:40%}.benoli-arbre-vent.vent-deux{top:65%;left:55%;width:32%;animation-delay:1.7s}@keyframes benoli-arbre-balancement{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(.6deg)}}@keyframes benoli-branches-balancement{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1.2deg)}}@keyframes benoli-feuilles-a{0%,100%{transform:rotate(-1deg) translateX(0)}50%{transform:rotate(2deg) translateX(3px)}}@keyframes benoli-feuilles-b{0%,100%{transform:rotate(1deg) translateX(0)}50%{transform:rotate(-2deg) translateX(-4px)}}@keyframes benoli-feuilles-c{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(2.5deg)}}@keyframes benoli-vent{0%,100%{transform:translateX(-8px);opacity:0}45%{opacity:.65}70%{transform:translateX(34px);opacity:0}}@media(min-width:620px){.benoli-arbre-hero{grid-template-columns:1.05fr .95fr;align-items:center;min-height:320px;padding:28px 28px 18px}.benoli-arbre-scene{height:270px;margin:0 -12px -4px}.benoli-arbre-texte p{max-width:28ch}}
 </style>
 </head>
 <body>
@@ -844,6 +848,69 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
     </a>
   </div>
 </header>
+
+
+<section class="benoli-arbre-hero" id="benoli-arbre-accueil" aria-label="Bienvenue dans ton univers Benoli">
+  <div class="benoli-arbre-texte">
+    <span class="benoli-arbre-surtitre">✦ BIENVENUE DANS TON UNIVERS</span>
+    <h2 class="serif">Les mots prennent <em>vie.</em></h2>
+    <p>Un arbre, mille histoires... et un monde à explorer.</p>
+  </div>
+  <div class="benoli-arbre-scene" aria-hidden="true">
+    <svg class="benoli-arbre-svg" viewBox="0 0 520 340" role="presentation">
+      <defs>
+        <linearGradient id="benoli-tronc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#593b29"/><stop offset=".48" stop-color="#a8794c"/><stop offset="1" stop-color="#493326"/></linearGradient>
+        <radialGradient id="benoli-feuille"><stop offset="0" stop-color="#a8c77a"/><stop offset=".65" stop-color="#527b43"/><stop offset="1" stop-color="#294c35"/></radialGradient>
+        <radialGradient id="benoli-feuille-claire"><stop offset="0" stop-color="#c3d68b"/><stop offset="1" stop-color="#668b4c"/></radialGradient>
+      </defs>
+      <ellipse cx="260" cy="318" rx="178" ry="12" fill="#182a24" opacity=".35"/>
+      <g class="benoli-arbre-branches" fill="none" stroke="url(#benoli-tronc)" stroke-linecap="round">
+        <path d="M258 318 C250 260 270 211 257 157 C248 112 224 82 204 47" stroke-width="19"/>
+        <path d="M260 247 C220 218 185 180 150 139 C128 113 112 93 89 79" stroke-width="11"/>
+        <path d="M258 215 C295 185 325 150 352 112 C370 86 391 67 421 54" stroke-width="12"/>
+        <path d="M254 172 C224 143 213 112 211 82" stroke-width="8"/>
+        <path d="M278 189 C310 169 341 163 380 151" stroke-width="8"/>
+        <path d="M227 220 C190 211 154 214 117 198" stroke-width="7"/>
+        <path d="M258 280 C290 255 324 244 356 237" stroke-width="8"/>
+      </g>
+      <g class="benoli-feuillage benoli-feuillage-a">
+        <path d="M90 116 C55 86 73 38 119 35 C145 1 197 18 204 55 C245 35 281 69 265 108 C292 137 269 174 229 169 C208 202 160 188 151 160 C112 176 76 151 90 116Z" fill="#355d3e"/>
+        <g fill="url(#benoli-feuille)">
+          <ellipse cx="108" cy="94" rx="32" ry="22" transform="rotate(-28 108 94)"/><ellipse cx="149" cy="56" rx="36" ry="24" transform="rotate(16 149 56)"/>
+          <ellipse cx="195" cy="79" rx="37" ry="24" transform="rotate(-15 195 79)"/><ellipse cx="229" cy="119" rx="34" ry="22" transform="rotate(25 229 119)"/>
+          <ellipse cx="176" cy="139" rx="38" ry="24" transform="rotate(-8 176 139)"/><ellipse cx="118" cy="143" rx="29" ry="20" transform="rotate(20 118 143)"/>
+        </g>
+        <g fill="url(#benoli-feuille-claire)">
+          <ellipse cx="126" cy="77" rx="19" ry="12" transform="rotate(-35 126 77)"/><ellipse cx="177" cy="43" rx="21" ry="13" transform="rotate(22 177 43)"/>
+          <ellipse cx="222" cy="91" rx="20" ry="13" transform="rotate(-15 222 91)"/><ellipse cx="151" cy="119" rx="18" ry="12" transform="rotate(18 151 119)"/>
+          <ellipse cx="91" cy="120" rx="17" ry="11" transform="rotate(-22 91 120)"/>
+        </g>
+      </g>
+      <g class="benoli-feuillage benoli-feuillage-b">
+        <path d="M250 112 C229 72 260 34 300 43 C324 6 379 17 390 57 C433 34 472 69 453 108 C483 139 454 177 416 166 C390 201 345 185 338 157 C295 178 257 151 250 112Z" fill="#31583b"/>
+        <g fill="url(#benoli-feuille)">
+          <ellipse cx="283" cy="87" rx="36" ry="24" transform="rotate(22 283 87)"/><ellipse cx="328" cy="58" rx="35" ry="23" transform="rotate(-16 328 58)"/>
+          <ellipse cx="377" cy="82" rx="37" ry="24" transform="rotate(22 377 82)"/><ellipse cx="426" cy="111" rx="34" ry="22" transform="rotate(-24 426 111)"/>
+          <ellipse cx="382" cy="143" rx="38" ry="24" transform="rotate(-8 382 143)"/><ellipse cx="318" cy="137" rx="34" ry="22" transform="rotate(17 318 137)"/>
+        </g>
+        <g fill="url(#benoli-feuille-claire)">
+          <ellipse cx="300" cy="57" rx="19" ry="12" transform="rotate(15 300 57)"/><ellipse cx="352" cy="42" rx="21" ry="13" transform="rotate(-20 352 42)"/>
+          <ellipse cx="414" cy="77" rx="20" ry="13" transform="rotate(25 414 77)"/><ellipse cx="444" cy="133" rx="18" ry="12" transform="rotate(-20 444 133)"/>
+          <ellipse cx="346" cy="117" rx="18" ry="12" transform="rotate(12 346 117)"/>
+        </g>
+      </g>
+      <g class="benoli-feuillage benoli-feuillage-c">
+        <path d="M145 205 C119 174 140 139 177 142 C198 111 242 124 248 158 C282 144 309 175 292 205 C306 237 276 261 244 248 C222 277 184 265 178 240 C147 250 125 230 145 205Z" fill="#3c6842"/>
+        <g fill="url(#benoli-feuille)"><ellipse cx="169" cy="187" rx="31" ry="20" transform="rotate(-25 169 187)"/><ellipse cx="209" cy="163" rx="33" ry="21"/><ellipse cx="258" cy="193" rx="31" ry="20" transform="rotate(22 258 193)"/><ellipse cx="219" cy="226" rx="34" ry="22" transform="rotate(-8 219 226)"/></g>
+        <g fill="url(#benoli-feuille-claire)"><ellipse cx="185" cy="158" rx="17" ry="11"/><ellipse cx="246" cy="174" rx="18" ry="12" transform="rotate(20 246 174)"/><ellipse cx="265" cy="220" rx="17" ry="11"/></g>
+      </g>
+      <g fill="#d6e5a0" opacity=".75">
+        <circle cx="75" cy="76" r="3"/><circle cx="300" cy="22" r="2.5"/><circle cx="456" cy="58" r="3"/><circle cx="476" cy="151" r="2"/>
+      </g>
+    </svg>
+    <span class="benoli-arbre-vent vent-un"></span><span class="benoli-arbre-vent vent-deux"></span>
+  </div>
+</section>
 
 <section class="accueil-bienvenue">
   <div class="accueil-rubriques">
