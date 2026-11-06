@@ -12,7 +12,6 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 function push(title,message,type="info",url="#/nouveautes"){
  const id=Date.now()+"-"+Math.random().toString(36).slice(2,7);
  items.push({id,title,message,type,date:new Date().toLocaleString("fr-FR"),url,read:false});save();
- try{window.dispatchEvent(new CustomEvent("benoli:notification",{detail:{title,message,type}}))}catch(e){}
  if(prefs.enabled&&prefs.system&&"Notification"in window&&Notification.permission==="granted"&&document.visibilityState!=="visible"){
   try{new Notification(title,{body:message,icon:"icon-192.png",tag:"benoli-"+type})}catch(e){}
  }
@@ -49,7 +48,7 @@ document.addEventListener("click",e=>{const a=e.target.closest("[data-bn-id]");i
 window.addEventListener("hashchange",()=>{if(location.hash==="#/notifications")refresh()});
 window.addEventListener("benoli:notification",e=>{const t=e.detail||{};if(t.type==="reward"&&prefs.rewards)push(t.title||"Récompense obtenue",t.message||"Bravo !","reward","#/recompenses")});
 const last=Number(localStorage.getItem(ACT)||0),now=Date.now(),days=last?Math.floor((now-last)/86400000):0;
-if(prefs.enabled&&prefs.reading&&days>=3)push("Ton univers t'attend 📚","Cela fait quelques jours. Reviens découvrir une histoire !","reading","#/bibliotheque3d");
+if(prefs.enabled&&prefs.reading&&days>=3)push("Ton univers t'attend 📚","Cela fait quelques jours. Reviens découvrir une histoire !","reading","#catalogue");
 else if(prefs.enabled&&prefs.reading&&days>=1)push("Un petit moment lecture ?","Retrouve tes romans et poursuis ton aventure.","reading","#/bibliotheque3d");
 try{localStorage.setItem(ACT,String(now))}catch(e){}
 const current=ROMANS.map(r=>String(r.id)).join("|"),old=localStorage.getItem("benoli-known-romans-v1");
