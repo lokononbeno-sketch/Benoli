@@ -61,7 +61,13 @@ function startBook(){
 window.addEventListener("hashchange",()=>{startBook();if(location.hash==="#/recompenses")refresh()});
 document.addEventListener("visibilitychange",()=>{if(document.visibilityState!=="visible")stopBook();else startBook()});
 startBook();
-const quizZone=document.getElementById("quizZone");
-if(quizZone){const obs=new MutationObserver(()=>{if(quizZone.querySelector(".score")&&!data.quizDays.includes(today())){data.quizDays.push(today());addPoints(10,"Quiz terminé : bravo pour ta participation !")}});obs.observe(quizZone,{childList:true,subtree:true})}
+let quizAwarded=false;
+const quizObs=new MutationObserver(()=>{
+ const zone=document.getElementById("quizZone");
+ if(zone&&zone.querySelector(".score")&&!quizAwarded&&!data.quizDays.includes(today())){
+  quizAwarded=true;data.quizDays.push(today());addPoints(10,"Quiz terminé : bravo pour ta participation !");
+ }
+});
+quizObs.observe(document.body,{childList:true,subtree:true});
 checkBadges();save();
 })();
