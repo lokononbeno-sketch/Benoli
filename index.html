@@ -791,6 +791,23 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
 /* Arbre vivant de l'accueil Benoli */
 .benoli-arbre-hero{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1fr;gap:2px;min-height:330px;margin:18px auto 8px;padding:25px 20px 12px;max-width:760px;border-radius:24px;background:radial-gradient(ellipse at 78% 65%,rgba(76,111,70,.22),transparent 48%),linear-gradient(145deg,#17152b,#211a32 58%,#121b27);color:#f7f0e8;border:1px solid rgba(224,190,128,.18)}
 .benoli-arbre-texte{position:relative;z-index:2;max-width:560px}.benoli-arbre-surtitre{display:block;font-size:.78rem;letter-spacing:.12em;color:#e5c78f;margin-bottom:10px}.benoli-arbre-texte h2{font-size:clamp(2.2rem,9vw,3.35rem);line-height:1.02;margin:0 0 10px;color:#fff8f0}.benoli-arbre-texte h2 em{color:#e5c78f}.benoli-arbre-texte p{font-size:clamp(1rem,4vw,1.25rem);line-height:1.45;color:#e4dce9;margin:0;max-width:32ch}.benoli-arbre-scene{position:relative;height:205px;margin:-8px -8px -6px;overflow:hidden}.benoli-arbre-svg{display:block;width:min(100%,480px);height:100%;margin:0 auto;overflow:visible;transform-origin:50% 100%;animation:benoli-arbre-balancement 7s ease-in-out infinite}.benoli-arbre-branches{transform-origin:258px 318px;animation:benoli-branches-balancement 5.5s ease-in-out infinite}.benoli-feuillage{transform-box:fill-box;transform-origin:50% 85%;}.benoli-feuillage-a{animation:benoli-feuilles-a 4.7s ease-in-out infinite}.benoli-feuillage-b{animation:benoli-feuilles-b 5.2s ease-in-out infinite}.benoli-feuillage-c{animation:benoli-feuilles-c 4.2s ease-in-out infinite}.benoli-arbre-vent{position:absolute;left:7%;width:25%;height:1px;background:linear-gradient(90deg,transparent,rgba(220,228,204,.35),transparent);border-radius:50%;animation:benoli-vent 4s ease-in-out infinite}.benoli-arbre-vent.vent-un{top:40%}.benoli-arbre-vent.vent-deux{top:65%;left:55%;width:32%;animation-delay:1.7s}@keyframes benoli-arbre-balancement{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(.6deg)}}@keyframes benoli-branches-balancement{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1.2deg)}}@keyframes benoli-feuilles-a{0%,100%{transform:rotate(-1deg) translateX(0)}50%{transform:rotate(2deg) translateX(3px)}}@keyframes benoli-feuilles-b{0%,100%{transform:rotate(1deg) translateX(0)}50%{transform:rotate(-2deg) translateX(-4px)}}@keyframes benoli-feuilles-c{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(2.5deg)}}@keyframes benoli-vent{0%,100%{transform:translateX(-8px);opacity:0}45%{opacity:.65}70%{transform:translateX(34px);opacity:0}}@media(min-width:620px){.benoli-arbre-hero{grid-template-columns:1.05fr .95fr;align-items:center;min-height:320px;padding:28px 28px 18px}.benoli-arbre-scene{height:270px;margin:0 -12px -4px}.benoli-arbre-texte p{max-width:28ch}}
+
+/* Mise en scène 3D : arbre en relief et livres en orbite */
+.benoli-arbre-hero{overflow:hidden}
+.benoli-arbre-scene{height:clamp(300px,82vw,390px);max-width:570px;margin:0 auto;perspective:1100px;transform-style:preserve-3d;overflow:hidden}
+.benoli-arbre-svg{width:100%;height:100%;filter:drop-shadow(12px 17px 9px rgba(0,0,0,.35));transform:rotateY(-9deg) rotateX(5deg);transform-style:preserve-3d}
+.benoli-arbre-branches{filter:drop-shadow(3px 4px 2px rgba(0,0,0,.28))}
+.benoli-feuillage{filter:drop-shadow(4px 7px 3px rgba(0,0,0,.28))}
+.benoli-orbit{position:absolute;inset:0;z-index:4;pointer-events:none;transform-style:preserve-3d}
+.benoli-orbit-back{z-index:1}
+.benoli-orbit-book{position:absolute;left:50%;top:50%;width:clamp(43px,12vw,66px);height:clamp(65px,18vw,98px);border-radius:3px 7px 7px 3px;transform-style:preserve-3d;filter:drop-shadow(5px 9px 5px rgba(0,0,0,.5));animation:benoli-book-hover 5s ease-in-out infinite}
+.benoli-orbit-book img{display:block;width:100%;height:100%;object-fit:cover;border:1px solid rgba(255,229,180,.8);border-radius:3px 7px 7px 3px;box-shadow:inset 5px 0 8px rgba(0,0,0,.35)}
+.benoli-orbit-book:before{content:"";position:absolute;left:-5px;top:4px;width:5px;height:calc(100% - 8px);background:linear-gradient(90deg,#39271f,#e3c99d,#60412c);transform:skewY(-5deg);transform-origin:right}
+.benoli-orbit-book:after{content:"";position:absolute;right:-4px;top:4px;width:4px;height:calc(100% - 8px);background:linear-gradient(90deg,#d1b184,#35251f);transform:skewY(5deg);transform-origin:left}
+.benoli-orbit-book.is-back{filter:brightness(.72) drop-shadow(3px 5px 4px rgba(0,0,0,.4))}
+@keyframes benoli-book-hover{0%,100%{margin-top:-3px}50%{margin-top:4px}}
+@media(min-width:620px){.benoli-arbre-scene{height:390px}.benoli-orbit-book{width:70px;height:104px}}
+@media(prefers-reduced-motion:reduce){.benoli-orbit-book{animation:none}}
 </style>
 </head>
 <body>
@@ -857,6 +874,7 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
     <p>Un arbre, mille histoires... et un monde à explorer.</p>
   </div>
   <div class="benoli-arbre-scene" aria-hidden="true">
+    <div class="benoli-orbit benoli-orbit-back" id="benoli-orbit-back"></div>
     <svg class="benoli-arbre-svg" viewBox="0 0 520 340" role="presentation">
       <defs>
         <linearGradient id="benoli-tronc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#593b29"/><stop offset=".48" stop-color="#a8794c"/><stop offset="1" stop-color="#493326"/></linearGradient>
@@ -908,6 +926,7 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
         <circle cx="75" cy="76" r="3"/><circle cx="300" cy="22" r="2.5"/><circle cx="456" cy="58" r="3"/><circle cx="476" cy="151" r="2"/>
       </g>
     </svg>
+    <div class="benoli-orbit benoli-orbit-front" id="benoli-orbit-front"></div>
     <span class="benoli-arbre-vent vent-un"></span><span class="benoli-arbre-vent vent-deux"></span>
   </div>
 </section>
@@ -1560,6 +1579,21 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
   b.addEventListener("click", () => aEnvoyer(c)); $("#aChips").appendChild(b);
 });
 
+
+/* Livres 3D en orbite lente autour de l'arbre */
+(function(){
+ const back=document.getElementById("benoli-orbit-back"),front=document.getElementById("benoli-orbit-front");
+ if(!back||!front||!Array.isArray(ROMANS))return;
+ const books=ROMANS.filter(r=>r.couverture).slice(0,7);if(!books.length)return;
+ books.forEach((r,i)=>{
+  const backLayer=i%2===0,card=document.createElement("div");card.className="benoli-orbit-book"+(backLayer?" is-back":"");
+  const img=document.createElement("img");img.src=r.couverture;img.alt="";img.loading="lazy";img.decoding="async";card.appendChild(img);
+  const angle=(Math.PI*2*i/books.length)+(backLayer?Math.PI/books.length:0);
+  const x=Math.cos(angle)*(innerWidth<420?116:172),y=Math.sin(angle)*(innerWidth<420?83:116),z=Math.sin(angle)*58;
+  card.style.transform="translate(-50%,-50%) translate3d("+x+"px,"+y+"px,"+z+"px) rotateY("+(Math.sin(angle)*28)+"deg) rotateZ("+(-Math.sin(angle)*8)+"deg)";
+  card.style.zIndex=String(Math.round(10+Math.sin(angle)*10));card.style.animationDelay=(-i*.6)+"s";(backLayer?back:front).appendChild(card);
+ });
+})();
 
 /* Défilement décoratif des couvertures des romans */
 (function initBenoliCovers(){
