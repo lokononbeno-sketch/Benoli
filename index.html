@@ -810,9 +810,38 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
 @media(min-width:620px){.benoli-arbre-scene{height:390px}.benoli-orbit-book{width:70px;height:104px}}
 @media(prefers-reduced-motion:reduce){.benoli-orbit-book{animation:none}}
 
+
+/* Générique vidéo d'ouverture Benoli Littéraire */
+#benoli-video-intro{position:fixed;inset:0;z-index:999999;background:radial-gradient(ellipse at 50% 42%,#38294f 0%,#171329 58%,#090814 100%);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility .55s ease}
+#benoli-video-intro.is-visible{opacity:1;visibility:visible}
+#benoli-video-intro video{display:block;width:min(100vw,560px);height:auto;max-height:86vh;object-fit:contain;border-radius:16px;box-shadow:0 20px 80px #0009}
+#benoli-video-intro .benoli-intro-caption{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#f3d28c;font:600 12px/1.4 Georgia,serif;letter-spacing:.24em;text-transform:uppercase;text-shadow:0 2px 12px #000}
+@media(prefers-reduced-motion:reduce){#benoli-video-intro{transition:none}}
 </style>
 </head>
 <body>
+
+<div id="benoli-video-intro" aria-label="Générique d'ouverture Benoli Littéraire">
+  <video id="benoli-opening-video" muted playsinline webkit-playsinline preload="auto">
+    <source src="./assets/benoli-intro.mp4" type="video/mp4">
+  </video>
+  <div class="benoli-intro-caption">Benoli Littéraire · Lire · Rêver · Grandir</div>
+</div>
+<script>
+(function(){
+ const screen=document.getElementById("benoli-video-intro");
+ const video=document.getElementById("benoli-opening-video");
+ if(!screen||!video)return;
+ let finished=false, fallback=null;
+ const close=()=>{if(finished)return;finished=true;clearTimeout(fallback);screen.classList.remove("is-visible");setTimeout(()=>screen.remove(),650);};
+ video.addEventListener("canplay",()=>{if(finished)return;screen.classList.add("is-visible");const p=video.play();if(p&&typeof p.catch==="function")p.catch(close);},{once:true});
+ video.addEventListener("ended",close,{once:true});
+ video.addEventListener("error",close,{once:true});
+ fallback=setTimeout(close,12000);
+ video.load();
+})();
+</script>
+
 
 <header class="hero">
   <div class="wrap">
