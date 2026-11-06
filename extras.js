@@ -948,6 +948,9 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
     <a class="bm-lien" href="#/nouveautes">
       <span class="bm-emoji">🆕</span> Nouveautés
     </a>
+    <a class="bm-lien" href="#/notifications" data-n="notifications">
+      <span class="bm-emoji">🔔</span> Actus
+    </a>
     <a class="bm-lien" href="#/favoris">
       <span class="bm-emoji">❤️</span> Mes favoris
     </a>
