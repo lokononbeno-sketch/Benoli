@@ -23,6 +23,7 @@ const badgeList=[
 function award(id){if(data.badges.includes(id))return;data.badges.push(id);const b=badgeList.find(x=>x.id===id);if(b)notify("Nouveau trophée débloqué !",b.icon+" "+b.name)}
 function checkBadges(){badgeList.forEach(b=>{if(b.test())award(b.id)})}
 function notify(title,message){
+ try{window.dispatchEvent(new CustomEvent("benoli:notification",{detail:{title,message,type:"reward"}}))}catch(e){}
  let box=document.getElementById("benoli-gm-toast");if(!box){box=document.createElement("div");box.id="benoli-gm-toast";document.body.appendChild(box)}
  box.innerHTML="<strong>"+esc(title)+"</strong><span>"+esc(message)+"</span>";box.classList.add("visible");
  clearTimeout(window.__benoliGmToastTimer);window.__benoliGmToastTimer=setTimeout(()=>box.classList.remove("visible"),3600);
