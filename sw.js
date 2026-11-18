@@ -1,6 +1,6 @@
-const V = "benoli-v47";
+const V = "benoli-v48";
 const FICHIERS = [
-  "./", "./index.html", "./manifest.json",
+  "./", "./index.html", "./manifest.json", "./J-ai-appris-a-t-aimer-trop-tard.webp",
   "./icon-192.png", "./icon-512.png", "./maskable-512.png", "./assets/benoli-logo.svg", "./assets/benoli-intro.mp4",
   "./extras.js", "./gamification.js", "./notifications.js", "./stories.js", "./nouveautes.js", "./profil.js", "./univers.js", "./communaute.js", "./immersif.js", "./bibliotheque3d.js"
 ];
