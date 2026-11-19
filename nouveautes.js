@@ -45,7 +45,8 @@
 
   const dateLocale = () => { const d=new Date(); return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-"); };
   PAGES.carnet = () => {
-    const entreesBrutes = lire(CARNET, []);\n    const entrees = Array.isArray(entreesBrutes) ? entreesBrutes.filter(e => e && typeof e.titre === "string") : [];
+    const entreesBrutes = lire(CARNET, []);
+    const entrees = Array.isArray(entreesBrutes) ? entreesBrutes.filter(e => e && typeof e.titre === "string") : [];
     return `<h2 class="serif">Mon carnet de lecture 📔</h2>
       <p class="attente">Note tes lectures et garde tes impressions privées sur cet appareil.</p>
       <form id="benoliCarnetForm" class="bloc">
