@@ -5,10 +5,10 @@ if(window.__benoliGamification)return;
 window.__benoliGamification=true;
 if(typeof PAGES==="undefined"||typeof ROMANS==="undefined")return;
 const KEY="benoli-gamification-v1";
-const today=()=>new Date().toISOString().slice(0,10);
+const today=()=>{const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")};
 const fresh=()=>({points:0,days:[],books:[],quizDays:[],badges:[],lastVisit:""});
 let data=fresh();
-try{const saved=JSON.parse(localStorage.getItem(KEY)||"{}");if(saved&&typeof saved==="object")data=Object.assign(fresh(),saved)}catch(e){}
+try{const saved=JSON.parse(localStorage.getItem(KEY)||"{}");if(saved&&typeof saved==="object"&&!Array.isArray(saved)){data=Object.assign(fresh(),saved);["days","books","quizDays","badges"].forEach(k=>{if(!Array.isArray(data[k]))data[k]=[]});if(!Number.isFinite(data.points))data.points=0;if(typeof data.lastVisit!=="string")data.lastVisit=""}}catch(e){}
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){}};
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const badgeList=[
