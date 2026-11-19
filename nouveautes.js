@@ -36,16 +36,16 @@
       ${romans.length ? `<div class="grille">${romans.map(r => `<a class="livre" href="#/${encodeURIComponent(r.id)}"><div class="cv"><img src="${echapper(r.couverture)}" alt=""></div><h3>${echapper(r.titre)}</h3><p>${echapper(r.sousTitre || "")}</p></a>`).join("")}</div>` : `<div class="bloc"><h3 class="serif">Restez au rendez-vous !</h3><p>Les prochaines nouveautés seront annoncées ici.</p><a class="btn" href="#/romans">Découvrir le catalogue</a></div>`}`;
   };
 
-  function listeFavoris() { return lire(FAVORIS, []).filter(id => ROMANS.some(r => r.id === id)); }
+  function listeFavoris() { const v=lire(FAVORIS, []); return (Array.isArray(v)?v:[]).filter(id => ROMANS.some(r => r.id === id)); }
   PAGES.favoris = () => {
     const ids = listeFavoris();
     if (!ids.length) return `<h2 class="serif">Mes favoris ❤️</h2><p class="attente">Tu n'as pas encore ajouté de roman à tes favoris.</p><a class="btn" href="#/romans">Parcourir les romans</a>`;
     return `<h2 class="serif">Mes favoris ❤️</h2><p class="attente">Tes romans préférés, enregistrés sur cet appareil.</p><div class="grille">${ids.map(id => { const r=ROMANS.find(x=>x.id===id); return `<a class="livre" href="#/${encodeURIComponent(r.id)}"><div class="cv"><img src="${echapper(r.couverture)}" alt=""></div><h3>${echapper(r.titre)}</h3><p>Ouvrir la fiche</p></a>`; }).join("")}</div>`;
   };
 
-  const dateLocale = () => new Date().toISOString().slice(0,10);
+  const dateLocale = () => { const d=new Date(); return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-"); };
   PAGES.carnet = () => {
-    const entrees = lire(CARNET, []);
+    const entreesBrutes = lire(CARNET, []);\n    const entrees = Array.isArray(entreesBrutes) ? entreesBrutes.filter(e => e && typeof e.titre === "string") : [];
     return `<h2 class="serif">Mon carnet de lecture 📔</h2>
       <p class="attente">Note tes lectures et garde tes impressions privées sur cet appareil.</p>
       <form id="benoliCarnetForm" class="bloc">
@@ -86,13 +86,13 @@
     const titre=document.getElementById("bcTitre").value.trim();
     const note=document.getElementById("bcNote").value.trim();
     if(!titre) return;
-    const entries=lire(CARNET,[]);
+    const brut=lire(CARNET,[]); const entries=Array.isArray(brut)?brut:[];
     entries.push({titre,note,date:dateLocale()});
     if(sauver(CARNET,entries)) { const page=document.querySelector("#ficheContenu .page"); if(page) page.innerHTML=PAGES.carnet(); }
   });
   document.addEventListener("click", e => {
     const del=e.target.closest("[data-carnet-delete]");
-    if(del) { const entries=lire(CARNET,[]); entries.splice(Number(del.dataset.carnetDelete),1); if(sauver(CARNET,entries)){const page=document.querySelector("#ficheContenu .page");if(page)page.innerHTML=PAGES.carnet();} }
+    if(del) { const brut=lire(CARNET,[]); const entries=Array.isArray(brut)?brut:[]; const index=Number(del.dataset.carnetDelete); if(!Number.isInteger(index)||index<0||index>=entries.length)return; entries.splice(index,1); if(sauver(CARNET,entries)){const page=document.querySelector("#ficheContenu .page");if(page)page.innerHTML=PAGES.carnet();} }
   });
 
   /* Le menu principal contient déjà Nouveautés, Favoris, Quiz, Carnet et Installation.
