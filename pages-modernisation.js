@@ -7,7 +7,9 @@ window.__benoliPagesModernReady=true;
 const css=String.raw`
 /* Socle des pages */
 html body{font-family:Inter,system-ui,sans-serif!important;background:var(--papier);color:var(--encre)}
-html body h1,html body h2,html body h3,html body .serif{font-family:Lora,Georgia,serif!important;color:var(--encre)}\nhtml body header.hero h1{color:var(--vert)!important;-webkit-text-fill-color:var(--vert)!important}\nhtml body .benoli-brand span{color:var(--vert)!important;-webkit-text-fill-color:var(--vert)!important}
+html body h1,html body h2,html body h3,html body .serif{font-family:Lora,Georgia,serif!important;color:var(--encre)}
+html body header.hero h1{color:var(--vert)!important;-webkit-text-fill-color:var(--vert)!important}
+html body .benoli-brand span{color:var(--vert)!important;-webkit-text-fill-color:var(--vert)!important}
 #fiche{background:var(--papier)!important}
 #ficheContenu{max-width:900px;padding-bottom:34px}
 #ficheContenu>.retour{display:inline-flex;align-items:center;gap:8px;margin:18px 0 20px;padding:10px 15px;border-radius:999px;background:var(--carte);border:1px solid var(--trait);color:var(--vert);font-weight:700;box-shadow:0 3px 10px rgba(43,29,20,.05)}
@@ -98,7 +100,13 @@ html body h1,html body h2,html body h3,html body .serif{font-family:Lora,Georgia
 .biblio-rangee{background:linear-gradient(180deg,rgba(139,94,60,.09),rgba(139,94,60,.18))!important;box-shadow:inset 0 8px 16px rgba(43,29,20,.06)!important}
 .biblio-livre-titre{color:#2B1D14!important}.biblio-livre-genre{color:#6B5B4E!important}
 .biblio-planche{background:linear-gradient(180deg,#C08A61,#8B5E3C 42%,#5A3928)!important;box-shadow:0 6px 9px rgba(43,29,20,.15),0 1px 0 #e7bd7b inset!important}
-.biblio-vide,.biblio-bas{color:#6B5B4E!important}\nhtml[data-benoli-appearance="dark"] .bibliotheque-3d{background:linear-gradient(145deg,#1B241E,#202A23)!important;color:#F3EEE4!important;border-color:#394638}\nhtml[data-benoli-appearance="dark"] .biblio-entete h2,html[data-benoli-appearance="dark"] .biblio-intro-rayon h3{color:#F3EEE4!important}\nhtml[data-benoli-appearance="dark"] .biblio-entete p,html[data-benoli-appearance="dark"] .biblio-rayon-compte,html[data-benoli-appearance="dark"] .biblio-vide,html[data-benoli-appearance="dark"] .biblio-bas,html[data-benoli-appearance="dark"] .biblio-livre-titre{color:#B9B0A2!important}\nhtml[data-benoli-appearance="dark"] .biblio-recherche,html[data-benoli-appearance="dark"] .biblio-filtres button{background:#1B241E!important;border-color:#394638!important;color:#B9B0A2!important}\nhtml[data-benoli-appearance="dark"] .biblio-recherche input{color:#F3EEE4!important}\nhtml[data-benoli-appearance="dark"] .biblio-rangee{background:linear-gradient(180deg,rgba(192,138,97,.08),rgba(192,138,97,.2))!important}
+.biblio-vide,.biblio-bas{color:#6B5B4E!important}
+html[data-benoli-appearance="dark"] .bibliotheque-3d{background:linear-gradient(145deg,#1B241E,#202A23)!important;color:#F3EEE4!important;border-color:#394638}
+html[data-benoli-appearance="dark"] .biblio-entete h2,html[data-benoli-appearance="dark"] .biblio-intro-rayon h3{color:#F3EEE4!important}
+html[data-benoli-appearance="dark"] .biblio-entete p,html[data-benoli-appearance="dark"] .biblio-rayon-compte,html[data-benoli-appearance="dark"] .biblio-vide,html[data-benoli-appearance="dark"] .biblio-bas,html[data-benoli-appearance="dark"] .biblio-livre-titre{color:#B9B0A2!important}
+html[data-benoli-appearance="dark"] .biblio-recherche,html[data-benoli-appearance="dark"] .biblio-filtres button{background:#1B241E!important;border-color:#394638!important;color:#B9B0A2!important}
+html[data-benoli-appearance="dark"] .biblio-recherche input{color:#F3EEE4!important}
+html[data-benoli-appearance="dark"] .biblio-rangee{background:linear-gradient(180deg,rgba(192,138,97,.08),rgba(192,138,97,.2))!important}
 
 /* Fiches romans, extraits et lecture */
 #ficheContenu .haut{align-items:start;gap:clamp(14px,4vw,24px);padding:15px;border:1px solid var(--trait);border-radius:19px;background:var(--carte)}
