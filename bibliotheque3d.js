@@ -35,7 +35,7 @@ function afficher(){
   row.innerHTML='<div class="biblio-livres">'+liste.slice(i,i+4).map((r,j)=>carte(r,i+j)).join("")+'</div><div class="biblio-planche"><i></i></div>';
   rayonnage.appendChild(row);
  }
- compteur.textContent=liste.length+' livre'+(liste.length>1?'s':'');vide.hidden=liste.length!==0;
+ compteur.textContent=liste.length+" livre"+(liste.length>1?"s":"");vide.textContent=(q||genreActif!=="Tous")?"Aucun livre ne correspond à ta recherche. Essaie un autre titre.":"Aucun livre n’est disponible pour le moment.";vide.hidden=liste.length!==0||(!q&&genreActif==="Tous");
 }
 filtres.addEventListener("click",e=>{const b=e.target.closest("button[data-genre]");if(!b)return;genreActif=b.dataset.genre;filtres.querySelectorAll("button").forEach(x=>x.classList.toggle("actif",x===b));afficher()});
 recherche.addEventListener("input",afficher);afficher();
