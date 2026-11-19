@@ -3,9 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#080d19">
+<meta name="theme-color" content="#FBF6EC">
 <title>Benoli Littéraire</title>
 <link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Lora:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <style>
@@ -817,6 +820,91 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
 #benoli-video-intro video{display:block;width:min(100vw,560px);height:auto;max-height:86vh;object-fit:contain;border-radius:16px;box-shadow:0 20px 80px #0009}
 #benoli-video-intro .benoli-intro-caption{position:absolute;bottom:max(24px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;color:#f3d28c;font:600 12px/1.4 Georgia,serif;letter-spacing:.24em;text-transform:uppercase;text-shadow:0 2px 12px #000}
 @media(prefers-reduced-motion:reduce){#benoli-video-intro{transition:none}}
+
+/* ===== Refonte Benoli Littéraire : bibliothèque chaleureuse ===== */
+:root{color-scheme:light;--papier:#FBF6EC;--carte:#fffdf8;--encre:#2B1D14;--doux:#6B5B4E;--trait:#E0D3BE;--vert:#1F4D3A;--or:#C9A227;--sur-vert:#fff;--benoli-terre:#8B5E3C;--benoli-creme:#F3EAD8;--benoli-ombre:0 8px 24px rgba(43,29,20,.09)}
+html{scroll-behavior:smooth;scroll-padding-top:18px}body{font-family:Inter,system-ui,sans-serif;background:var(--papier);color:var(--encre)}
+h1,h2,h3,.serif,.accueil-hero h2,.accueil-rubrique strong{font-family:Lora,Georgia,serif}
+header.hero{padding:16px 0 28px;color:var(--encre);background:linear-gradient(135deg,#FBF6EC,#F3EAD8);border-bottom:1px solid var(--trait)}
+header.hero .wrap{z-index:4;text-shadow:none}.benoli-topbar{border-color:var(--trait);margin-bottom:22px;padding:8px 0 14px}
+.benoli-brand span,header.hero h1{background:none;color:var(--vert);-webkit-text-fill-color:var(--vert);text-shadow:none}
+.benoli-brand img{filter:none}.benoli-auth{border-color:var(--vert);background:transparent;color:var(--vert)}.benoli-auth.inscription{background:var(--benoli-terre);border-color:var(--benoli-terre);color:#fff}
+.benoli-lang select{background:var(--carte);border-color:var(--trait);color:var(--encre)}.benoli-lang:after{color:var(--benoli-terre)}
+header.hero .drapeau i:nth-child(1){background:#1F4D3A}header.hero .drapeau i:nth-child(2){background:#C9A227}header.hero .drapeau i:nth-child(3){background:#A63D2F}
+header.hero .sous{color:var(--doux);font-family:Lora,Georgia,serif;font-style:italic}
+header.hero .auteur{background:rgba(255,253,248,.92);border:1px solid var(--trait);border-left:4px solid var(--benoli-terre);box-shadow:var(--benoli-ombre);backdrop-filter:none}
+header.hero .auteur small{color:var(--vert)}#benoli-covers{opacity:.13!important}
+#benoli-covers:before{background:linear-gradient(90deg,#FBF6EC,rgba(251,246,236,.45),#FBF6EC)}
+#benoli-covers:after{background:linear-gradient(180deg,rgba(251,246,236,.2),rgba(251,246,236,.75))}
+.benoli-hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.benoli-hero-actions a{display:inline-flex;align-items:center;gap:8px;padding:11px 16px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.9rem}
+.benoli-hero-primary{background:var(--benoli-terre);color:#fff;box-shadow:0 5px 14px rgba(139,94,60,.2)}
+.benoli-hero-secondary{border:1px solid var(--vert);color:var(--vert);background:transparent}
+.benoli-arbre-hero{max-width:1040px;min-height:0;margin:20px auto 12px;padding:12px 20px 4px;background:radial-gradient(ellipse at 75% 55%,rgba(201,162,39,.16),transparent 44%),linear-gradient(145deg,#1F4D3A,#173b2d 68%,#102d22);border:1px solid rgba(201,162,39,.35);box-shadow:var(--benoli-ombre)}
+.benoli-arbre-scene{height:clamp(210px,55vw,330px);max-width:500px}.benoli-arbre-svg{filter:drop-shadow(12px 17px 9px rgba(0,0,0,.25))}
+.benoli-collection{max-width:1040px;margin:22px auto 8px;padding:0 18px}
+.benoli-collection-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.benoli-collection-kicker{display:block;color:var(--benoli-terre);font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin-bottom:5px}
+.benoli-collection h2{font-size:clamp(1.5rem,5vw,2rem);line-height:1.15;color:var(--encre)}.benoli-count{white-space:nowrap;color:var(--doux);font-size:.82rem;font-weight:700}
+.benoli-book-track{display:flex;gap:14px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x mandatory;padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:var(--benoli-terre) var(--benoli-creme)}
+.benoli-book-card{flex:0 0 132px;min-width:0;scroll-snap-align:start;text-decoration:none;color:var(--encre)}
+.benoli-book-card img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:7px 12px 12px 7px;box-shadow:0 7px 17px rgba(43,29,20,.2);border:1px solid rgba(43,29,20,.12);background:var(--benoli-creme)}
+.benoli-book-card strong{display:block;font-family:Lora,Georgia,serif;font-size:.86rem;line-height:1.25;margin-top:8px}.benoli-book-card small{display:block;color:var(--doux);font-size:.72rem;margin-top:3px}
+.benoli-collection-more{display:inline-flex;margin-top:4px;color:var(--vert);font-weight:800;text-decoration:none;font-size:.9rem}
+.benoli-actions-rapides{max-width:1040px;margin:22px auto 28px;padding:0 18px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.benoli-action-card{display:flex;min-width:0;min-height:112px;flex-direction:column;align-items:flex-start;justify-content:center;gap:7px;padding:16px;border:1px solid var(--trait);border-radius:16px;background:var(--benoli-creme);color:var(--encre);text-decoration:none;box-shadow:0 4px 12px rgba(43,29,20,.045)}
+.benoli-action-card svg{width:27px;height:27px;stroke:var(--vert);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.benoli-action-card strong{font-size:.9rem}.benoli-action-card small{color:var(--doux);font-size:.75rem;line-height:1.35}
+.benoli-action-card:hover{border-color:var(--benoli-terre);box-shadow:var(--benoli-ombre);transform:translateY(-2px)}
+#partageAccueil{margin:0;padding:0;border:0;background:transparent;box-shadow:none;min-width:0}
+#partageAccueil h3{font-family:Inter,system-ui,sans-serif;font-size:.9rem;color:var(--encre);margin:0}
+#partageAccueil p{font-size:.75rem;color:var(--doux);margin:3px 0 7px}#partageAccueil button,#partageAccueil a{font-size:.78rem}
+.accueil-bienvenue{max-width:1040px;padding:12px 18px 28px}.accueil-rubriques{margin-top:14px}.accueil-section-titre h3{color:var(--encre)}.accueil-numero{display:none}
+.accueil-grille{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.accueil-rubrique{min-height:122px;padding:16px;background:var(--carte);border:1px solid var(--trait);border-radius:16px;color:var(--encre);box-shadow:0 4px 14px rgba(43,29,20,.045)}
+.accueil-rubrique strong{color:var(--encre)}.accueil-rubrique small{color:var(--doux)}.accueil-icone,.accueil-fleche{color:var(--benoli-terre)}
+.accueil-pensee{background:linear-gradient(120deg,#F3EAD8,#FBF6EC);border:1px solid var(--trait);color:var(--encre);box-shadow:var(--benoli-ombre)}
+.accueil-pensee small{color:var(--benoli-terre)}.accueil-pensee a{color:var(--vert)}
+#catalogue{max-width:1040px;padding-top:8px}.recherche{position:sticky;top:0;background:rgba(251,246,236,.94);backdrop-filter:blur(12px);padding:10px 0;z-index:5}
+.recherche input{background:var(--carte);color:var(--encre);border:1px solid var(--trait);border-radius:13px}.nb{color:var(--doux);margin:3px 2px 10px}
+.grille{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 15px}@media(min-width:620px){.grille{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(min-width:900px){.grille{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.livre h3{color:var(--encre);font-size:.98rem}.livre p{color:var(--benoli-terre);font-weight:700}.cv{box-shadow:inset 6px 0 0 rgba(255,255,255,.14),0 7px 17px rgba(43,29,20,.16)}
+.partage{background:var(--carte);border-color:var(--trait);color:var(--encre);box-shadow:var(--benoli-ombre)}
+.aide-benoli{background:var(--benoli-creme);border:1px solid var(--trait);border-radius:20px;box-shadow:none;margin-top:26px}
+.aide-entete h2{color:var(--encre)}.aide-entete p,.aide-reponse,.aide-bas{color:var(--doux)}.aide-entete .aide-surtitre{color:var(--benoli-terre)}
+.aide-item{background:var(--carte);border-color:var(--trait)}.aide-item summary{color:var(--encre)}.aide-item summary:after{color:var(--benoli-terre)}
+.aide-reponse a{color:var(--vert)}.aide-bas a{background:var(--benoli-terre);color:#fff}
+footer{background:var(--vert);border:0;color:#FBF6EC;padding:24px 0 34px}footer a{color:#fff;font-weight:600}footer .liens{gap:10px 18px}
+#fiche{background:var(--papier)}.retour,.extrait,.partage{background:var(--carte);border-color:var(--trait);color:var(--encre)}
+.page h2,.bloc h3,.livre h3{color:var(--encre)}.bloc p,.page p{color:var(--doux)}
+.btn{background:var(--benoli-terre);border-color:var(--benoli-terre);color:#fff;box-shadow:0 5px 14px rgba(139,94,60,.16)}
+.btn.sec,.pbtn,.chip{background:transparent;color:var(--vert);border-color:var(--vert)}
+#assistant{background:var(--papier);border:1px solid var(--trait);color:var(--encre)}.aHaut{border-color:var(--trait)}.m.bot{background:var(--carte);border-color:var(--trait)}
+.m.moi,#aForm button{background:var(--vert);color:#fff}.m a{color:var(--vert)}#aBtn{background:var(--benoli-terre);color:#fff}
+:focus-visible{outline:3px solid var(--or);outline-offset:3px}::selection{background:#E8D5A4;color:#2B1D14}
+.benoli-theme-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 11px;border:1px solid var(--trait);border-radius:999px;background:var(--carte);color:var(--encre);font:600 .78rem Inter,system-ui,sans-serif;cursor:pointer}
+html[data-benoli-appearance="dark"]{color-scheme:dark;--papier:#111713;--carte:#1B241E;--encre:#F3EEE4;--doux:#B9B0A2;--trait:#394638;--vert:#8FB99A;--or:#D9B96E;--sur-vert:#101710;--benoli-terre:#C08A61;--benoli-creme:#202A23}
+html[data-benoli-appearance="dark"] body{background:var(--papier);color:var(--encre)}
+html[data-benoli-appearance="dark"] header.hero{background:linear-gradient(135deg,#17231B,#202C22);color:var(--encre);border-color:var(--trait)}
+html[data-benoli-appearance="dark"] .benoli-brand span,html[data-benoli-appearance="dark"] header.hero h1{color:var(--encre);-webkit-text-fill-color:var(--encre)}
+html[data-benoli-appearance="dark"] header.hero .sous{color:var(--doux)}html[data-benoli-appearance="dark"] header.hero .auteur{background:var(--carte);border-color:var(--trait)}
+html[data-benoli-appearance="dark"] #benoli-covers:before{background:linear-gradient(90deg,#17231B,rgba(23,35,27,.4),#17231B)}
+html[data-benoli-appearance="dark"] #benoli-covers:after{background:linear-gradient(180deg,rgba(17,23,19,.15),rgba(17,23,19,.72))}
+html[data-benoli-appearance="dark"] .recherche{background:rgba(17,23,19,.94)}
+html[data-benoli-appearance="dark"] .accueil-pensee{background:linear-gradient(120deg,#28352A,#202A23);color:var(--encre);border-color:var(--trait)}
+html[data-benoli-appearance="dark"] .accueil-pensee a{color:#C7DCC9}html[data-benoli-appearance="dark"] footer{background:#0D2E20}
+html[data-benoli-appearance="dark"] .benoli-arbre-hero{background:linear-gradient(145deg,#172F24,#10251B)}
+html[data-benoli-appearance="dark"] .benoli-action-card{background:var(--benoli-creme);border-color:var(--trait);color:var(--encre)}
+html[data-benoli-appearance="dark"] .benoli-action-card small,html[data-benoli-appearance="dark"] .benoli-book-card small{color:var(--doux)}
+@media(max-width:600px){.benoli-topbar{align-items:center}.benoli-actions{max-width:none;gap:5px}.benoli-auth{padding:7px 8px;font-size:.7rem}
+.benoli-theme-toggle{width:34px;height:34px;padding:0;font-size:0}.benoli-theme-toggle .theme-icon{font-size:1rem}
+.benoli-book-card{flex-basis:122px}.benoli-actions-rapides{gap:8px}.benoli-action-card{min-height:100px;padding:11px}
+.benoli-action-card strong{font-size:.78rem}.benoli-action-card small{font-size:.68rem}.accueil-grille{grid-template-columns:repeat(2,minmax(0,1fr))}
+.benoli-arbre-scene{height:clamp(205px,65vw,280px)}.benoli-hero-actions a{flex:1 1 auto}}
+@media(min-width:760px){.benoli-book-card{flex-basis:164px}.benoli-arbre-hero{display:grid;grid-template-columns:.85fr 1.15fr;align-items:center}.benoli-arbre-scene{height:310px}}
+@media(max-width:360px){.benoli-actions-rapides{grid-template-columns:1fr}.benoli-action-card{min-height:72px;flex-direction:row;align-items:center}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
 </style>
 </head>
 <body>
@@ -853,6 +941,7 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
       <div class="benoli-actions">
         <a class="benoli-auth" href="#/profil?mode=login">Connexion</a>
         <a class="benoli-auth inscription" href="#/profil?mode=signup">Inscription</a>
+        <button id="benoli-theme-toggle" class="benoli-theme-toggle" type="button" aria-label="Activer le mode sombre" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Mode nuit</span></button>
         <label class="benoli-lang" aria-label="Choisir la langue">
           <select id="benoli-language" aria-label="Langue de l'application">
             <option value="fr">🇫🇷 Français</option><option value="en">🇬🇧 English</option>
@@ -894,6 +983,10 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
         <small>Découvrir mon univers →</small>
       </span>
     </a>
+    <div class="benoli-hero-actions">
+      <a class="benoli-hero-primary" href="#benoli-collection">Découvrir les romans <span aria-hidden="true">→</span></a>
+      <a class="benoli-hero-secondary" href="#/profil">Mon espace lecteur</a>
+    </div>
   </div>
 </header>
 
@@ -957,6 +1050,12 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
   </div>
 </section>
 
+<section class="benoli-collection" id="benoli-collection" aria-labelledby="benoli-collection-title">
+  <div class="benoli-collection-head"><div><span class="benoli-collection-kicker">À découvrir</span><h2 id="benoli-collection-title">La bibliothèque Benoli</h2></div><span class="benoli-count" id="benoli-count">Collection</span></div>
+  <div class="benoli-book-track" id="benoli-book-track" aria-label="Romans de la bibliothèque Benoli"></div>
+  <a class="benoli-collection-more" href="#/romans">Voir toute la collection <span aria-hidden="true">→</span></a>
+</section>
+
 <section class="accueil-bienvenue">
   <div class="accueil-rubriques">
     <div class="accueil-section-titre">
@@ -980,7 +1079,14 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
   <div class="grille" id="grille"></div>
 </main>
 
-<div class="wrap"><div class="partage" id="partageAccueil"></div></div>
+<section class="benoli-actions-rapides" aria-label="Accès rapides">
+  <a class="benoli-action-card" id="benoli-wa-action" href="#/a-propos" target="_blank" rel="noopener noreferrer">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.5a8.4 8.4 0 0 1-12.4 7.4L4 20l1.1-3.4A8.4 8.4 0 1 1 20 11.5Z"/><path d="M8.5 8.5c.4 2.2 2.1 3.9 4.3 4.4l1.2-1.1 2 .9c-.2 1.2-1.1 2-2.4 2-3.5-.2-6.6-3.3-6.8-6.8 0-1.3.8-2.2 2-2.4l.9 2-1.2 1Z"/></svg>
+    <strong>WhatsApp</strong><small>Contacter Benoli</small>
+  </a>
+  <div class="benoli-action-card" id="partageAccueil" aria-label="Partager l'application"></div>
+  <a class="benoli-action-card" href="#besoin-aide"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9a2.5 2.5 0 1 1 4.5 1.5c-1.2 1.1-2.1 1.4-2.1 3"/><path d="M12 17.5h.01"/></svg><strong>Besoin d'aide ?</strong><small>Consulter les réponses</small></a>
+</section>
 
 
 <section class="aide-benoli wrap" id="besoin-aide" aria-labelledby="aide-titre">
@@ -1316,13 +1422,28 @@ function afficherListe() {
   const q = norm($("#q").value.trim());
   const liste = ROMANS.map((r, i) => ({ r, i })).filter(({ r }) =>
     norm([r.titre, r.sousTitre, r.genre, r.resume].join(" ")).includes(q));
-  $("#nb").textContent = q ? `${liste.length} résultat(s)` : `${ROMANS.length} romans`;
+  $("#nb").textContent = q ? `${liste.length} résultat(s)` : "";
   $("#grille").innerHTML = liste.length ? liste.map(({ r, i }) => `
     <a class="livre" href="#/${r.id}">
       ${couverture(r, i)}
       <h3 class="serif">${esc(r.titre)}</h3>
       <p>${prix(r.prix)}</p>
-    </a>`).join("") : `<p class="vide">Aucun roman ne correspond. Essaie un autre mot.</p>`;
+    </a>`).join("") : q
+      ? `<p class="vide">Aucun roman ne correspond à ta recherche. Essaie un autre mot.</p>`
+      : `<p class="vide">Le catalogue sera bientôt disponible.</p>`;
+}
+
+function afficherCarrousel() {
+  const track = document.getElementById("benoli-book-track");
+  const count = document.getElementById("benoli-count");
+  if (!track || !Array.isArray(ROMANS)) return;
+  if (count) count.textContent = `${ROMANS.length} ${ROMANS.length > 1 ? "œuvres" : "œuvre"}`;
+  track.innerHTML = ROMANS.map(r => `
+    <a class="benoli-book-card" href="#/${r.id}">
+      <img src="${esc(r.couverture || "")}" alt="Couverture de ${esc(r.titre)}" loading="lazy" decoding="async">
+      <strong>${esc(r.titre)}</strong><small>Lokonon B. Tiziano</small>
+    </a>
+  `).join("");
 }
 
 function afficherFiche(id) {
@@ -1536,7 +1657,22 @@ function afficherPage(id) {
 const ph = $("#photoAuteur");
 ph.addEventListener("error", () => ph.remove());
 ph.src = AUTEUR.photo;
-$("#partageAccueil").innerHTML = partageHtml(lienApp(), TEXTE_PARTAGE, "Fais découvrir l'application");
+$("#partageAccueil").innerHTML = partageHtml(lienApp(), TEXTE_PARTAGE, "Partager l'application");
+const waAction = document.getElementById("benoli-wa-action");
+if (waAction) waAction.href = `https://wa.me/${CONFIG.whatsapp}`;
+(function initBenoliAppearance(){
+  const root = document.documentElement, button = document.getElementById("benoli-theme-toggle");
+  let saved = "light";
+  try { saved = localStorage.getItem("benoli-appearance") || "light"; } catch (_) {}
+  const apply = mode => {
+    const dark = mode === "dark"; root.dataset.benoliAppearance = dark ? "dark" : "light";
+    if (button) { button.setAttribute("aria-pressed", String(dark)); button.setAttribute("aria-label", dark ? "Activer le mode clair" : "Activer le mode sombre");
+      button.innerHTML = dark ? '<span class="theme-icon" aria-hidden="true">☀</span><span class="theme-label">Mode jour</span>' : '<span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Mode nuit</span>'; }
+    const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.content = dark ? "#111713" : "#FBF6EC";
+  };
+  apply(saved === "dark" ? "dark" : "light");
+  if (button) button.addEventListener("click", () => { const next = root.dataset.benoliAppearance === "dark" ? "light" : "dark"; try { localStorage.setItem("benoli-appearance", next); } catch (_) {} apply(next); });
+})();
 
 /* ---------- Assistant ---------- */
 const aPanel = $("#assistant"), aMsgs = $("#aMsgs"), aIn = $("#aIn");
@@ -1670,6 +1806,7 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
 })();
 
 afficherListe();
+afficherCarrousel();
 route();
   
 /* Préférence de langue — la traduction complète sera activée avec les contenus multilingues */
