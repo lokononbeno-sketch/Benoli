@@ -184,8 +184,15 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
   majNav();
 
   /* --- Quiz --- */
-  let Q = null;
-  const menuQuiz = () => `<p class="attente">Deux façons de jouer, sans compte et sans rien à payer.</p><div class="qmenu"><button class="qcarte" type="button" data-qa="start-quiz"><b>Connais-tu les romans de Benoli ?</b><span>${QUIZ.length} questions · sans spoiler</span></button><button class="qcarte" type="button" data-qa="start-test"><b>Quel roman est fait pour toi ?</b><span>${TEST.length} questions · ton résultat en 1 minute</span></button></div>`;
+  let Q = null, niveauQuiz = "facile";
+  const niveauxQuiz = { facile: 5, moyen: 10, difficile: 15 };
+  const menuQuiz = () => `<p class="attente">Choisis la difficulté, puis teste tes connaissances sur les romans de Benoli.</p>
+  <div class="qmenu">
+  <button class="qcarte" type="button" data-qa="difficulty" data-level="facile"><b>🌱 Facile</b><span>5 questions · 5 points par bonne réponse</span></button>
+  <button class="qcarte" type="button" data-qa="difficulty" data-level="moyen"><b>📚 Moyen</b><span>10 questions · 10 points par bonne réponse</span></button>
+  <button class="qcarte" type="button" data-qa="difficulty" data-level="difficile"><b>🔥 Difficile</b><span>${Math.min(15, QUIZ.length)} questions · 15 points par bonne réponse</span></button>
+  <button class="qcarte" type="button" data-qa="start-test"><b>Quel roman est fait pour toi ?</b><span>${TEST.length} questions · ton résultat en 1 minute</span></button>
+  </div>`;
   PAGES.quiz = () => { Q = null; return `<h2 class="serif">Quiz</h2><div id="quizZone">${menuQuiz()}</div>`; };
 
   const barre = (i, n) => `<p class="qmeta">Question ${i + 1} / ${n}</p><div class="qbar"><i style="width:${(i / n) * 100}%"></i></div>`;
@@ -194,7 +201,7 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
     return barre(Q.i, Q.list.length) + `<h3 class="serif qtitre">${esc(q.q)}</h3><div class="qopts">${q.o.map((o, k) => `<button class="qopt" type="button" data-qa="rep" data-k="${k}">${esc(o)}</button>`).join("")}</div><div id="qfb"></div>`;
   }
   function scoreHtml() {
-    const n = Q.list.length, s = Q.score;
+    const n = Q.list.length, s = Q.score, points = Q.pointsEarned || 0;
     const msg = s >= n - 1 ? "Fan numéro 1 ! Tu connais l'univers de Benoli sur le bout des doigts." : s >= Math.ceil(n * 0.65) ? "Bravo, tu connais bien les romans !" : s >= Math.ceil(n * 0.4) ? "Pas mal ! Relis quelques extraits pour faire mieux." : "Tu as tout à découvrir : commence par un extrait gratuit.";
     const texte = `J'ai eu ${s}/${n} au quiz des romans de Benoli. Et toi ? ${lienApp()}#/quiz`;
     let meilleur = "";
@@ -203,7 +210,7 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
       const valid = Array.isArray(h) ? h.filter(x => x && Number.isFinite(x.score) && Number.isFinite(x.total) && x.total > 0) : [];
       if (valid.length) meilleur = `<p class="qmeta">Meilleur score enregistré : <b>${Math.max(...valid.map(x => Math.round(x.score / x.total * 100)))} %</b> · ${valid.length} partie(s)</p>`;
     } catch (_) {}
-    return `<p class="qmeta">Ton résultat</p><div class="score">${s}/${n}</div>${meilleur}<p style="margin:12px 0 18px">${esc(msg)}</p><div class="actions" style="margin:0 0 30px"><a class="btn" href="https://wa.me/?text=${encodeURIComponent(texte)}" target="_blank" rel="noopener">Partager mon score sur WhatsApp</a><button class="btn sec" type="button" data-qa="start-quiz">Rejouer</button><a class="btn sec" href="#">Découvrir les romans</a></div>`;
+    return `<p class="qmeta">Ton résultat · difficulté ${esc(Q.level || "facile")}</p><div class="score">${s}/${n}</div><p class="qmeta">🏆 +${points} points Benoli gagnés</p>${meilleur}<p style="margin:12px 0 18px">${esc(msg)}</p><div class="actions" style="margin:0 0 30px"><a class="btn" href="https://wa.me/?text=${encodeURIComponent(texte)}" target="_blank" rel="noopener">Partager mon score sur WhatsApp</a><button class="btn sec" type="button" data-qa="start-quiz">Rejouer</button><a class="btn sec" href="#">Découvrir les romans</a></div>`;
   }
   function testQ() {
     const q = TEST[Q.i];
@@ -233,8 +240,12 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
   document.addEventListener("click", e => {
     const b = e.target.closest("[data-qa]"); if (!b) return;
     const a = b.dataset.qa;
-    if (a === "start-quiz") {
-      Q = { type: "quiz", i: 0, score: 0, done: false, list: shuffle(QUIZ).map(q => { const o = shuffle([0, 1, 2, 3]); return { q: q.q, o: o.map(k => q.o[k]), a: o.indexOf(q.a), n: q.n }; }) };
+    if (a === "difficulty") {
+      niveauQuiz = ["facile","moyen","difficile"].includes(b.dataset.level) ? b.dataset.level : "facile";
+      zone().querySelectorAll('[data-qa="difficulty"]').forEach(x => x.classList.toggle("actif", x.dataset.level === niveauQuiz));
+    } else if (a === "start-quiz") {
+      const count = Math.min(niveauxQuiz[niveauQuiz], QUIZ.length);
+      Q = { type: "quiz", level: niveauQuiz, i: 0, score: 0, done: false, pointsEarned: 0, list: shuffle(QUIZ).slice(0,count).map(q => { const o = shuffle([0, 1, 2, 3]); return { q: q.q, o: o.map(k => q.o[k]), a: o.indexOf(q.a), n: q.n }; }) };
       zone().innerHTML = questionHtml();
     } else if (a === "rep" && Q && !Q.done) {
       const q = Q.list[Q.i], k = +b.dataset.k; Q.done = true; if (k === q.a) Q.score++;
@@ -244,7 +255,22 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
       Q.i++;
       Q.done = false;
       if (Q.i >= Q.list.length) {
-        const result = { score: Q.score, total: Q.list.length, date: new Date().toISOString() };
+        const multiplicateur = Q.level === "difficile" ? 15 : Q.level === "moyen" ? 10 : 5;
+        Q.pointsEarned = Q.score * multiplicateur;
+        try {
+          const rewardKey = "benoli-rewards-local-v1";
+          const raw = JSON.parse(localStorage.getItem(rewardKey) || "{}");
+          const rewards = raw && typeof raw === "object" && !Array.isArray(raw) ? raw : {};
+          rewards.points = Math.max(0, Number(rewards.points) || 0) + Q.pointsEarned;
+          rewards.quizPlayed = Math.max(0, Number(rewards.quizPlayed) || 0) + 1;
+          rewards.bestScore = Math.max(0, Number(rewards.bestScore) || 0, Q.score / Q.list.length);
+          rewards.trophies = Array.isArray(rewards.trophies) ? rewards.trophies : [];
+          if (!rewards.trophies.includes("premier-quiz")) rewards.trophies.push("premier-quiz");
+          if (Q.score === Q.list.length && !rewards.trophies.includes("sans-faute")) rewards.trophies.push("sans-faute");
+          if (Q.level === "difficile" && Q.score >= Math.ceil(Q.list.length * .8) && !rewards.trophies.includes("expert-benoli")) rewards.trophies.push("expert-benoli");
+          localStorage.setItem(rewardKey, JSON.stringify(rewards));
+        } catch (_) {}
+        const result = { score: Q.score, total: Q.list.length, level: Q.level, points: Q.pointsEarned, date: new Date().toISOString() };
         try {
           const key = "benoli-quiz-history-v1";
           const history = JSON.parse(localStorage.getItem(key) || "[]");
