@@ -1,4 +1,4 @@
-const V = "benoli-v54";
+const V = "benoli-v55";
 const FICHIERS = [
   "./", "./index.html", "./manifest.json", "./J-ai-appris-a-t-aimer-trop-tard.webp",
   "./icon-192.png", "./icon-512.png", "./maskable-512.png", "./assets/benoli-logo.svg", "./assets/benoli-intro.mp4",
