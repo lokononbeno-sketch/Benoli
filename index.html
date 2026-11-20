@@ -795,25 +795,20 @@ html[data-benoli-theme="feminin"] .accueil-hero h2{color:#fff}
 .benoli-arbre-hero{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:1fr;gap:2px;min-height:330px;margin:18px auto 8px;padding:25px 20px 12px;max-width:760px;border-radius:24px;background:radial-gradient(ellipse at 78% 65%,rgba(76,111,70,.22),transparent 48%),linear-gradient(145deg,#17152b,#211a32 58%,#121b27);color:#f7f0e8;border:1px solid rgba(224,190,128,.18)}
 .benoli-arbre-texte{position:relative;z-index:2;max-width:560px}.benoli-arbre-surtitre{display:block;font-size:.78rem;letter-spacing:.12em;color:#e5c78f;margin-bottom:10px}.benoli-arbre-texte h2{font-size:clamp(2.2rem,9vw,3.35rem);line-height:1.02;margin:0 0 10px;color:#fff8f0}.benoli-arbre-texte h2 em{color:#e5c78f}.benoli-arbre-texte p{font-size:clamp(1rem,4vw,1.25rem);line-height:1.45;color:#e4dce9;margin:0;max-width:32ch}.benoli-arbre-scene{position:relative;height:205px;margin:-8px -8px -6px;overflow:hidden}.benoli-arbre-svg{display:block;width:min(100%,480px);height:100%;margin:0 auto;overflow:visible;transform-origin:50% 100%;animation:benoli-arbre-balancement 7s ease-in-out infinite}.benoli-arbre-branches{transform-origin:258px 318px;animation:benoli-branches-balancement 5.5s ease-in-out infinite}.benoli-feuillage{transform-box:fill-box;transform-origin:50% 85%;}.benoli-feuillage-a{animation:benoli-feuilles-a 4.7s ease-in-out infinite}.benoli-feuillage-b{animation:benoli-feuilles-b 5.2s ease-in-out infinite}.benoli-feuillage-c{animation:benoli-feuilles-c 4.2s ease-in-out infinite}.benoli-arbre-vent{position:absolute;left:7%;width:25%;height:1px;background:linear-gradient(90deg,transparent,rgba(220,228,204,.35),transparent);border-radius:50%;animation:benoli-vent 4s ease-in-out infinite}.benoli-arbre-vent.vent-un{top:40%}.benoli-arbre-vent.vent-deux{top:65%;left:55%;width:32%;animation-delay:1.7s}@keyframes benoli-arbre-balancement{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(.6deg)}}@keyframes benoli-branches-balancement{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1.2deg)}}@keyframes benoli-feuilles-a{0%,100%{transform:rotate(-1deg) translateX(0)}50%{transform:rotate(2deg) translateX(3px)}}@keyframes benoli-feuilles-b{0%,100%{transform:rotate(1deg) translateX(0)}50%{transform:rotate(-2deg) translateX(-4px)}}@keyframes benoli-feuilles-c{0%,100%{transform:rotate(-.5deg)}50%{transform:rotate(2.5deg)}}@keyframes benoli-vent{0%,100%{transform:translateX(-8px);opacity:0}45%{opacity:.65}70%{transform:translateX(34px);opacity:0}}@media(min-width:620px){.benoli-arbre-hero{grid-template-columns:1.05fr .95fr;align-items:center;min-height:320px;padding:28px 28px 18px}.benoli-arbre-scene{height:270px;margin:0 -12px -4px}.benoli-arbre-texte p{max-width:28ch}}
 
-/* Mise en scène 3D : arbre en relief et livres en orbite */
-.benoli-arbre-hero{overflow:hidden}
-.benoli-arbre-scene{height:clamp(300px,82vw,390px);max-width:570px;margin:0 auto;perspective:1100px;transform-style:preserve-3d;overflow:hidden}
-.benoli-arbre-svg{width:100%;height:100%;filter:drop-shadow(12px 17px 9px rgba(0,0,0,.35));transform:rotateY(-9deg) rotateX(5deg);transform-style:preserve-3d}
-.benoli-arbre-branches{filter:drop-shadow(3px 4px 2px rgba(0,0,0,.28))}
-.benoli-feuillage{filter:drop-shadow(4px 7px 3px rgba(0,0,0,.28))}
-.benoli-orbit{position:absolute;inset:0;z-index:4;pointer-events:none;transform-style:preserve-3d}
-.benoli-orbit-back{z-index:1}
-.benoli-orbit-book{position:absolute;left:50%;top:50%;width:clamp(43px,12vw,66px);height:clamp(65px,18vw,98px);border-radius:3px 7px 7px 3px;transform-style:preserve-3d;filter:drop-shadow(5px 9px 5px rgba(0,0,0,.5));animation:benoli-book-hover 5s ease-in-out infinite}
-.benoli-orbit-book img{display:block;width:100%;height:100%;object-fit:cover;border:1px solid rgba(255,229,180,.8);border-radius:3px 7px 7px 3px;box-shadow:inset 5px 0 8px rgba(0,0,0,.35)}
-.benoli-orbit-book:before{content:"";position:absolute;left:-5px;top:4px;width:5px;height:calc(100% - 8px);background:linear-gradient(90deg,#39271f,#e3c99d,#60412c);transform:skewY(-5deg);transform-origin:right}
-.benoli-orbit-book:after{content:"";position:absolute;right:-4px;top:4px;width:4px;height:calc(100% - 8px);background:linear-gradient(90deg,#d1b184,#35251f);transform:skewY(5deg);transform-origin:left}
-.benoli-orbit-book.is-back{filter:brightness(.72) drop-shadow(3px 5px 4px rgba(0,0,0,.4))}
-@keyframes benoli-book-hover{0%,100%{margin-top:-3px}50%{margin-top:4px}}
-.benoli-orbit-back{animation:benoli-orbit-rotation 58s linear infinite;transform-origin:50% 50%}.benoli-orbit-front{animation:benoli-orbit-rotation 58s linear infinite reverse;transform-origin:50% 50%}@keyframes benoli-orbit-rotation{from{transform:rotate(0deg) rotateX(7deg)}to{transform:rotate(360deg) rotateX(7deg)}}
-@media(min-width:620px){.benoli-arbre-scene{height:390px}.benoli-orbit-book{width:70px;height:104px}}
-@media(prefers-reduced-motion:reduce){.benoli-orbit-book{animation:none}}
-
-
+/* Lecteurs animés au pied de l'arbre */
+.benoli-arbre-scene{position:relative;isolation:isolate;overflow:hidden}
+.benoli-arbre-svg{position:relative;z-index:1}
+.benoli-lecteur-scene{position:absolute;z-index:3;left:50%;bottom:2px;width:clamp(112px,31vw,168px);height:clamp(112px,31vw,168px);transform:translateX(-50%);pointer-events:none;opacity:0}
+.benoli-lecteur-scene.visible{opacity:1}
+.benoli-lecteur-svg{display:block;width:100%;height:100%;filter:drop-shadow(0 7px 5px rgba(0,0,0,.32))}
+.benoli-lecteur-scene.entree{animation:benoli-lecteur-entree 1.35s cubic-bezier(.2,.75,.25,1) both}
+.benoli-lecteur-scene.sortie{animation:benoli-lecteur-sortie 1.25s ease-in both}
+.benoli-lecteur-corps{transform-origin:50% 90%;animation:benoli-lecture-respire 3.2s ease-in-out infinite}
+@keyframes benoli-lecteur-entree{from{opacity:0;transform:translate(-50%,35px) scale(.88)}to{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes benoli-lecteur-sortie{from{opacity:1;transform:translate(-50%,0) scale(1)}to{opacity:0;transform:translate(calc(-50% + 75px),18px) scale(.88)}}
+@keyframes benoli-lecture-respire{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@media(min-width:620px){.benoli-lecteur-scene{width:176px;height:176px;bottom:0}}
+@media(prefers-reduced-motion:reduce){.benoli-lecteur-scene.entree,.benoli-lecteur-scene.sortie,.benoli-lecteur-corps{animation:none}}
 /* Générique vidéo d'ouverture Benoli Littéraire */
 #benoli-video-intro{position:fixed;inset:0;z-index:999999;background:radial-gradient(ellipse at 50% 42%,#38294f 0%,#171329 58%,#090814 100%);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility .55s ease}
 #benoli-video-intro.is-visible{opacity:1;visibility:visible}
@@ -993,7 +988,7 @@ html[data-benoli-appearance="dark"] .benoli-action-card small,html[data-benoli-a
 
 <section class="benoli-arbre-hero" id="benoli-arbre-accueil" aria-label="Bienvenue dans ton univers Benoli">
   <div class="benoli-arbre-scene" aria-hidden="true">
-    <div class="benoli-orbit benoli-orbit-back" id="benoli-orbit-back"></div>
+    
     <svg class="benoli-arbre-svg" viewBox="0 0 520 340" role="presentation">
       <defs>
         <linearGradient id="benoli-tronc" x1="0" x2="1" y1="0" y2="0"><stop offset="0" stop-color="#593b29"/><stop offset=".48" stop-color="#a8794c"/><stop offset="1" stop-color="#493326"/></linearGradient>
@@ -1045,7 +1040,7 @@ html[data-benoli-appearance="dark"] .benoli-action-card small,html[data-benoli-a
         <circle cx="75" cy="76" r="3"/><circle cx="300" cy="22" r="2.5"/><circle cx="456" cy="58" r="3"/><circle cx="476" cy="151" r="2"/>
       </g>
     </svg>
-    <div class="benoli-orbit benoli-orbit-front" id="benoli-orbit-front"></div>
+    <div class="benoli-lecteur-scene" id="benoli-lecteur-scene" aria-hidden="true"></div>
     <span class="benoli-arbre-vent vent-un"></span><span class="benoli-arbre-vent vent-deux"></span>
   </div>
 </section>
@@ -1765,19 +1760,41 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
 });
 
 
-/* Livres 3D en orbite lente autour de l'arbre */
+/* Lecteurs successifs au pied de l'arbre */
 (function(){
- const back=document.getElementById("benoli-orbit-back"),front=document.getElementById("benoli-orbit-front");
- if(!back||!front||!Array.isArray(ROMANS))return;
- const books=ROMANS.filter(r=>r.couverture).slice(0,7);if(!books.length)return;
- books.forEach((r,i)=>{
-  const backLayer=i%2===0,card=document.createElement("div");card.className="benoli-orbit-book"+(backLayer?" is-back":"");
-  const img=document.createElement("img");img.src=r.couverture;img.alt="";img.loading="lazy";img.decoding="async";card.appendChild(img);
-  const angle=(Math.PI*2*i/books.length)+(backLayer?Math.PI/books.length:0);
-  const x=Math.cos(angle)*(innerWidth<420?116:172),y=Math.sin(angle)*(innerWidth<420?83:116),z=Math.sin(angle)*58;
-  card.style.transform="translate(-50%,-50%) translate3d("+x+"px,"+y+"px,"+z+"px) rotateY("+(Math.sin(angle)*28)+"deg) rotateZ("+(-Math.sin(angle)*8)+"deg)";
-  card.style.zIndex=String(Math.round(10+Math.sin(angle)*10));card.style.animationDelay=(-i*.6)+"s";(backLayer?back:front).appendChild(card);
- });
+ const scene=document.getElementById("benoli-lecteur-scene");
+ if(!scene)return;
+ const looks=[
+  {skin:"#8a5238",hair:"#17120f",shirt:"#176b45",pants:"#c7a46b",shoe:"#e9eee5",hairShape:"M78 49 Q82 17 111 20 Q143 18 146 51 L138 59 Q109 47 83 59Z"},
+  {skin:"#6f402f",hair:"#211713",shirt:"#c65c2d",pants:"#34343c",shoe:"#a94b4b",hairShape:"M77 48 Q79 16 111 17 Q144 19 145 50 L136 56 Q108 42 84 57Z"},
+  {skin:"#925d42",hair:"#231a15",shirt:"#e8dfc9",pants:"#263d58",shoe:"#9a633b",hairShape:"M80 49 Q84 18 111 19 Q139 18 143 49 L136 56 Q111 48 85 56Z"},
+  {skin:"#75452f",hair:"#1a1717",shirt:"#3676b6",pants:"#59683b",shoe:"#e6e9ec",hairShape:"M77 48 Q82 18 111 18 Q142 18 145 48 L138 56 Q111 45 84 57Z"}
+ ];
+ function avatar(p){
+  return '<svg class="benoli-lecteur-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg"><ellipse cx="110" cy="204" rx="75" ry="9" fill="#10251c" opacity=".42"/><g class="benoli-lecteur-corps">'+
+  '<path d="M72 143 Q42 151 39 178 Q61 197 105 195 L119 180 104 158Z" fill="'+p.pants+'"/><path d="M116 158 Q145 151 170 169 Q185 183 165 196 L111 196 99 181Z" fill="'+p.pants+'"/>'+
+  '<path d="M41 178 Q54 171 72 180 L91 198 Q82 210 60 204 L35 192Z" fill="'+p.shoe+'"/><path d="M146 181 Q165 174 179 186 L184 199 Q171 209 147 202 L128 193Z" fill="'+p.shoe+'"/>'+
+  '<path d="M79 92 Q109 79 139 94 L151 153 Q113 174 69 151Z" fill="'+p.shirt+'"/><path d="M88 96 Q72 105 67 129 L83 137 99 111Z" fill="'+p.skin+'"/><path d="M135 98 Q154 107 158 128 L143 139 126 112Z" fill="'+p.skin+'"/>'+
+  '<path d="M90 89 Q109 79 130 90 L131 105 Q110 119 89 104Z" fill="'+p.skin+'"/><ellipse cx="110" cy="63" rx="31" ry="37" fill="'+p.skin+'"/><path d="'+p.hairShape+'" fill="'+p.hair+'"/>'+
+  '<path d="M91 66 Q98 70 104 66 M116 66 Q123 70 130 66" fill="none" stroke="#241914" stroke-width="3" stroke-linecap="round"/><path d="M104 83 Q111 87 119 82" fill="none" stroke="#542d23" stroke-width="2.5" stroke-linecap="round"/>'+
+  '<path d="M82 115 Q109 103 138 116 L146 141 Q112 153 75 139Z" fill="#f0e7d6" stroke="#c5b79f" stroke-width="2"/><path d="M110 109 L110 148" stroke="#b8a78e" stroke-width="2"/>'+
+  '<path d="M80 121 Q91 112 101 120 L109 139 98 146 80 134Z" fill="'+p.skin+'"/><path d="M138 121 Q127 112 117 120 L111 139 123 146 141 134Z" fill="'+p.skin+'"/>'+
+  '<path d="M83 119 L110 111 138 119 132 151 87 151Z" fill="#6a432e" stroke="#e7d2ad" stroke-width="2"/><path d="M110 113 L110 149" stroke="#d9c39e" stroke-width="2"/><path d="M88 124 L106 120 M114 120 L132 124" stroke="#f1e6d1" stroke-width="1.5"/>'+
+  '</g></svg>';
+ }
+ let index=0,timer=null;
+ function next(){
+  if(document.hidden){timer=setTimeout(next,2500);return;}
+  const p=looks[index%looks.length];index++;
+  scene.className="benoli-lecteur-scene entree";
+  scene.innerHTML=avatar(p);
+  timer=setTimeout(()=>{
+   scene.className="benoli-lecteur-scene sortie";
+   timer=setTimeout(()=>{scene.innerHTML="";scene.className="benoli-lecteur-scene";timer=setTimeout(next,900);},1300);
+  },15000);
+ }
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden&& !scene.innerHTML)next();});
+ timer=setTimeout(next,1200);
 })();
 
 /* Défilement décoratif des couvertures des romans */
@@ -1841,6 +1858,7 @@ if ("serviceWorker" in navigator) addEventListener("load", () => navigator.servi
 <script src="univers.js"></script>
 <script src="communaute.js"></script>
 <script src="immersif.js"></script>
+<script src="lecteurs-arbre.js"></script>
 <script src="bibliotheque3d.js"></script>
 <script src="pages-modernisation.js"></script>
 
