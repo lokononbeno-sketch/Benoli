@@ -197,7 +197,13 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
     const n = Q.list.length, s = Q.score;
     const msg = s >= n - 1 ? "Fan numéro 1 ! Tu connais l'univers de Benoli sur le bout des doigts." : s >= Math.ceil(n * 0.65) ? "Bravo, tu connais bien les romans !" : s >= Math.ceil(n * 0.4) ? "Pas mal ! Relis quelques extraits pour faire mieux." : "Tu as tout à découvrir : commence par un extrait gratuit.";
     const texte = `J'ai eu ${s}/${n} au quiz des romans de Benoli. Et toi ? ${lienApp()}#/quiz`;
-    return `<p class="qmeta">Ton résultat</p><div class="score">${s}/${n}</div><p style="margin:12px 0 18px">${esc(msg)}</p><div class="actions" style="margin:0 0 30px"><a class="btn" href="https://wa.me/?text=${encodeURIComponent(texte)}" target="_blank" rel="noopener">Partager mon score sur WhatsApp</a><button class="btn sec" type="button" data-qa="start-quiz">Rejouer</button><a class="btn sec" href="#">Découvrir les romans</a></div>`;
+    let meilleur = "";
+    try {
+      const h = JSON.parse(localStorage.getItem("benoli-quiz-history-v1") || "[]");
+      const valid = Array.isArray(h) ? h.filter(x => x && Number.isFinite(x.score) && Number.isFinite(x.total) && x.total > 0) : [];
+      if (valid.length) meilleur = `<p class="qmeta">Meilleur score enregistré : <b>${Math.max(...valid.map(x => Math.round(x.score / x.total * 100)))} %</b> · ${valid.length} partie(s)</p>`;
+    } catch (_) {}
+    return `<p class="qmeta">Ton résultat</p><div class="score">${s}/${n}</div>${meilleur}<p style="margin:12px 0 18px">${esc(msg)}</p><div class="actions" style="margin:0 0 30px"><a class="btn" href="https://wa.me/?text=${encodeURIComponent(texte)}" target="_blank" rel="noopener">Partager mon score sur WhatsApp</a><button class="btn sec" type="button" data-qa="start-quiz">Rejouer</button><a class="btn sec" href="#">Découvrir les romans</a></div>`;
   }
   function testQ() {
     const q = TEST[Q.i];
@@ -234,11 +240,22 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
       const q = Q.list[Q.i], k = +b.dataset.k; Q.done = true; if (k === q.a) Q.score++;
       zone().querySelectorAll(".qopt").forEach((x, j) => { x.disabled = true; if (j === q.a) x.classList.add("ok"); else if (j === k) x.classList.add("non"); });
       $("#qfb").innerHTML = `<div class="qfb"><b>${k === q.a ? "Bonne réponse ✓" : "Pas tout à fait"}</b><br>${esc(q.n)}</div><button class="btn" type="button" data-qa="suite">${Q.i + 1 < Q.list.length ? "Question suivante" : "Voir mon score"}</button>`;
-    } else if (a === "suite" && Q) {
-      Q.i++; Q.done = false;
-      zone().innerHTML = Q.i >= Q.list.length ? scoreHtml() : questionHtml();
-      Q = { type: "test", i: 0, pts: {} };
-      zone().innerHTML = testQ();
+    } else if (a === "suite" && Q && Q.type === "quiz") {
+      Q.i++;
+      Q.done = false;
+      if (Q.i >= Q.list.length) {
+        const result = { score: Q.score, total: Q.list.length, date: new Date().toISOString() };
+        try {
+          const key = "benoli-quiz-history-v1";
+          const history = JSON.parse(localStorage.getItem(key) || "[]");
+          const safe = Array.isArray(history) ? history.filter(x => x && Number.isFinite(x.score) && Number.isFinite(x.total)) : [];
+          safe.push(result);
+          localStorage.setItem(key, JSON.stringify(safe.slice(-30)));
+        } catch (_) {}
+        zone().innerHTML = scoreHtml();
+      } else {
+        zone().innerHTML = questionHtml();
+      }
     } else if (a === "tep" && Q && Q.type === "test") {
       TEST[Q.i].o[+b.dataset.k][1].forEach(id => { Q.pts[id] = (Q.pts[id] || 0) + 1; });
       Q.i++;
