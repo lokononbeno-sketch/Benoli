@@ -194,6 +194,18 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
   <button class="qcarte" type="button" data-qa="start-test"><b>Quel roman est fait pour toi ?</b><span>${TEST.length} questions · ton résultat en 1 minute</span></button>
   </div>`;
   PAGES.quiz = () => { Q = null; return `<h2 class="serif">Quiz</h2><div id="quizZone">${menuQuiz()}</div>`; };
+  PAGES.recompenses = () => {
+    let r = {};
+    try { const v = JSON.parse(localStorage.getItem("benoli-rewards-local-v1") || "{}"); if (v && typeof v === "object" && !Array.isArray(v)) r = v; } catch (_) {}
+    const trophies = Array.isArray(r.trophies) ? r.trophies : [];
+    const names = {"premier-quiz":"🎯 Premier quiz terminé","sans-faute":"⭐ Sans-faute","expert-benoli":"🏆 Expert Benoli"};
+    return `<h2 class="serif">Mes récompenses</h2><p class="attente">Tes points et trophées gagnés dans les quiz, conservés sur cet appareil.</p>
+    <div class="qmenu"><div class="qcarte"><b>🏆 ${Math.max(0, Number(r.points)||0)} points Benoli</b><span>Points cumulés grâce aux bonnes réponses</span></div>
+    <div class="qcarte"><b>📚 ${Math.max(0, Number(r.quizPlayed)||0)} quiz terminés</b><span>Meilleur score : ${Math.round(Math.max(0, Number(r.bestScore)||0)*100)} %</span></div></div>
+    <h3 class="serif" style="margin-top:22px">Mes trophées</h3>
+    <div class="qmenu">${Object.keys(names).map(k => `<div class="qcarte"><b>${names[k]}</b><span>${trophies.includes(k) ? "Trophée obtenu ✓" : "À débloquer"}</span></div>`).join("")}</div>
+    <a class="btn sec" href="#/quiz">Retour aux quiz</a>`;
+  };
 
   const barre = (i, n) => `<p class="qmeta">Question ${i + 1} / ${n}</p><div class="qbar"><i style="width:${(i / n) * 100}%"></i></div>`;
   function questionHtml() {
