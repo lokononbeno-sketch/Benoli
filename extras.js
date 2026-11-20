@@ -191,6 +191,7 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
   <button class="qcarte" type="button" data-qa="difficulty" data-level="facile"><b>🌱 Facile</b><span>5 questions · 5 points par bonne réponse</span></button>
   <button class="qcarte" type="button" data-qa="difficulty" data-level="moyen"><b>📚 Moyen</b><span>10 questions · 10 points par bonne réponse</span></button>
   <button class="qcarte" type="button" data-qa="difficulty" data-level="difficile"><b>🔥 Difficile</b><span>${Math.min(15, QUIZ.length)} questions · 15 points par bonne réponse</span></button>
+  <button class="btn" type="button" data-qa="start-quiz">Commencer le quiz →</button>
   <button class="qcarte" type="button" data-qa="start-test"><b>Quel roman est fait pour toi ?</b><span>${TEST.length} questions · ton résultat en 1 minute</span></button>
   </div>`;
   PAGES.quiz = () => { Q = null; return `<h2 class="serif">Quiz</h2><div id="quizZone">${menuQuiz()}</div>`; };
