@@ -50,8 +50,6 @@
     <p class="pers-intro">Découvre celles et ceux qui font vivre les histoires : leur rôle, leur tempérament et le roman dans lequel ils apparaissent.</p>
     <div class="pers-grille">${personnages.map(p=>`<article class="pers-carte">${imageRoman(p.id)?`<img class="pers-img" src="${e(imageRoman(p.id))}" alt="Couverture de référence du roman ${e(p.r)}" loading="lazy">`:`<div class="pers-img"></div>`}<div class="pers-corps"><h3>${e(p.n)}</h3><div class="pers-roman">${e(p.r)}</div><p><b>Son rôle :</b> ${e(p.role)}</p><p><b>À retenir :</b> ${e(p.traits)}</p><a class="pbtn" href="#/${e(p.id)}">Voir le roman</a></div></article>`).join("")}</div>
     <p class="pers-note">Les visuels affichés sont les couvertures des romans associés, pas des portraits officiels des personnages. Les descriptions sont limitées aux informations présentes dans les résumés et extraits disponibles.</p>`;
-  const nav=document.getElementById("navBas");
-  if(nav && !nav.querySelector('[data-n="personnages"]')) nav.insertAdjacentHTML("beforeend",'<a href="#/personnages" data-n="personnages"><span>🎭</span>Personnages</a>');
   const ancienQuiz=PAGES.quiz;
   const banque={
     "Romans de Benoli":[
