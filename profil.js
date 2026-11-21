@@ -4,8 +4,8 @@
   if (window.__benoliProfilReady) return;
   window.__benoliProfilReady = true;
 
-  const SUPABASE_URL = "https://vkklycmarmixcxgasyeg.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_6qCf1CHlpHhx33l_1QJhwA_w2RSLMbH";
+  const SUPABASE_URL = "https://fjeqhqlmjagrknupgvyu.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_gisDyt1z22eLMUwmK2Dvxg_azkS7Pte";
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   let client = null, loading = null, busy = false, renderSeq = 0;
 
@@ -232,7 +232,7 @@
         const { data: old } = await sb.from("reader_private_profiles").select("avatar_path").eq("id", user.id).maybeSingle();
         values.avatar_path = old?.avatar_path || null;
         const { error: publicError } = await sb.from("reader_profiles").upsert({
-          id: user.id, pseudonym: values.pseudonym, phone: values.whatsapp || null, gender: values.gender || null
+          id: user.id, pseudonym: values.pseudonym, gender: values.gender || null
         }, { onConflict: "id" });
         if (publicError) throw publicError;
         await savePrivateProfile(sb, user, values, file);
@@ -286,7 +286,7 @@
         if (error) throw error;
         if (data.session && data.user) {
           const { error: pubError } = await sb.from("reader_profiles").upsert({
-            id: data.user.id, pseudonym: values.pseudonym, phone: values.whatsapp, gender: values.gender || null
+            id: data.user.id, pseudonym: values.pseudonym, gender: values.gender || null
           }, { onConflict: "id" });
           if (pubError) throw pubError;
           await savePrivateProfile(sb, data.user, values, file);
@@ -304,7 +304,7 @@
         const { data: existingPub } = await sb.from("reader_profiles").select("id").eq("id", data.user.id).maybeSingle();
         if (!existingPub) {
           const { error: pubError } = await sb.from("reader_profiles").upsert({
-            id: data.user.id, pseudonym, phone: meta.phone || null, gender
+            id: data.user.id, pseudonym, gender
           }, { onConflict: "id" });
           if (pubError) throw pubError;
         }
