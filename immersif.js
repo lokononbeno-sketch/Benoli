@@ -4,3 +4,15 @@
   document.getElementById("benoli-univers-3d")?.remove();
   document.getElementById("benoli-univers-3d-style")?.remove();
 })();
+
+/* Chargement des ajustements de l'interface (ajustements.js).
+   Fichier indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
+(function(){
+  try {
+    if (window.__benoliAjustementsLoader) return;
+    window.__benoliAjustementsLoader = true;
+    const s = document.createElement("script");
+    s.src = "ajustements.js";
+    document.body.appendChild(s);
+  } catch (_) {}
+})();
