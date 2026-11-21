@@ -118,6 +118,7 @@
 body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 #fiche{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
 #aBtn{bottom:calc(108px + env(safe-area-inset-bottom))}
+@media(max-width:600px){#aBtn{left:12px;right:auto;padding:11px 14px;font-size:.9rem}}
 #navBas{
   position:fixed;left:9px;right:9px;bottom:calc(8px + env(safe-area-inset-bottom));
   z-index:25;display:flex;align-items:stretch;gap:4px;padding:6px;
@@ -1018,6 +1019,9 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
     </button>
     <a class="bm-lien" href="#/quiz">
       <span class="bm-emoji">🎯</span> Quiz et test littéraire
+    </a>
+    <a class="bm-lien" href="#/personnages">
+      <span class="bm-emoji">🎭</span> Découvrir les personnages
     </a>
     <a class="bm-lien" href="#/reglages">
       <span class="bm-emoji">🎨</span> Personnaliser l'application
