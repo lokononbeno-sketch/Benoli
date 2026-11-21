@@ -1,3 +1,9 @@
+/* Mises à jour du catalogue (romans-maj.js) : chargées tout de suite, avant les autres modules,
+   pour que les romans ajoutés ou modifiés soient pris en compte partout. */
+(function () {
+  try { document.write('<script src="romans-maj.js"><\/script>'); } catch (_) {}
+})();
+
 /* Chargement des modules indépendants : aide à l'installation (installer.js) et apparence (design.js).
    Chaque fichier est indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
 (function () {
