@@ -1,7 +1,7 @@
 /* BENOLI — Mises à jour du catalogue.
    Ajouter ou modifier un roman SANS toucher à index.html.
 
-   AJOUTER un roman : enlève les /* et */ autour du modèle dans AJOUTS, puis change les textes.
+   AJOUTER un roman : dans AJOUTS, enlève les marques de commentaire autour du modèle, puis change les textes.
    MODIFIER un roman : ajoute une ligne dans MODIFS avec l'id du roman et seulement les champs à changer.
 
    Règles : chaque texte court est entre guillemets "...", sans guillemet droit " à l'intérieur (utilise « comme ça »).
