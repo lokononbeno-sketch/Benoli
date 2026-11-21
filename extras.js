@@ -1146,17 +1146,14 @@ body{padding-bottom:calc(100px + env(safe-area-inset-bottom))}
     }
 
     /* Mettre à jour le bouton actif en bas */
+    const routeActive = location.hash.replace(/^#\//, "").split(/[?&]/)[0];
+    const ongletActif = pageRomans || !routeActive
+      ? "romans"
+      : ["quiz", "sagesse", "recompenses", "reglages"].includes(routeActive)
+        ? routeActive
+        : "";
     document.querySelectorAll("#navBas a").forEach(function (lien) {
-      lien.classList.toggle(
-        "actif",
-        pageRomans
-          ? lien.dataset.n === "romans"
-          : location.hash === "#/quiz"
-            ? lien.dataset.n === "quiz"
-            : location.hash === "#/sagesse"
-              ? lien.dataset.n === "sagesse"
-              : !location.hash && lien.dataset.n === "romans"
-      );
+      lien.classList.toggle("actif", lien.dataset.n === ongletActif);
     });
   }
 
