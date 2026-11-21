@@ -1396,7 +1396,7 @@ const esc = s => (s || "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":
 const prix = n => n.toLocaleString("fr-FR") + " FCFA";
 
 function couverture(r, i) {
-  const img = r.couverture ? `<img src="${esc(r.couverture)}" alt="Couverture de ${esc(r.titre)}" loading="lazy">` : "";
+  const img = r.couverture ? `<img src="${esc(r.couverture)}" alt="Couverture de ${esc(r.titre)}" loading="lazy" decoding="async">` : "";
   return `<div class="cv" style="--h:${(i * 47 + 150) % 360}">${r.couverture ? img : `<span>${esc(r.titre)}</span>`}</div>`;
 }
 
@@ -1570,7 +1570,7 @@ Si le fichier est illisible, incomplet ou ne t'a pas été livré, écris à l'a
 ];
 const PAGES = {
   "a-propos": () => `
-    <img class="portrait" src="${esc(AUTEUR.photo)}" alt="Portrait de ${esc(AUTEUR.nom)}" onerror="this.remove()">
+    <img class="portrait" src="${esc(AUTEUR.photo)}" alt="Portrait de ${esc(AUTEUR.nom)}" loading="lazy" decoding="async" onerror="this.remove()">
     <h2 class="serif">${esc(AUTEUR.nom)}</h2>
     <p class="attente">Nom de plume : ${esc(AUTEUR.plume)}</p>
     <div class="bloc">${para(AUTEUR.bio)}</div>
