@@ -1,3 +1,9 @@
+/* Configuration Supabase (supabase-config.js) : chargée en tout premier, avant profil.js et communaute.js,
+   pour que toute l'application utilise le bon projet Supabase. */
+(function () {
+  try { document.write('<script src="supabase-config.js"><\/script>'); } catch (_) {}
+})();
+
 /* Mises à jour du catalogue (romans-maj.js) : chargées tout de suite, avant les autres modules,
    pour que les romans ajoutés ou modifiés soient pris en compte partout. */
 (function () {
