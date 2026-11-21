@@ -277,7 +277,7 @@
         if (values.facebook_url && !/^https?:\/\//i.test(values.facebook_url)) throw new Error("Le lien Facebook doit commencer par https://");
         const { data, error } = await sb.auth.signUp({
           email, password,
-          options: { data: {
+          options: { emailRedirectTo: window.location.origin + window.location.pathname, data: {
             pseudonym: values.pseudonym, gender: values.gender || null, phone: values.whatsapp,
             first_name: values.first_name, last_name: values.last_name,
             whatsapp: values.whatsapp, facebook_url: values.facebook_url, residence: values.residence
