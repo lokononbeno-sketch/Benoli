@@ -1,7 +1,9 @@
 /* BENOLI — Ajustements de l'interface (fichier indépendant)
    - barre du bas simplifiée : Accueil, Romans, Quiz, Pensées, Menu ;
    - bouton Assistant réduit en pastille ronde, pour ne plus cacher le texte ;
-   - menu latéral : ajout de « Mes récompenses » et correction du lien du groupe WhatsApp. */
+   - menu latéral : ajout de « Mes récompenses » et correction du lien du groupe WhatsApp ;
+   - une seule liste de romans : le défilement horizontal de l'accueil est retiré
+     (le catalogue avec les prix reste dans la rubrique Romans). */
 (function () {
   "use strict";
   if (window.__benoliAjustements) return;
@@ -10,6 +12,7 @@
   const css = document.createElement("style");
   css.id = "benoli-ajustements";
   css.textContent =
+    "#benoli-collection,#bibliotheque3d{display:none!important}" +
     "#navBas a:not([data-n=accueil]):not([data-n=romans]):not([data-n=quiz]):not([data-n=sagesse]){display:none!important}" +
     "#navBas button{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;padding:8px 2px 7px;border:1px solid transparent;border-radius:21px;background:transparent;font:inherit;font-size:clamp(.64rem,2.8vw,.76rem);line-height:1.12;font-weight:650;color:#d1c9df;cursor:pointer}" +
     "#navBas button span{display:block;font-size:1.42rem;line-height:1.05}" +
@@ -61,7 +64,12 @@
     if (b) b.setAttribute("aria-label", "Ouvrir l'assistant Benoli");
   }
 
-  const tout = () => { barre(); menu(); assistant(); };
+  /* Les liens qui menaient au défilement retiré mènent maintenant à la rubrique Romans */
+  function liens() {
+    document.querySelectorAll('a[href="#benoli-collection"]').forEach(a => a.setAttribute("href", "#/romans"));
+  }
+
+  const tout = () => { barre(); menu(); assistant(); liens(); };
   tout();
   window.addEventListener("hashchange", barre);
   window.addEventListener("load", () => { tout(); setTimeout(tout, 600); });
