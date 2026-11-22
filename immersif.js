@@ -5,14 +5,17 @@
   document.getElementById("benoli-univers-3d-style")?.remove();
 })();
 
-/* Chargement des ajustements de l'interface (ajustements.js).
-   Fichier indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
+/* Chargement des modules indépendants : ajustements de l'interface (ajustements.js)
+   et petit bonhomme de la maison (mascotte.js).
+   Chaque fichier est indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
 (function(){
   try {
     if (window.__benoliAjustementsLoader) return;
     window.__benoliAjustementsLoader = true;
-    const s = document.createElement("script");
-    s.src = "ajustements.js";
-    document.body.appendChild(s);
+    ["ajustements.js", "mascotte.js"].forEach(function (nom) {
+      const s = document.createElement("script");
+      s.src = nom;
+      document.body.appendChild(s);
+    });
   } catch (_) {}
 })();
