@@ -33,6 +33,12 @@ function couverture(r, i) {
   return `<div class="cv" style="--h:${(i * 47 + 150) % 360}">${r.couverture ? img : `<span>${esc(r.titre)}</span>`}</div>`;
 }
 
+const ROMANS_VEDettes = ["elle-m-appelait-checo", "cobi", "la-maison-d-en-face"];
+function romansEnVedette() {
+  const selection = ROMANS_VEDettes.map(id => ROMANS.find(r => r.id === id)).filter(Boolean);
+  return selection.length ? selection : ROMANS.slice(0, 3);
+}
+
 function afficherListe() {
   const q = norm($("#q").value.trim());
   const liste = ROMANS.map((r, i) => ({ r, i })).filter(({ r }) =>
@@ -53,7 +59,7 @@ function afficherCarrousel() {
   const count = document.getElementById("benoli-count");
   if (!track || !Array.isArray(ROMANS)) return;
   if (count) count.textContent = `${ROMANS.length} ${ROMANS.length > 1 ? "œuvres" : "œuvre"}`;
-  track.innerHTML = ROMANS.map(r => `
+  track.innerHTML = romansEnVedette().map(r => `
     <a class="benoli-book-card" href="#/${r.id}">
       <img src="${esc(r.couverture || "")}" alt="Couverture de ${esc(r.titre)}" loading="lazy" decoding="async">
       <strong>${esc(r.titre)}</strong><small>Lokonon B. Tiziano</small>
@@ -87,6 +93,7 @@ function afficherFiche(id) {
         : `<span class="btn off">Achat bientôt disponible</span>`}
       <a class="btn sec" href="${wa}" target="_blank" rel="noopener">Poser une question sur WhatsApp</a>
     </div>
+    ${r.lienAchat ? `<p class="securite-achat">Le paiement s\u2019effectue sur la page d\u2019achat indiqu\u00e9e. Ne communique jamais ton code PIN Mobile Money, ton mot de passe ni un code de validation.</p>` : ""}
     <div class="partage">${partageHtml(lienApp() + "#/" + r.id, "Je te conseille « " + r.titre + " » de Benoli : lis l'extrait gratuit.", "Partager ce roman")}</div>`;
   $("#fiche").classList.add("ouverte");
   $("#fiche").scrollTop = 0;
@@ -408,7 +415,7 @@ aMsgs.addEventListener("click", e => { if (e.target.closest("a")) aOuvrir(false)
   const root = document.getElementById("benoli-covers");
   const track = root && root.querySelector(".covers-track");
   if (!root || !track || !Array.isArray(ROMANS)) return;
-  const items = ROMANS.filter(r => r.couverture).slice(0, 10);
+  const items = romansEnVedette().filter(r => r.couverture);
   if (!items.length) { root.remove(); return; }
   const makeCard = (roman, duplicate = false) => {
     const card = document.createElement("div");
