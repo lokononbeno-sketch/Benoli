@@ -6,13 +6,14 @@
 })();
 
 /* Chargement des modules indépendants : ajustements de l'interface (ajustements.js),
-   petit bonhomme de la maison (mascotte.js) et carte de profil lecteur (profil-carte.js).
+   petit bonhomme de la maison (mascotte.js), carte de profil lecteur (profil-carte.js)
+   et mise en page « discussions » de la communauté (communaute-style.js).
    Chaque fichier est indépendant : s'il échoue, le reste de l'application continue de fonctionner. */
 (function(){
   try {
     if (window.__benoliAjustementsLoader) return;
     window.__benoliAjustementsLoader = true;
-    ["ajustements.js", "mascotte.js", "profil-carte.js"].forEach(function (nom) {
+    ["ajustements.js", "mascotte.js", "profil-carte.js", "communaute-style.js"].forEach(function (nom) {
       const s = document.createElement("script");
       s.src = nom;
       document.body.appendChild(s);
