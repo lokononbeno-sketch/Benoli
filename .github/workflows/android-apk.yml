@@ -30,10 +30,11 @@ jobs:
           distribution: temurin
           java-version: '21'
 
-      - name: Installer Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: 'platform-tools,platforms;android-35,build-tools;35.0.0'
+      - name: Préparer Android SDK
+        run: |
+          SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
+          yes | "$SDKMANAGER" --licenses >/dev/null || true
+          "$SDKMANAGER" --install "platform-tools" "platforms;android-35" "build-tools;35.0.0"
 
       - name: Installer les dépendances Capacitor
         run: npm install
