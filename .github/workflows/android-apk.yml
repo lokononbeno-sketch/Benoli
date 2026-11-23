@@ -43,7 +43,7 @@ jobs:
         run: |
           mkdir -p www
           rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='android' --exclude='www' ./ www/
-          node -e 'const v=require("./version.json"); require("fs").writeFileSync("www/apk-version.json", JSON.stringify({version:v.apkVersion}, null, 2)+"\\n")'
+          node -e 'const v=require("./version.json"); require("fs").writeFileSync("www/apk-version.json", JSON.stringify({version:v.apkVersion}, null, 2)+"\n")'
 
       - name: Générer le projet Android
         run: |
@@ -69,7 +69,7 @@ jobs:
 
       - name: Lire la version APK
         id: version
-        run: echo "apk_version=$(node -p 'require(\"./version.json\").apkVersion')" >> "$GITHUB_OUTPUT"
+        run: echo "apk_version=$(node -p 'require("./version.json").apkVersion')" >> "$GITHUB_OUTPUT"
 
       - name: Publier une version téléchargeable
         uses: softprops/action-gh-release@v2
