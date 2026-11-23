@@ -134,6 +134,14 @@ function route() {
 
 $("#nomAuteur").textContent = CONFIG.auteur;
 $("#annee").textContent = new Date().getFullYear();
+/* Accueil : compteur des rubriques calculé sur les cartes réellement affichées. */
+(function actualiserCompteurRubriques(){
+  const grille = document.querySelector(".accueil-grille");
+  const compteur = document.querySelector(".accueil-numero");
+  if (!grille || !compteur) return;
+  const total = grille.querySelectorAll(".accueil-rubrique").length;
+  compteur.textContent = total + (total > 1 ? " espaces à explorer" : " espace à explorer");
+})();
 $("#q").addEventListener("input", afficherListe);
 window.addEventListener("hashchange", route);
 
@@ -300,6 +308,23 @@ function aDire(html) { const d = document.createElement("div"); d.className = "m
 function aUser(t) { const d = document.createElement("div"); d.className = "m moi"; d.textContent = t; aMsgs.appendChild(d); aMsgs.scrollTop = aMsgs.scrollHeight; }
 function aOuvrir(o) {
   aPanel.classList.toggle("ouvert", o);
+  /* Sur mobile, suivre la hauteur visible lorsque le clavier virtuel s'ouvre. */
+  if (o && window.visualViewport) {
+    const ajuster = () => {
+      const vv = window.visualViewport;
+      aPanel.style.height = Math.max(220, Math.min(640, vv.height * 0.82)) + "px";
+      aPanel.style.bottom = Math.max(0, window.innerHeight - vv.height - vv.offsetTop) + "px";
+    };
+    ajuster();
+    if (!aPanel.__benoliViewportBound) {
+      window.visualViewport.addEventListener("resize", ajuster);
+      window.visualViewport.addEventListener("scroll", ajuster);
+      aPanel.__benoliViewportBound = true;
+    }
+  } else if (!o) {
+    aPanel.style.height = "";
+    aPanel.style.bottom = "";
+  }
   $("#aBtn").hidden = o;
   if (o && !aMsgs.children.length) aDire(`<p>Bonjour ! Je suis ${esc(ASSISTANT.nom)}. Je peux te présenter les romans, t'expliquer comment acheter et lire, et te rappeler les règles.</p><p>Que veux-tu savoir ?</p>`);
 }
