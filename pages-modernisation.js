@@ -108,6 +108,8 @@ html[data-benoli-appearance="dark"] .biblio-recherche,html[data-benoli-appearanc
 html[data-benoli-appearance="dark"] .biblio-recherche input{color:#F3EEE4!important}
 html[data-benoli-appearance="dark"] .biblio-rangee{background:linear-gradient(180deg,rgba(192,138,97,.08),rgba(192,138,97,.2))!important}
 
+#ficheContenu .securite-achat{margin:12px 2px 20px;padding:12px 14px;border:1px solid var(--trait);border-left:4px solid var(--or);border-radius:10px;background:var(--benoli-creme);color:var(--doux);font-size:.82rem;line-height:1.55}
+
 /* Fiches romans, extraits et lecture */
 #ficheContenu .haut{align-items:start;gap:clamp(14px,4vw,24px);padding:15px;border:1px solid var(--trait);border-radius:19px;background:var(--carte)}
 #ficheContenu .haut .cv{border-radius:9px 13px 13px 9px}
