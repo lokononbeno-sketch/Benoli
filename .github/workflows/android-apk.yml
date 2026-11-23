@@ -43,6 +43,7 @@ jobs:
         run: |
           mkdir -p www
           rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='android' --exclude='www' ./ www/
+          node -e 'const v=require("./version.json"); require("fs").writeFileSync("www/apk-version.json", JSON.stringify({version:v.apkVersion}, null, 2)+"\\n")'
 
       - name: Générer le projet Android
         run: |
@@ -66,11 +67,15 @@ jobs:
       - name: Préparer le fichier APK public
         run: cp android/app/build/outputs/apk/debug/app-debug.apk Benoli-Litteraire.apk
 
+      - name: Lire la version APK
+        id: version
+        run: echo "apk_version=$(node -p 'require(\"./version.json\").apkVersion')" >> "$GITHUB_OUTPUT"
+
       - name: Publier une version téléchargeable
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: android-v1.0.0
-          name: Benoli Littéraire Android 1.0.0
+          tag_name: android-v${{ steps.version.outputs.apk_version }}
+          name: Benoli Littéraire Android ${{ steps.version.outputs.apk_version }}
           draft: false
           prerelease: false
           make_latest: false
