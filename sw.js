@@ -1,7 +1,9 @@
-const V = "benoli-v62";
+const V = "benoli-v63";
 const FICHIERS = [
   "./", "./index.html", "./manifest.json", "./J-ai-appris-a-t-aimer-trop-tard.webp",
   "./icon-192.png", "./icon-512.png", "./maskable-512.png", "./assets/benoli-logo.svg", "./assets/benoli-intro.mp4",
+  "./romans.js", "./app.js", "./updates.js", "./supabase-config.js", "./romans-maj.js",
+  "./ajustements.js", "./mascotte.js", "./profil-carte.js", "./communaute-style.js", "./update-banner.js",
   "./langue.js", "./installer.js", "./design.js", "./extras.js", "./gamification.js", "./notifications.js", "./stories.js", "./nouveautes.js", "./profil.js", "./univers.js", "./communaute.js", "./immersif.js", "./bibliotheque3d.js", "./lecteurs-arbre.js", "./pages-modernisation.js"
 ];
 self.addEventListener("install", e => {
@@ -16,7 +18,7 @@ self.addEventListener("fetch", e => {
   if (e.request.method !== "GET" || new URL(e.request.url).origin !== location.origin) return;
   e.respondWith(
     fetch(e.request, {cache: "no-store"}).then(r => {
-      if (r.ok) { const c = r.clone(); caches.open(V).then(x => x.put(e.request, c)); }
+      if (r.ok) { const c = r.clone(); caches.open(V).then(x => x.put(e.request, c)).catch(() => {}); }
       return r;
     }).catch(() => caches.match(e.request).then(r => r || caches.match("./index.html")))
   );
