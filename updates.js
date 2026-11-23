@@ -3,7 +3,7 @@
   "use strict";
 
   // Version intégrée au site web. À incrémenter à chaque publication web.
-  const VERSION_WEB = "1.0.1";
+  const VERSION_WEB = "1.0.2";
   const URL_VERSION = new URL("version.json", document.baseURI).href;
   const STYLE_ID = "benoli-update-style";
   const BANNER_ID = "benoli-update-banner";
