@@ -42,12 +42,35 @@ jobs:
       - name: Préparer les fichiers de l’application
         run: |
           mkdir -p www
-          rsync -a --exclude='.git' --exclude='.github' --exclude='node_modules' --exclude='android' --exclude='www' ./ www/
+          rsync -a \
+            --exclude='.git' --exclude='.github' --exclude='node_modules' \
+            --exclude='android' --exclude='www' --exclude='README.md' \
+            --exclude='package.json' --exclude='package-lock.json' \
+            --exclude='audio/README.txt' --exclude='audio/génériques.html' \
+            --exclude='audio/Screenrecorder-2026-10-26-20-02-25-196_20261026_200549.mp3' \
+            --exclude='audio/Screenrecorder-2026-10-26-20-07-55-169_20261026_201002.mp3' \
+            --exclude='audio/Screenrecorder-2026-10-26-20-20-27-633_20261026_202339.mp3' \
+            ./ www/
           node -e 'const v=require("./version.json"); require("fs").writeFileSync("www/apk-version.json", JSON.stringify({version:v.apkVersion}, null, 2)+"\n")'
 
       - name: Générer le projet Android
         run: |
           npx cap add android
+          node <<'NODE'
+          const fs = require("node:fs");
+          const version = require("./version.json").apkVersion;
+          const parts = version.split(".").map(n => Number.parseInt(n, 10) || 0);
+          const versionCode = parts[0] * 10000 + parts[1] * 100 + parts[2];
+          const path = "android/app/build.gradle";
+          let gradle = fs.readFileSync(path, "utf8");
+          if (!/versionCode\s+\d+/.test(gradle) || !/versionName\s+"[^"]+"/.test(gradle)) {
+            throw new Error("Impossible de régler la version Android dans build.gradle.");
+          }
+          gradle = gradle
+            .replace(/versionCode\s+\d+/, "versionCode " + versionCode)
+            .replace(/versionName\s+"[^"]+"/, 'versionName "' + version + '"');
+          fs.writeFileSync(path, gradle);
+          NODE
           npx cap sync android
 
       - name: Construire l’APK Android
