@@ -8,6 +8,21 @@
   const SUPABASE_KEY = "sb_publishable_gisDyt1z22eLMUwmK2Dvxg_azkS7Pte";
   const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   let client = null, loading = null, busy = false, renderSeq = 0;
+  const validateAvatarFile = file => {
+    if (file && (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 5 * 1024 * 1024)) {
+      throw new Error("Choisis une image JPG, PNG ou WebP de 5 Mo maximum.");
+    }
+  };
+  const authMessage = error => {
+    const message = String(error?.message || "");
+    if (/email not confirmed/i.test(message)) return "Ton adresse e-mail n'est pas encore confirmée. Vérifie ta boîte de réception.";
+    if (/invalid login credentials|invalid email or password|user not found/i.test(message)) return "Adresse e-mail ou mot de passe incorrect. Vérifie tes identifiants ou utilise « Mot de passe oublié ».";
+    if (/already registered|user already exists/i.test(message)) return "Cette adresse e-mail possède déjà un compte. Essaie de te connecter.";
+    if (/invalid email/i.test(message)) return "L'adresse e-mail n'est pas valide. Vérifie son format.";
+    if (/weak password|password.*(at least|characters|weak)/i.test(message)) return "Le mot de passe doit contenir au moins 8 caractères et être suffisamment robuste.";
+    if (/rate limit|too many requests/i.test(message)) return "Trop de tentatives rapprochées. Attends quelques minutes avant de réessayer.";
+    return message || "Une erreur est survenue. Réessaie dans un instant.";
+  };
 
   const status = (message, kind = "info") => {
     const el = document.getElementById("bp-status");
@@ -135,9 +150,7 @@
       updated_at: new Date().toISOString()
     };
     if (file) {
-      if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size > 5 * 1024 * 1024) {
-        throw new Error("Choisis une image JPG, PNG ou WebP de 5 Mo maximum.");
-      }
+      validateAvatarFile(file);
       const ext = file.type === "image/png" ? "png" : file.type === "image/webp" ? "webp" : "jpg";
       const path = user.id + "/avatar-" + Date.now() + "." + ext;
       const { error: uploadError } = await sb.storage.from("reader-avatars").upload(path, file, { upsert: true, contentType: file.type });
@@ -229,6 +242,7 @@
         if (values.pseudonym.length < 2) throw new Error("Le pseudonyme doit contenir au moins 2 caractères.");
         if (values.facebook_url && !/^https?:\/\//i.test(values.facebook_url)) throw new Error("Le lien Facebook doit commencer par https://");
         const file = document.getElementById("bp-edit-avatar").files[0] || null;
+        validateAvatarFile(file);
         const { data: old } = await sb.from("reader_private_profiles").select("avatar_path").eq("id", user.id).maybeSingle();
         values.avatar_path = old?.avatar_path || null;
         const { error: publicError } = await sb.from("reader_profiles").upsert({
@@ -260,6 +274,10 @@
       const sb = await loadClient();
       const email = document.getElementById("bp-email").value.trim();
       const password = document.getElementById("bp-password").value;
+      const emailField = document.getElementById("bp-email");
+      if (!email || !emailField.checkValidity()) throw new Error("Saisis une adresse e-mail valide.");
+      if (!password) throw new Error("Saisis ton mot de passe.");
+      if (mode() === "signup" && password.length < 8) throw new Error("Le mot de passe doit contenir au moins 8 caractères.");
       if (mode() === "signup") {
         const values = {
           first_name: document.getElementById("bp-first").value.trim(),
@@ -271,6 +289,7 @@
           residence: document.getElementById("bp-residence").value.trim()
         };
         const file = document.getElementById("bp-avatar").files[0] || null;
+        validateAvatarFile(file);
         if (!values.first_name || !values.last_name) throw new Error("Renseigne ton nom et ton prénom.");
         if (values.pseudonym.length < 2) throw new Error("Le pseudonyme doit contenir au moins 2 caractères.");
         if (!values.whatsapp) throw new Error("Renseigne ton numéro de téléphone ou WhatsApp.");
@@ -293,7 +312,7 @@
           status("Ton compte et ton profil ont été créés !", "success");
           await render();
         } else {
-          status("Compte créé ! Consulte ta boîte e-mail pour confirmer ton adresse. Après confirmation, connecte-toi pour finaliser l'enregistrement de ta photo si tu en as choisi une.", "success");
+          status("Compte créé ! Vérifie ta boîte e-mail pour confirmer ton adresse. Après confirmation, connecte-toi et ajoute ta photo depuis ton profil.", "success");
         }
       } else {
         const { data, error } = await sb.auth.signInWithPassword({ email, password });
@@ -318,7 +337,7 @@
         await render();
       }
     } catch (err) {
-      status(err.message || "Une erreur est survenue.", "error");
+      status(authMessage(err), "error");
       if (btn) { btn.disabled = false; btn.textContent = mode() === "signup" ? "Créer mon compte" : "Me connecter"; }
     } finally { busy = false; }
   });
