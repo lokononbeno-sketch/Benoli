@@ -1,6 +1,6 @@
 const V = "benoli-v63";
 const FICHIERS = [
-  "./", "./index.html", "./manifest.json", "./J-ai-appris-a-t-aimer-trop-tard.webp",
+  "./", "./index.html", "./manifest.json", "./version.json", "./J-ai-appris-a-t-aimer-trop-tard.webp",
   "./icon-192.png", "./icon-512.png", "./maskable-512.png", "./assets/benoli-logo.svg", "./assets/benoli-intro.mp4",
   "./romans.js", "./app.js", "./updates.js", "./supabase-config.js", "./romans-maj.js",
   "./ajustements.js", "./mascotte.js", "./profil-carte.js", "./communaute-style.js", "./update-banner.js",
