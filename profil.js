@@ -277,7 +277,7 @@
       const emailField = document.getElementById("bp-email");
       if (!email || !emailField.checkValidity()) throw new Error("Saisis une adresse e-mail valide.");
       if (!password) throw new Error("Saisis ton mot de passe.");
-      if (mode() === "signup" && password.length < 8) throw new Error("Le mot de passe doit contenir au moins 8 caractères.");
+      if (mode() === "signup" && !passwordField.checkValidity()) throw new Error("Le mot de passe doit contenir au moins 8 caractères.");
       if (mode() === "signup") {
         const values = {
           first_name: document.getElementById("bp-first").value.trim(),
