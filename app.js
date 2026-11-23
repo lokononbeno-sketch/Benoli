@@ -89,11 +89,11 @@ function afficherFiche(id) {
     </div>
     <div class="actions">
       ${r.lienAchat
-        ? `<a class="btn" href="${esc(r.lienAchat)}" target="_blank" rel="noopener">Acheter le roman • ${prix(r.prix)}</a>`
+        ? `<a class="btn" href="${esc(r.lienAchat)}" target="_blank" rel="noopener noreferrer">Acheter le roman • ${prix(r.prix)}</a>`
         : `<span class="btn off">Achat bientôt disponible</span>`}
       <a class="btn sec" href="${wa}" target="_blank" rel="noopener">Poser une question sur WhatsApp</a>
     </div>
-    ${r.lienAchat ? `<p class="securite-achat">Le paiement s\u2019effectue sur la page d\u2019achat indiqu\u00e9e. Ne communique jamais ton code PIN Mobile Money, ton mot de passe ni un code de validation.</p>` : ""}
+    ${r.lienAchat ? `<p class="securite-achat">Le paiement se fait sur la page d\u2019achat ouverte depuis ce bouton. V\u00e9rifie le titre et le montant avant de valider. Ne communique jamais ton code PIN Mobile Money, ton mot de passe ni un code de validation.</p>` : ""}
     <div class="partage">${partageHtml(lienApp() + "#/" + r.id, "Je te conseille « " + r.titre + " » de Benoli : lis l'extrait gratuit.", "Partager ce roman")}</div>`;
   $("#fiche").classList.add("ouverte");
   $("#fiche").scrollTop = 0;
