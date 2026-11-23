@@ -1,0 +1,11 @@
+{
+  "appId": "com.benoli.litteraire",
+  "appName": "Benoli Littéraire",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
