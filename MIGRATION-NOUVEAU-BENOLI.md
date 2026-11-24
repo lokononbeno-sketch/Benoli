@@ -48,3 +48,24 @@ Le remplacement ne doit donc pas consister à copier le ZIP sur la racine de pro
 ## Règle de sécurité
 
 Aucun fichier Supabase, table, bucket, compte, profil, contenu de roman ou règle de sécurité ne doit être supprimé ou remplacé dans le cadre de cette refonte. La fusion dans `main` ne se fera qu'après validation du build et des tests.
+
+## Schéma Supabase de production vérifié (lecture seule)
+
+Le projet Supabase actuellement référencé par `supabase-config.js` est actif et possède notamment les tables suivantes, toutes avec RLS activé :
+
+- `reader_profiles` : pseudonyme et genre, lié à `auth.users`.
+- `reader_private_profiles` : prénom, nom, WhatsApp, Facebook, résidence et chemin d'avatar.
+- `community_admins` : droits d'administration de la communauté.
+- `reader_stories` : récits publiés/soumis avec modération.
+- `story_reactions` : réactions des lecteurs.
+- `private_story_replies` : réponses privées aux récits.
+- `private_conversations` et `private_messages` : conversations et messages privés, dont audio.
+- `friend_requests` : demandes d'amitié.
+
+Aucune modification de schéma n'a été faite. Les composants du ZIP qui affichent un faux fil communautaire ou des valeurs XP/favoris codées localement ne doivent pas être présentés comme synchronisés. Le raccordement doit utiliser les tables existantes uniquement si leurs colonnes et politiques RLS autorisent précisément l'opération.
+
+## Compatibilité de déploiement
+
+Le dépôt actuel est un site statique Capacitor : son workflow copie directement les fichiers racine vers `www/` et ne lance pas de build Vite. Le ZIP, lui, requiert un build React/Vite. Le workflow doit donc être réécrit et testé avant de basculer l'entrée de production. Le préfixe de déploiement GitHub Pages `/Benoli/` doit aussi être configuré pour Vite et Capacitor.
+
+Le changelog récent de `supabase-js` (2.119.2, 19 novembre 2026) ne signale pas de changement bloquant pour l'authentification navigateur utilisée ici ; aucune mise à jour de schéma Supabase n'est requise pour préparer l'interface. 
