@@ -1,0 +1,104 @@
+name: Publier le site Benoli (React)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'agon-agent_1-cb502f4b.zip'
+      - '.github/workflows/pages-react.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Decompresser le zip
+        run: |
+          mkdir -p /tmp/proj
+          unzip -q agon-agent_1-cb502f4b.zip -d /tmp/proj
+          echo "PROJ=$(find /tmp/proj -maxdepth 2 -name package.json -not -path '*/node_modules/*' | head -1 | xargs dirname)" >> $GITHUB_ENV
+
+      - name: Corrections (chemins images/audio, suppression du script de suivi)
+        working-directory: ${{ env.PROJ }}
+        run: |
+          python3 - <<'EOF'
+          import re, glob
+          m = {
+            "/covers/checo.png": "./Ch%C3%A9co.png",
+            "/covers/cobi.png": "./Cobi.png",
+            "/covers/je-ne-suis-pas.png": "./Je-ne-suis-pas-ce-qu'ils-ont-fait-de-moi.png",
+            "/covers/ce-que-tu-mas-coute.jpg": "./Ce-que-tu-m'as-co%C3%BBt%C3%A9.jpg",
+            "/covers/elle-choisit-mal.jpg": "./Elle-choisi-mal-mais-c'est-ta-faute.jpg",
+            "/covers/la-maison-den-face-1.png": "./La-maison-d'en-face.png",
+            "/covers/fridaous.jpg": "./Le-coeur-de-Fridaous.jpg",
+            "/covers/trop-tard.webp": "./J-ai-appris-a-t-aimer-trop-tard.webp",
+            "/audio/maison-t1.mp3": "./audio/Screenrecorder-2026-10-26-19-29-27-868_20261026_193345.mp3",
+            "/audio/checo.mp3": "./audio/Screenrecorder-2026-10-26-19-49-56-813_20261026_195322.mp3",
+            "/audio/je-ne-suis-pas.mp3": "./audio/Screenrecorder-2026-10-26-20-02-25-196_20261026_200549.mp3",
+            "/audio/maison-t2.mp3": "./audio/Screenrecorder-2026-10-26-20-07-55-169_20261026_201002.mp3",
+            "/audio/maison-t3.mp3": "./audio/Screenrecorder-2026-10-26-20-20-27-633_20261026_202339.mp3",
+            '"/auteur.jpg"': '"./auteur.jpg"',
+          }
+          for f in glob.glob('src/**/*.ts*', recursive=True):
+              s = open(f, encoding='utf-8').read(); o = s
+              for k, v in m.items():
+                  s = s.replace(k, v)
+              if s != o:
+                  open(f, 'w', encoding='utf-8').write(s)
+          s = open('index.html', encoding='utf-8').read()
+          s = re.sub(r'<script data-arena-[a-z]+="true">.*?</script>', '', s, flags=re.S)
+          s = s.replace('href="/favicon.svg"', 'href="./favicon.svg"')
+          open('index.html', 'w', encoding='utf-8').write(s)
+          EOF
+
+      - name: Construire
+        working-directory: ${{ env.PROJ }}
+        run: |
+          npm ci --no-audit --no-fund
+          npx vite build --base=./
+
+      - name: Assembler le site (nouveau site + images, audios et Supabase du depot)
+        run: |
+          mkdir -p _site
+          cp -r "$PROJ/dist/." _site/
+          find . -maxdepth 1 -type f \( -name '*.png' -o -name '*.jpg' -o -name '*.webp' \) \
+            ! -name 'icon-*' ! -name 'maskable-*' -exec cp {} _site/ \;
+          mkdir -p _site/audio && cp audio/*.mp3 _site/audio/
+          cp supabase-config.js _site/
+          cat > _site/sw.js <<'EOF'
+          self.addEventListener('install', () => self.skipWaiting());
+          self.addEventListener('activate', e => e.waitUntil(
+            caches.keys().then(k => Promise.all(k.map(c => caches.delete(c))))
+              .then(() => self.registration.unregister())
+          ));
+          EOF
+          touch _site/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
