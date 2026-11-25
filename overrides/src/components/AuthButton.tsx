@@ -6,6 +6,8 @@ const supabase = createClient(
   'sb_publishable_gisDyt1z22eLMUwmK2Dvxg_azkS7Pte'
 );
 
+const SITE = 'https://lokononbeno-sketch.github.io/Benoli/';
+
 type Mode = 'login' | 'signup' | 'forgot' | 'newpass';
 
 export default function AuthButton() {
@@ -63,14 +65,14 @@ export default function AuthButton() {
         const { data, error } = await supabase.auth.signUp({
           email: email.trim(),
           password,
-          options: { data: { pseudonym: pseudonym.trim() }, emailRedirectTo: location.origin + location.pathname },
+          options: { data: { pseudonym: pseudonym.trim() }, emailRedirectTo: SITE },
         });
         if (error) throw error;
         if (data.session) fermer();
         else setMsg({ type: 'ok', text: 'Compte créé ! Ouvre le message envoyé à ton e-mail et clique sur le lien pour confirmer, puis connecte-toi.' });
       } else if (mode === 'forgot') {
         const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-          redirectTo: location.origin + location.pathname,
+          redirectTo: SITE,
         });
         if (error) throw error;
         setMsg({ type: 'ok', text: 'Si cet e-mail existe, un lien pour changer ton mot de passe vient d’être envoyé.' });
