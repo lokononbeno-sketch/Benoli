@@ -69,7 +69,7 @@ jobs:
       - name: Construire
         working-directory: ${{ env.PROJ }}
         run: |
-          npm ci --no-audit --no-fund
+          bash "$GITHUB_WORKSPACE/overrides/apply.sh"
           npx vite build --base=./
 
       - name: Assembler le site (nouveau site + images, audios et Supabase du depot)
